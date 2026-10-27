@@ -286,3 +286,9 @@ node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/v
 python3 video/ep03-mix.py final build/video.mp4 build/ build/ep03-final.mp4
 ```
 Kalau key belum ada, kirim versi musik + efek suara dan jelaskan cara menyimpan key ke ALFA. Render 42 detik butuh sekitar 10 sampai 20 menit. Angka dari riset di video wajib dicek ke sumber aslinya sebelum tayang.
+
+Catatan Gemini TTS (akun ALFA, Oktober 2026):
+- Akun gratis: kuota TTS kecil per hari **per model**. Karena itu seluruh naskah dibacakan dalam **satu permintaan**, lalu dipotong per kalimat. Kalau kuota satu model habis, skrip pindah ke model TTS lain (`gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`, `gemini-3.1-flash-tts-preview`, dan seterusnya).
+- Arahan gaya harus singkat dan berbahasa Inggris. Arahan panjang berbahasa Indonesia ikut dibacakan oleh model 3.8.
+- Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
+- Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
