@@ -203,11 +203,12 @@ Cari tahu dulu jenis hostingnya. Kalau di hPanel → **Websites** ada logikaduit
 
 - **Pasang pertama kali** (sebagai root):
   ```bash
-  git clone -b claude/new-session-bn6437 https://github.com/fourtisf/logikaduit.git /opt/logikaduit && bash /opt/logikaduit/deploy/setup-vps.sh
+  git clone -b main https://github.com/fourtisf/logikaduit.git /opt/logikaduit && bash /opt/logikaduit/deploy/setup-vps.sh
   ```
   `deploy/setup-vps.sh` memastikan nginx yang memegang port 80/443, menyalin file publik ke `/var/www/logikaduit.com`, meminta SSL Let's Encrypt (webroot, dengan reload nginx saat perpanjangan), lalu menulis `/etc/nginx/sites-available/logikaduit.com`: http dan www diarahkan 301 ke `https://logikaduit.com`, gzip, cache 10 menit untuk html dan 30 hari untuk png/svg. Kalau `nginx -t` gagal, konfigurasi logikaduit.com dikembalikan dan nginx tidak di-reload. Aman dijalankan ulang.
 - **Update berikutnya:** `logikaduit-deploy` (ambil commit terbaru dari cabang di `/etc/logikaduit-branch`). Untuk kembali ke versi lama: `logikaduit-deploy <commit>`. Hanya `index.html`, `og-image.png`, dan `assets/` yang di-upload; `.htaccess` tidak dipakai nginx.
-- Kalau cabang utama nanti pindah ke `main`: `echo main > /etc/logikaduit-branch`, lalu `logikaduit-deploy`.
+- Cabang yang di-deploy adalah `main`. Server yang dipasang dari cabang kerja lama (`claude/new-session-bn6437`) cukup dipindah sekali: `echo main > /etc/logikaduit-branch && logikaduit-deploy`.
+- Alur kerja: perubahan dikerjakan di cabang kerja, lalu digabung ke `main` setelah dicek. Server hanya mengambil dari `main`.
 
 **Keamanan:** jangan pernah menyimpan password, kredensial FTP/SSH, atau API key di file proyek, commit, atau log.
 
@@ -270,7 +271,8 @@ Sertakan screenshot desktop dan HP.
 
 Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3, gratis ongkir.
 - `ep03-gratis-ongkir.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
-- `ep03-naskah.md`: voice over per detik, caption, hashtag, sumber.
+- `ep03-naskah.md`: voice over per detik dan sumber.
+- `ep03-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
 - `ep03-audio.py`: musik dan efek suara original (disintesis, bebas hak cipta).
 - `ep03-tts-gemini.py`: narasi Gemini TTS, satu WAV per kalimat.
 - `ep03-mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).

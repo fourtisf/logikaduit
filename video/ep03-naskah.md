@@ -1,7 +1,7 @@
 # Episode 3: Gratis ongkir, kok bikin belanja lebih mahal?
 
-Video 9:16, 1080×1920, 42 detik. Sumber visual: `ep03-gratis-ongkir.html`, render dengan `render.js`.
-Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-audio.py` (bebas hak cipta, -14 LUFS). Voice over di bawah bisa ditambahkan di atas versi musik.
+Video 9:16, 1080×1920. Timeline animasi asli 42 detik; versi final dengan narasi Gemini 51 detik (tempo animasi mengikuti narasi).
+Musik dan efek suara original dari `ep03-audio.py` (bebas hak cipta), loudness -14 LUFS. Caption, hashtag, dan komentar pin ada di `ep03-copywriting.md`.
 
 ## Hook (0 sampai 3 detik)
 
@@ -29,19 +29,9 @@ Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-au
 | 34,0 | Sebelum nambah barang, tanya dulu: kalau ongkirnya bayar, barang ini tetap kamu beli? | Sebelum nambah barang, tanya dulu: (kartu tips) |
 | 38,0 | Biar nggak gampang ketipu harga, follow Logika Duit! | Biar nggak gampang ketipu harga, follow Logika Duit! (logo, tombol "Follow Logika Duit" ditekan, struk sumber) |
 
-## Caption untuk Instagram dan TikTok
+## Caption
 
-> Gratis ongkir minimal Rp50 ribu, kurang Rp8 ribu lagi... akhirnya nambah barang Rp28 ribu. 🙃
->
-> Ternyata ada eksperimennya: begitu satu coklat jadi gratis, pilihan orang langsung berbalik, padahal selisih harganya sama persis. Namanya efek harga nol.
->
-> Tips: sebelum nambah barang, tanya dulu "kalau ongkirnya bayar, barang ini tetap kubeli?"
->
-> Kamu pernah begini juga? Cerita di komentar, dan follow Logika Duit buat episode berikutnya.
->
-> Sumber: Shampanier, Mazar & Ariely (2007), Marketing Science; Ariely (2008), Predictably Irrational, bab 3. Harga keranjang hanya ilustrasi.
->
-> #logikaduit #gratisongkir #belanjaonline #edukasikeuangan #ekonomi #psikologibelanja #hemat
+Lihat `ep03-copywriting.md` (Instagram, TikTok, komentar pin, judul alternatif, Story).
 
 ## Sumber (cek sebelum tayang)
 
@@ -59,12 +49,11 @@ node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html cek/ --
 
 ## Dengan narasi Gemini (voice over)
 
-1. Di VPS: `logikaduit-deploy && python3 /opt/logikaduit/video/ep03-tts-gemini.py` (atau `--voice Leda`).
-   Hasilnya `/root/logikaduit-ep03-suara.zip`, berisi satu WAV per kalimat.
-2. Di mesin render:
-   ```bash
-   python3 video/ep03-mix.py prep suara.zip build/        # vo.wav + warp.json (tempo menyesuaikan suara)
-   python3 video/ep03-audio.py build/ build/warp.json     # music.wav + sfx.wav ikut tempo baru
-   node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/video.mp4 --warp build/warp.json --jobs 3
-   python3 video/ep03-mix.py final build/video.mp4 build/ ep03-final.mp4   # musik mengecil saat narasi, -14 LUFS
-   ```
+Butuh `GEMINI_API_KEY` di pengaturan environment Claude Code. Langkah lengkapnya ada di CLAUDE.md bagian 14:
+```bash
+LD_TTS_OUT=build/suara.zip python3 video/ep03-tts-gemini.py   # satu permintaan, dipotong dan dicek otomatis
+python3 video/ep03-mix.py prep build/suara.zip build/
+python3 video/ep03-audio.py build/ build/warp.json
+node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/video.mp4 --warp build/warp.json --jobs 4
+python3 video/ep03-mix.py final build/video.mp4 build/ build/ep03-final.mp4
+```
