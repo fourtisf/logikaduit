@@ -41,8 +41,10 @@ async function openPage(browser, errors) {
   return page;
 }
 
-// render frame [from, to) ke satu file MP4 (tanpa audio)
-async function renderRange(browser, errors, from, to, file, label) {
+// render frame [from, to) ke satu file MP4 (tanpa audio). Tiap bagian memakai browser sendiri,
+// karena halaman-halaman dalam satu browser berbagi satu proses grafis dan jadi tidak benar-benar paralel.
+async function renderRange(errors, from, to, file, label) {
+  const browser = await chromium.launch();
   const page = await openPage(browser, errors);
   const stage = await page.$('#stage');
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
@@ -57,7 +59,7 @@ async function renderRange(browser, errors, from, to, file, label) {
   }
   ff.stdin.end();
   await done;
-  await page.close();
+  await browser.close();
 }
 
 (async () => {
@@ -86,7 +88,7 @@ async function renderRange(browser, errors, from, to, file, label) {
       if (from >= to) break;
       const file = path.join(tmp, `part${j}.mp4`);
       parts.push(file);
-      jobs.push(renderRange(browser, errors, from, to, file, `bagian ${j + 1}/${JOBS}`));
+      jobs.push(renderRange(errors, from, to, file, `bagian ${j + 1}/${JOBS}`));
     }
     await Promise.all(jobs);
     // gabung bagian video, lalu tambahkan jalur audio kosong (suara ditambahkan terpisah)
