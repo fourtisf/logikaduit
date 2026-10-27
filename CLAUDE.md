@@ -198,11 +198,16 @@ Cari tahu dulu jenis hostingnya. Kalau di hPanel → **Websites** ada logikaduit
    </IfModule>
    ```
 
-### B. VPS (kalau 31.97.111.49 adalah VPS)
-1. SSH ke server (minta akses ke ALFA). Pasang nginx kalau belum ada.
-2. Taruh file di `/var/www/logikaduit.com/`.
-3. Buat server block untuk `logikaduit.com` dan `www.logikaduit.com` dengan `root /var/www/logikaduit.com; index index.html;`, ditambah gzip dan cache 30 hari untuk png/svg.
-4. Pasang SSL: `certbot --nginx -d logikaduit.com -d www.logikaduit.com`, lalu redirect www dan http ke `https://logikaduit.com`.
+### B. VPS (yang dipakai sekarang)
+31.97.111.49 adalah VPS Ubuntu milik ALFA (`srv1042502`, nginx). Server ini juga menjalankan ruangpikir.id, jadi jangan ubah konfigurasi situs lain. ALFA menjalankan perintah sendiri lewat Termius; Claude tidak punya akses SSH.
+
+- **Pasang pertama kali** (sebagai root):
+  ```bash
+  git clone -b claude/new-session-bn6437 https://github.com/fourtisf/logikaduit.git /opt/logikaduit && bash /opt/logikaduit/deploy/setup-vps.sh
+  ```
+  `deploy/setup-vps.sh` memastikan nginx yang memegang port 80/443, menyalin file publik ke `/var/www/logikaduit.com`, meminta SSL Let's Encrypt (webroot, dengan reload nginx saat perpanjangan), lalu menulis `/etc/nginx/sites-available/logikaduit.com`: http dan www diarahkan 301 ke `https://logikaduit.com`, gzip, cache 10 menit untuk html dan 30 hari untuk png/svg. Kalau `nginx -t` gagal, konfigurasi logikaduit.com dikembalikan dan nginx tidak di-reload. Aman dijalankan ulang.
+- **Update berikutnya:** `logikaduit-deploy` (ambil commit terbaru dari cabang di `/etc/logikaduit-branch`). Untuk kembali ke versi lama: `logikaduit-deploy <commit>`. Hanya `index.html`, `og-image.png`, dan `assets/` yang di-upload; `.htaccess` tidak dipakai nginx.
+- Kalau cabang utama nanti pindah ke `main`: `echo main > /etc/logikaduit-branch`, lalu `logikaduit-deploy`.
 
 **Keamanan:** jangan pernah menyimpan password, kredensial FTP/SSH, atau API key di file proyek, commit, atau log.
 
