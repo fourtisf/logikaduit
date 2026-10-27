@@ -22,7 +22,7 @@ Jangan membangun ulang situs ini dengan framework (React, Next.js, Tailwind buil
 ## 2. Tentang brand
 
 - **Nama:** Logika Duit. Di video dan logo hanya ditulis "Logika Duit" atau "LOGIKA DUIT", tanpa username.
-- **Instagram:** @logika_duit. TikTok: belum ada link, tanya ALFA.
+- **Instagram:** @logika_duit. **TikTok:** @logikaduit_ (https://www.tiktok.com/@logikaduit_).
 - **Isi:** video pendek (sekitar 40 detik, format 9:16) yang menjelaskan ekonomi sehari-hari. Contohnya: kenapa minimarket buka sebelahan, kenapa harga berakhiran 9, matematika diskon. Setiap klaim harus berbasis riset dan sumbernya dicantumkan.
 - **Tagline:** "Ekonomi sehari-hari, kok bisa?"
 - **Gaya bahasa:** bahasa Indonesia santai tapi jelas, dengan "kamu" dan "nggak". Kalimatnya pendek, tanpa istilah yang bikin pusing.
@@ -158,7 +158,7 @@ Di awal `<script>` utama:
 const LINKS = {
   instagram: 'https://www.instagram.com/logika_duit/',
   dm: 'https://ig.me/m/logika_duit',
-  tiktok: ''   // isi kalau ALFA sudah kasih link TikTok
+  tiktok: 'https://www.tiktok.com/@logikaduit_'   // kosongkan ('') untuk menyembunyikan tombol TikTok
 };
 ```
 Elemen dengan `data-link="..."` otomatis memakai link ini. Kalau nilainya kosong, elemen disembunyikan.
@@ -251,7 +251,7 @@ Ide interaksi untuk topik yang sedang diriset:
 - [ ] Lighthouse (mobile): Performance ≥ 85, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95.
 - [ ] Pratinjau link (WhatsApp / X / Facebook) menampilkan og-image.png dan judulnya.
 - [ ] Ikon tab (favicon) berupa lampu Logika Duit.
-- [ ] Link Instagram dan DM benar. Tombol TikTok tersembunyi sampai link diisi.
+- [ ] Link Instagram, DM, dan TikTok benar. Tombol TikTok tampil di hero dan footer.
 - [ ] Tidak ada latar putih atau terang dan tidak ada pita warna aneh saat di-scroll.
 
 ## 13. Cara melapor ke ALFA
