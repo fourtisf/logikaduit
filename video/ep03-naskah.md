@@ -1,7 +1,7 @@
 # Episode 3: Gratis ongkir, kok bikin belanja lebih mahal?
 
 Video 9:16, 1080×1920, 42 detik. Sumber visual: `ep03-gratis-ongkir.html`, render dengan `render.js`.
-Video tanpa suara (hanya jalur audio kosong). Suara ditambahkan di aplikasi: rekam voice over di bawah, atau pakai lagu yang lagi tren dengan volume kecil.
+Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-audio.py` (bebas hak cipta, -14 LUFS). Voice over di bawah bisa ditambahkan di atas versi musik.
 
 ## Hook (0 sampai 3 detik)
 
@@ -55,4 +55,6 @@ Video tanpa suara (hanya jalur audio kosong). Suara ditambahkan di aplikasi: rek
 python3 -m http.server 8080            # dari folder repo
 node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html ep03.mp4
 node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html cek/ --stills 0,2.2,19
+python3 video/ep03-audio.py audio/       # music.wav dan sfx.wav
+# gabung: music volume 0.42, sfx 0.85, lalu loudnorm -14 LUFS, video di-copy tanpa render ulang
 ```
