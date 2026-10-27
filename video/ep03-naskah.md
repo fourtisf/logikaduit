@@ -53,8 +53,18 @@ Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-au
 
 ```bash
 python3 -m http.server 8080            # dari folder repo
-node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html ep03.mp4
+node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html ep03.mp4 --jobs 3
 node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html cek/ --stills 0,2.2,19
-python3 video/ep03-audio.py audio/       # music.wav dan sfx.wav
-# gabung: music volume 0.42, sfx 0.85, lalu loudnorm -14 LUFS, video di-copy tanpa render ulang
 ```
+
+## Dengan narasi Gemini (voice over)
+
+1. Di VPS: `logikaduit-deploy && python3 /opt/logikaduit/video/ep03-tts-gemini.py` (atau `--voice Leda`).
+   Hasilnya `/root/logikaduit-ep03-suara.zip`, berisi satu WAV per kalimat.
+2. Di mesin render:
+   ```bash
+   python3 video/ep03-mix.py prep suara.zip build/        # vo.wav + warp.json (tempo menyesuaikan suara)
+   python3 video/ep03-audio.py build/ build/warp.json     # music.wav + sfx.wav ikut tempo baru
+   node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/video.mp4 --warp build/warp.json --jobs 3
+   python3 video/ep03-mix.py final build/video.mp4 build/ ep03-final.mp4   # musik mengecil saat narasi, -14 LUFS
+   ```
