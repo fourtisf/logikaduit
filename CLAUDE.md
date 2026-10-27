@@ -263,3 +263,26 @@ Pakai bahasa Indonesia sederhana tanpa jargon. Sampaikan:
 4. Apa yang masih butuh keputusan atau akses dari ALFA.
 
 Sertakan screenshot desktop dan HP.
+
+---
+
+## 14. Video pendek (Reels/TikTok)
+
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3, gratis ongkir.
+- `ep03-gratis-ongkir.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
+- `ep03-naskah.md`: voice over per detik, caption, hashtag, sumber.
+- `ep03-audio.py`: musik dan efek suara original (disintesis, bebas hak cipta).
+- `ep03-tts-gemini.py`: narasi Gemini TTS, satu WAV per kalimat.
+- `ep03-mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).
+- `render.js`: render per frame lewat Playwright ke MP4 (`--jobs 3` untuk paralel, `--warp` untuk tempo baru).
+
+**Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini:
+```bash
+python3 -m http.server 8080 &                                       # dari folder repo
+LD_TTS_OUT=build/suara.zip python3 video/ep03-tts-gemini.py        # --voice Leda untuk suara cewek
+python3 video/ep03-mix.py prep build/suara.zip build/
+python3 video/ep03-audio.py build/ build/warp.json
+node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/video.mp4 --warp build/warp.json --jobs 3
+python3 video/ep03-mix.py final build/video.mp4 build/ build/ep03-final.mp4
+```
+Kalau key belum ada, kirim versi musik + efek suara dan jelaskan cara menyimpan key ke ALFA. Render 42 detik butuh sekitar 10 sampai 20 menit. Angka dari riset di video wajib dicek ke sumber aslinya sebelum tayang.

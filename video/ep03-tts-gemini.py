@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # Buat suara narasi (voice over) EP3 dengan Gemini TTS, satu file WAV per kalimat.
-# Dijalankan di VPS ALFA, yang sudah punya API key Gemini. Key TIDAK pernah dicetak atau dikirim ke mana pun
-# selain ke API Google. Urutan pencarian key:
+# Cara utama: dijalankan langsung di sesi Claude Code, dengan GEMINI_API_KEY disimpan di pengaturan environment
+# (bukan di chat, bukan di repo). Cadangan: dijalankan di VPS ALFA yang punya key di .env.
+# Key TIDAK pernah dicetak atau dikirim ke mana pun selain ke API Google. Urutan pencarian key:
 #   1. variabel lingkungan GEMINI_API_KEY (dan GEMINI_TTS_MODEL kalau ada)
 #   2. /var/www/ruangpikir/.env
 #   3. ~/.config/ruangpikir/gemini.env
@@ -31,7 +32,7 @@ LINES = [
 STYLE = ("Bacakan dalam bahasa Indonesia dengan gaya kreator konten edukasi di TikTok: santai, hangat, "
          "percaya diri, sedikit antusias, tempo agak cepat, seperti ngobrol sama teman. "
          "Ucapkan hanya kalimat berikut, tanpa tambahan apa pun:\n")
-DEFAULT_MODEL = "gemini-2.5-flash-preview-tts"
+DEFAULT_MODEL = "gemini-3.8-flash-tts"   # model yang sudah dipakai ALFA di Ruang Pikir
 BASE = os.environ.get("GEMINI_BASE", "https://generativelanguage.googleapis.com")
 OUT = os.environ.get("LD_TTS_OUT", "/root/logikaduit-ep03-suara.zip")
 
