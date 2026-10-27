@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Update https://logikaduit.com dari GitHub.
+#   logikaduit-deploy           pasang versi terbaru dari cabang di /etc/logikaduit-branch
+#   logikaduit-deploy <commit>  kembali ke versi tertentu (lihat "Kalau ada masalah" di output)
+set -euo pipefail
+
+SRC=${LD_SRC:-/opt/logikaduit}
+WEB=${LD_WEB:-/var/www/logikaduit.com}
+LIVE=${LD_LIVE:-/var/lib/logikaduit-live}
+BRANCH=$(cat /etc/logikaduit-branch 2>/dev/null || echo main)
+
+cd "$SRC"
+git fetch --quiet origin "$BRANCH"
+if [ $# -ge 1 ]; then git checkout --quiet --force --detach "$1"
+else git checkout --quiet --force -B "$BRANCH" "origin/$BRANCH"; fi
+
+# Hanya file publik yang di-upload; CLAUDE.md, .git, dan skrip ini tidak ikut.
+mkdir -p "$(dirname "$WEB")"
+NEW=$(mktemp -d "$WEB.new.XXXXXX")
+cp -r index.html og-image.png assets "$NEW/"
+chmod 755 "$NEW"; chmod -R a+rX "$NEW"
+if [ -d "$WEB" ]; then mv "$WEB" "$WEB.old.$$"; fi
+mv "$NEW" "$WEB"
+rm -rf "$WEB.old.$$"
+
+OLD=$(cat "$LIVE" 2>/dev/null || true); NOW=$(git rev-parse --short HEAD)
+echo "$NOW" > "$LIVE"
+echo "Live sekarang: $(git log -1 --format='%h %s')"
+if [ -n "$OLD" ] && [ "$OLD" != "$NOW" ] && git merge-base --is-ancestor "$OLD" HEAD 2>/dev/null; then
+  echo "Perubahan baru:"; git log --format='  - %s' "$OLD..HEAD"
+fi
+[ -n "$OLD" ] && [ "$OLD" != "$NOW" ] && echo "Kalau ada masalah, kembali ke versi sebelumnya: logikaduit-deploy $OLD"
+
+if [ "${LD_NO_CHECK:-}" != 1 ]; then
+  for url in https://logikaduit.com https://www.logikaduit.com http://logikaduit.com; do
+    r=$(curl -s -o /dev/null --max-time 15 -w '%{http_code} %{redirect_url}' "$url" || true)
+    echo "$url -> ${r:-gagal}"
+  done
+  echo "(200 = OK, 301 = diarahkan ke https://logikaduit.com)"
+fi
