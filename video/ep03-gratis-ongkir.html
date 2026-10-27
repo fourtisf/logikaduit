@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP3: gratis ongkir (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+
+/* keranjang */
+#cart{left:110px;top:668px;width:860px;padding:38px 44px 34px;box-sizing:border-box}
+.cart-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cart-h span{font-weight:800;font-size:44px;letter-spacing:-.02em}
+.cart-h small{font-size:28px;color:var(--sage);font-weight:500}
+.item{display:flex;align-items:center;gap:26px;height:124px;border-bottom:2px dashed rgba(157,245,207,.14);overflow:hidden;border-radius:18px}
+.item .nm{flex:1}
+.item b{display:block;font-size:36px;font-weight:700}
+.item small{display:block;font-size:26px;color:var(--sage);margin-top:4px}
+.item .p{font-size:38px;font-weight:800}
+.thumb{width:86px;height:86px;border-radius:24px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(150deg,#1A4A38,#0A2219);box-shadow:0 0 0 2px rgba(157,245,207,.16) inset}
+.thumb svg{width:48px;height:48px}
+.prog{padding:26px 0 18px}
+.prog-t{position:relative;height:42px;font-size:30px;font-weight:700;color:#CFE6DB}
+.prog-t span{position:absolute;left:0;top:0;white-space:nowrap}
+.bar{height:18px;border-radius:9px;background:rgba(157,245,207,.12);margin-top:14px;overflow:visible;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:linear-gradient(90deg,#0E8F64,var(--emerald));box-shadow:0 0 26px rgba(46,230,160,.6)}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:32px;color:#CFE6DB;height:66px;border-radius:16px;padding:0 12px;margin:0 -12px}
+.row .old{position:relative;color:var(--sage)}
+.row .old::after{content:"";position:absolute;left:-4px;right:-4px;top:52%;height:4px;background:var(--ice);transform-origin:0 50%;transform:scaleX(var(--s,0))}
+.row .new{color:var(--emerald);font-weight:800;margin-left:14px;display:inline-block}
+.total{height:84px;border-top:2px solid rgba(157,245,207,.14);margin-top:8px;padding-top:8px}
+.total span{font-weight:700;color:var(--ice)}
+.total strong{font-size:52px;font-weight:800;letter-spacing:-.02em}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+
+#sugg{left:110px;top:1262px;width:860px;height:132px;border-radius:36px;display:flex;align-items:center;gap:24px;padding:0 26px 0 28px;box-sizing:border-box}
+#sugg .nm{flex:1}
+#sugg b{display:block;font-size:32px;font-weight:700}
+#sugg small{display:block;font-size:24px;color:var(--sage)}
+#sugg .add{font-weight:800;font-size:30px;color:#032015;padding:18px 28px;border-radius:999px;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 12px 34px -10px rgba(46,230,160,.8)}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5)}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint)}
+.spark{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--emerald);box-shadow:0 0 14px var(--emerald)}
+
+/* perbandingan */
+.cmp{width:416px;height:440px;padding:36px 34px;box-sizing:border-box}
+.cmp h4{margin:0 0 22px;font-size:34px;font-weight:800;letter-spacing:-.01em}
+.cmp .l{display:flex;justify-content:space-between;font-size:28px;color:#BFD6CC;margin-bottom:12px}
+.cmp hr{border:0;border-top:2px dashed rgba(157,245,207,.2);margin:20px 0}
+.cmp .big{font-size:64px;font-weight:800;letter-spacing:-.03em}
+.cmp .tagfree{position:absolute;right:26px;top:-24px}
+#diff{left:0;top:1196px;width:1080px;text-align:center}
+#diff .num{display:inline-block;font-size:110px;font-weight:800;letter-spacing:-.04em;color:#fff;text-shadow:0 0 40px rgba(230,255,244,.35)}
+#diff small{display:block;font-size:34px;color:var(--sage);margin-top:-6px}
+
+/* eksperimen */
+.card{width:430px;height:640px;box-sizing:border-box;border-radius:46px;text-align:center}
+.card .ill{height:270px;position:relative}
+.card .nm{font-size:40px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.card .tag{position:relative;width:260px;height:112px;margin:22px auto 0}
+.card .tag svg{position:absolute;inset:0}
+.card .price{position:absolute;left:30px;right:0;top:0;height:112px;line-height:112px;font-size:56px;font-weight:800;letter-spacing:-.02em;overflow:hidden}
+.card .price span{position:absolute;left:0;right:0}
+.card .pct{position:absolute;left:0;right:0;bottom:34px}
+.card .pct b{display:block;font-size:100px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.card .pct small{display:block;font-size:28px;color:var(--sage);margin-top:6px}
+.stamp{position:absolute;left:50%;top:50%;padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);
+  font-weight:800;font-size:58px;letter-spacing:-.02em;background:rgba(3,16,11,.85);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#src{left:0;top:1376px;width:1080px;text-align:center;font:500 26px var(--mono);color:var(--sage)}
+
+/* persamaan */
+.eqr{left:0;width:1080px;text-align:center}
+.eqr small{display:block;font-size:34px;color:var(--sage);font-weight:700;margin-bottom:6px}
+.eqr div{font-size:112px;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.eqr .box{display:inline-block;padding:0 22px;border-radius:26px;color:var(--emerald)}
+.eqr .u{font-size:56px;color:var(--sage);margin-left:12px;letter-spacing:-.01em}
+
+/* nol */
+#zero0{left:0;top:600px;width:1080px;text-align:center;font-size:640px;font-weight:800;line-height:1;letter-spacing:0;
+  background:linear-gradient(180deg,#E6FFF4 0%,#9DF5CF 35%,#2EE6A0 70%,#0E8F64 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#ring{left:230px;top:640px;width:620px;height:620px;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(46,230,160,0),rgba(46,230,160,.75),rgba(46,230,160,0) 40%);
+  -webkit-mask:radial-gradient(closest-side,transparent 92%,#000 93%,#000 99%,transparent 100%);mask:radial-gradient(closest-side,transparent 92%,#000 93%,#000 99%,transparent 100%)}
+#zeroT{left:0;top:1330px;width:1080px;text-align:center}
+#zeroT b{display:block;font-size:84px;font-weight:800;letter-spacing:-.035em}
+#zeroT small{display:block;font-size:34px;color:var(--sage)}
+
+/* tips */
+#tip{left:90px;top:700px;width:900px;padding:56px 60px 54px;box-sizing:border-box;box-shadow:0 0 0 3px rgba(46,230,160,.45) inset,0 0 80px -20px rgba(46,230,160,.45),0 50px 120px -40px #000}
+#tip .q{font-size:160px;line-height:.6;color:var(--emerald);font-weight:800;height:70px}
+#tip p{margin:0;font-size:68px;font-weight:800;line-height:1.12;letter-spacing:-.035em}
+#tip hr{border:0;border-top:2px dashed rgba(157,245,207,.25);margin:40px 0 30px}
+#tip small{display:block;font-size:36px;line-height:1.35;color:#BFD6CC;font-weight:500}
+
+/* penutup */
+#oLogo{left:430px;top:640px;width:220px;height:220px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:900px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:1000px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#receipt{left:150px;top:1090px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <!-- 1. keranjang -->
+    <div id="cart" class="abs glass">
+      <div class="cart-h"><span>Keranjang</span><small id="cartCount">1 barang</small></div>
+      <div class="item" id="it1"><i class="thumb"><svg viewBox="0 0 48 48" fill="none" stroke="#9DF5CF" stroke-width="3"><rect x="13" y="5" width="22" height="38" rx="6"/><circle cx="20" cy="12" r="2.5" fill="#9DF5CF" stroke="none"/></svg></i>
+        <div class="nm"><b>Casing HP</b><small>Hitam, 1 pcs</small></div><span class="p">Rp42.000</span></div>
+      <div class="item" id="it2"><i class="thumb"><svg viewBox="0 0 48 48" fill="none" stroke="#9DF5CF" stroke-width="3" stroke-linecap="round"><rect x="16" y="4" width="16" height="13" rx="3"/><path d="M24 17v8c0 6-12 4-12 11s8 8 12 8"/></svg></i>
+        <div class="nm"><b>Kabel data</b><small>1 meter, 1 pcs</small></div><span class="p">Rp28.000</span></div>
+      <div class="prog"><div class="prog-t"><span id="progA">Belanja <em>Rp8.000</em> lagi untuk gratis ongkir</span><span id="progB"><em>Yeay, kamu dapat gratis ongkir</em></span></div><div class="bar"><i id="fill"></i></div></div>
+      <div class="row" id="rowOng"><span>Ongkir</span><span><span class="old" id="ongOld">Rp10.000</span><span class="new" id="ongNew">Rp0</span></span></div>
+      <div class="row total"><span>Total</span><strong id="tot">Rp52.000</strong></div>
+    </div>
+    <div id="sugg" class="abs glass">
+      <i class="thumb"><svg viewBox="0 0 48 48" fill="none" stroke="#9DF5CF" stroke-width="3" stroke-linecap="round"><rect x="16" y="4" width="16" height="13" rx="3"/><path d="M24 17v8c0 6-12 4-12 11s8 8 12 8"/></svg></i>
+      <div class="nm"><small>Biar gratis ongkir, tambah:</small><b>Kabel data Rp28.000</b></div><span class="add" id="addBtn">+ Tambah</span>
+    </div>
+    <div id="ripple" class="abs"></div>
+    <div id="finger" class="abs"></div>
+    <div id="sparks" class="abs"></div>
+
+    <!-- 2. perbandingan -->
+    <div id="cmpL" class="abs glass cmp"><h4>Bayar ongkir</h4>
+      <div class="l"><span>Barang</span><span>Rp42.000</span></div><div class="l"><span>Ongkir</span><span>Rp10.000</span></div><hr><div class="big">Rp52.000</div></div>
+    <div id="cmpR" class="abs glass cmp"><span class="pill tagfree" id="freePill">Gratis ongkir</span><h4>Kejar gratis ongkir</h4>
+      <div class="l"><span>Barang</span><span>Rp70.000</span></div><div class="l"><span>Ongkir</span><span>Rp0</span></div><hr><div class="big">Rp70.000</div></div>
+    <div id="diff" class="abs"><span class="num" id="diffNum">+Rp18.000</span><small>lebih mahal daripada bayar ongkir</small></div>
+
+    <!-- 3. eksperimen coklat -->
+    <div id="cardA" class="abs glass card">
+      <div class="ill">
+        <div class="abs" style="left:115px;top:150px;width:200px;height:84px;border-radius:0 0 46px 46px/0 0 36px 36px;
+          background:repeating-linear-gradient(90deg,#0B4D38 0 12px,#2EE6A0 12px 15px,#0E8F64 15px 26px);box-shadow:inset 0 -18px 30px rgba(0,0,0,.45)"></div>
+        <div class="abs" style="left:125px;top:52px;width:180px;height:180px;border-radius:50%;
+          background:radial-gradient(circle at 36% 30%,#8a6150 0,#4d3024 34%,#26160f 74%);box-shadow:inset -20px -26px 44px rgba(0,0,0,.55),0 34px 50px -20px #000"></div>
+        <div class="abs" style="left:166px;top:78px;width:52px;height:30px;border-radius:50%;background:rgba(255,240,230,.28);filter:blur(5px);transform:rotate(-24deg)"></div>
+      </div>
+      <div class="nm">Coklat premium</div>
+      <div class="tag"><svg viewBox="0 0 260 112"><defs><linearGradient id="tgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14402F"/><stop offset="1" stop-color="#081D16"/></linearGradient></defs>
+        <path d="M34 3H252a5 5 0 0 1 5 5V104a5 5 0 0 1-5 5H34L3 56Z" fill="url(#tgA)" stroke="#2EE6A0" stroke-opacity=".75" stroke-width="3" stroke-linejoin="round"/><circle cx="34" cy="56" r="9" fill="#020906" stroke="#9DF5CF" stroke-opacity=".5" stroke-width="2"/></svg>
+        <div class="price"><span id="pA1">15 sen</span><span id="pA2">14 sen</span></div></div>
+      <div class="pct"><b id="pctA">73%</b><small id="pctAs">pilih ini</small></div>
+    </div>
+    <div id="cardB" class="abs glass card">
+      <div class="ill">
+        <svg class="abs" style="left:132px;top:46px" width="166" height="196" viewBox="0 0 166 196"><defs>
+          <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4FFF9"/><stop offset=".35" stop-color="#9DB5AA"/><stop offset=".6" stop-color="#E6FFF4"/><stop offset="1" stop-color="#4F6A5F"/></linearGradient></defs>
+          <path d="M83 14C100 62 160 92 160 140C160 172 128 190 83 190C38 190 6 172 6 140C6 92 66 62 83 14Z" fill="url(#foil)"/>
+          <path d="M83 14C92 52 120 80 132 108" stroke="#fff" stroke-opacity=".55" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M83 16 L104 0" stroke="#9DF5CF" stroke-width="7" stroke-linecap="round"/></svg>
+      </div>
+      <div class="nm">Coklat biasa</div>
+      <div class="tag"><svg viewBox="0 0 260 112"><path d="M34 3H252a5 5 0 0 1 5 5V104a5 5 0 0 1-5 5H34L3 56Z" fill="url(#tgA)" stroke="#2EE6A0" stroke-opacity=".75" stroke-width="3" stroke-linejoin="round"/><circle cx="34" cy="56" r="9" fill="#020906" stroke="#9DF5CF" stroke-opacity=".5" stroke-width="2"/></svg>
+        <div class="price"><span id="pB1">1 sen</span><span id="pB2">0 sen</span></div>
+        <div class="stamp" id="stamp">Gratis</div></div>
+      <div class="pct"><b id="pctB">27%</b><small id="pctBs">pilih ini</small></div>
+    </div>
+    <div id="src" class="abs">Shampanier, Mazar &amp; Ariely (2007)</div>
+
+    <!-- 4. persamaan -->
+    <div id="eq1" class="abs eqr" style="top:730px"><small>Sebelum</small><div>15 − 1 = <span class="box" id="b1">14</span><span class="u">sen</span></div></div>
+    <div id="eq2" class="abs eqr" style="top:1010px"><small>Sesudah</small><div>14 − 0 = <span class="box" id="b2">14</span><span class="u">sen</span></div></div>
+
+    <!-- 5. efek harga nol -->
+    <div id="ring" class="abs"></div>
+    <div id="zero0" class="abs">0</div>
+    <div id="zeroT" class="abs"><b>Efek harga nol</b><small>zero price effect</small></div>
+
+    <!-- 6. tips -->
+    <div id="tip" class="abs glass"><div class="q">“</div><p>Kalau ongkirnya bayar, barang ini tetap kubeli?</p><hr>
+      <small>Kalau jawabannya nggak, mending bayar ongkirnya.</small></div>
+
+    <!-- 7. penutup -->
+    <img id="oLogo" class="abs" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="receipt" class="abs"><h5>Sumber <span>EP 3</span></h5><ol>
+      <li>Shampanier, K., Mazar, N. &amp; Ariely, D. (2007). <i>Zero as a Special Price.</i> Marketing Science, 26(6), 742–757.</li>
+      <li>Ariely, D. (2008). <i>Predictably Irrational,</i> bab 3.</li></ol>
+      <p>Harga di keranjang hanya ilustrasi.</p></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 42;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+const rp = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 2.15, 'Pernah nambah barang | biar dapat *gratis* *ongkir*?'],
+  [2.2, 4.75, 'Hemat ongkir *Rp10.000*, | tapi nambah belanja | _Rp28.000_.'],
+  [4.8, 6.55, 'Totalnya malah | _Rp18.000_ lebih mahal.'],
+  [6.6, 8.05, 'Kok kita tetap | merasa *menang*?'],
+  [8.15, 10.55, 'Ada eksperimennya. | Peneliti menjual | _dua_ _coklat_.'],
+  [10.6, 13.45, 'Premium *15* *sen*, biasa *1* *sen*. | Kamu pilih yang mana?'],
+  [13.5, 16.45, '*73%* pilih yang premium. | Masuk akal.'],
+  [16.5, 18.95, 'Lalu dua-duanya | diturunkan *1* *sen*.'],
+  [19.0, 21.45, 'Yang biasa | jadi *gratis*.'],
+  [21.5, 24.45, 'Hasilnya berbalik: | *69%* pilih yang gratis.'],
+  [24.5, 27.45, 'Padahal selisih harganya | tetap *14* *sen*.'],
+  [27.5, 30.95, 'Kata *"gratis"* bikin otak | berhenti menghitung.'],
+  [31.0, 33.95, 'Promo gratis ongkir | pakai _trik_ _yang_ _sama_.'],
+  [34.0, 37.95, 'Sebelum nambah barang, | tanya dulu:'],
+  [38.0, 43, 'Biar nggak gampang | ketipu *harga*.']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+const sparks = Array.from({ length: 22 }, (_, i) => { const s = document.createElement('i'); s.className = 'spark'; $('sparks').appendChild(s);
+  return { s, ang: (i / 22) * Math.PI * 2 + rnd() * .3, dist: 90 + rnd() * 120, sz: .5 + rnd() * .9 }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+/* ---------- adegan ---------- */
+function renderCart(t) {
+  // pemakaian 1: hook (0-5,1 detik); pemakaian 2: kembali (31-34,2 detik) tanpa menambah barang
+  const second = t > 20;
+  const o = second ? win(t, 31.0, 34.25, .55, .45) : win(t, -1, 5.15, .5, .5);
+  const add = second ? 0 : eOut(seg(t, 1.0, 1.45));
+  const fill = second ? .84 : lerp(.84, 1, eIO(seg(t, 1.45, 1.9)));
+  const free = second ? 0 : eOut(seg(t, 1.6, 2.0));
+  const tot = second ? 52000 : lerp(52000, 70000, eIO(seg(t, 1.5, 2.15)));
+  const out = second ? 0 : seg(t, 4.6, 5.15);
+  const enter = second ? eExpo(seg(t, 31.0, 31.8)) : 1;
+  put($('cart'), { o, y: (1 - enter) * 80 - out * 30 + 6 * Math.sin(t * 1.2), s: (1 - out * .06) * lerp(.94, 1, enter), blur: out * 14 + (1 - enter) * 10 });
+  $('it2').style.height = (124 * add).toFixed(1) + 'px';
+  $('it2').style.opacity = add.toFixed(3);
+  $('cartCount').textContent = add > .5 ? '2 barang' : '1 barang';
+  $('fill').style.width = (fill * 100).toFixed(2) + '%';
+  const pulse = second ? .5 + .5 * Math.sin(t * 7) : 0;
+  $('fill').style.boxShadow = `0 0 ${(26 + 30 * (free + pulse)).toFixed(0)}px rgba(46,230,160,${(.5 + .4 * (free + pulse * .6)).toFixed(2)})`;
+  const pa = second ? 0 : eIO(seg(t, 1.55, 1.72)), pb = second ? 0 : eOut(seg(t, 1.72, 1.95));
+  put($('progA'), { o: 1 - pa, y: -pa * 18 }); put($('progB'), { o: pb, y: (1 - pb) * 18 });
+  $('ongOld').style.setProperty('--s', eOut(seg(t, 1.65, 1.95)).toFixed(3));
+  put($('ongNew'), { o: free, s: lerp(.6, 1, eBack(seg(t, 1.7, 2.1))) });
+  if (second) { $('ongOld').style.setProperty('--s', 0); put($('ongNew'), { o: 0 }); }
+  $('tot').textContent = rp(Math.round(tot / 1000) * 1000);
+  // sorot baris yang dibahas teks
+  const hlO = second ? 0 : win(t, 2.35, 4.7, .3, .3), hlI = second ? 0 : Math.max(win(t, 3.1, 4.7, .3, .3), .8 * win(t, 1.15, 1.9, .15, .5));
+  $('rowOng').style.background = `rgba(46,230,160,${(.16 * hlO).toFixed(3)})`;
+  $('rowOng').style.boxShadow = `0 0 0 2px rgba(46,230,160,${(.6 * hlO).toFixed(3)}) inset`;
+  $('it2').style.background = `rgba(230,255,244,${(.09 * hlI).toFixed(3)})`;
+  $('it2').style.boxShadow = `0 0 0 2px rgba(230,255,244,${(.5 * hlI).toFixed(3)}) inset`;
+
+  // saran barang + jari
+  const fly = second ? 0 : eIO(seg(t, 1.0, 1.22));
+  const so = second ? win(t, 31.3, 34.2, .5, .4) : 1;
+  const flyO = second ? Math.min(so, 1) : 1 - eIO(seg(t, 1.0, 1.22));
+  put($('sugg'), { o: flyO, y: second ? (1 - eExpo(seg(t, 31.3, 32))) * 60 : -fly * 90, s: second ? 1 + .015 * Math.sin(t * 7) : 1 - fly * .1, blur: fly * 8 });
+  const fp = second ? 0 : eIO(seg(t, .3, .85)), tap = second ? 0 : seg(t, .88, 1.25);
+  const fx = lerp(1000, AT.btn.x - 35, fp), fy = lerp(1600, AT.btn.y - 35 + 18, fp);
+  put($('finger'), { o: second ? 0 : win(t, .25, 1.12, .2, .2), x: fx, y: fy, s: tap > 0 && tap < .5 ? .82 : 1 });
+  put($('ripple'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.btn.x - 35, y: AT.btn.y - 35, s: 1 + tap * 2.2 });
+  put($('addBtn'), { s: tap > 0 && tap < .4 ? .92 : 1 });
+  // percikan saat gratis ongkir tercapai (ujung bar progres)
+  const sp = second ? 0 : seg(t, 1.9, 2.55);
+  sparks.forEach(k => { const d = eOut(sp) * k.dist; put(k.s, { o: sp > 0 && sp < 1 ? (1 - sp) : 0, x: AT.bar.x - 6 + Math.cos(k.ang) * d, y: AT.bar.y - 6 + Math.sin(k.ang) * d, s: k.sz }); });
+  return { flash: second ? 0 : .8 * win(t, 1.85, 2.5, .1, .5) };
+}
+function renderCmp(t) {
+  const o = win(t, 4.85, 8.15, .5, .45), eL = eExpo(seg(t, 4.85, 5.6)), eR = eExpo(seg(t, 5.0, 5.75)), out = seg(t, 7.7, 8.15);
+  put($('cmpL'), { o, x: 90, y: 700 + (1 - eL) * 120 - out * 30, s: 1 - out * .05, blur: (1 - eL) * 12 + out * 12 });
+  put($('cmpR'), { o, x: 574, y: 700 + (1 - eR) * 120 - out * 30, s: (1 - out * .05) * (1 + .03 * win(t, 6.6, 8.0, .3, .3)), blur: (1 - eR) * 12 + out * 12 });
+  $('cmpR').style.boxShadow = `0 0 0 ${(2 + 2 * win(t, 6.6, 8, .3, .3)).toFixed(1)}px rgba(46,230,160,${(.14 + .6 * win(t, 6.6, 8, .3, .3)).toFixed(2)}) inset,0 0 ${(90 * win(t, 6.6, 8, .3, .3)).toFixed(0)}px -20px rgba(46,230,160,.6),0 50px 120px -40px rgba(0,0,0,.95)`;
+  put($('freePill'), { s: 1 + .08 * Math.sin(Math.PI * seg(t, 6.6, 7.2)) });
+  const d = eBack(seg(t, 5.7, 6.2));
+  put($('diff'), { o: win(t, 5.7, 8.15, .25, .45), s: lerp(.4, 1, d), y: (1 - d) * 40 - out * 20 });
+  $('diffNum').textContent = '+' + rp(Math.round(18 * eOut(seg(t, 5.7, 6.3))) * 1000);
+  return { shake: shake(t, 5.95, .35, 7) };
+}
+function renderExp(t) {
+  const o = win(t, 8.2, 24.75, .6, .45), eA = eExpo(seg(t, 8.25, 9.1)), eB = eExpo(seg(t, 8.45, 9.3)), out = seg(t, 24.3, 24.75);
+  // pemenang: A dulu, lalu B setelah harga turun
+  const winA = win(t, 13.6, 16.4, .4, .3), winB = win(t, 21.6, 24.6, .4, .3);
+  const lift = (w) => 1 + .03 * w;
+  put($('cardA'), { o, x: 80, y: 690 + (1 - eA) * 160 - out * 30, s: lift(winA) * (1 - out * .06), blur: (1 - eA) * 14 + out * 14 });
+  put($('cardB'), { o, x: 570, y: 690 + (1 - eB) * 160 - out * 30, s: lift(winB) * (1 - out * .06), blur: (1 - eB) * 14 + out * 14 });
+  const glow = w => `0 0 0 ${(2 + 3 * w).toFixed(1)}px rgba(46,230,160,${(.14 + .7 * w).toFixed(2)}) inset,0 0 ${(110 * w).toFixed(0)}px -20px rgba(46,230,160,.7),0 50px 120px -40px rgba(0,0,0,.95)`;
+  $('cardA').style.boxShadow = glow(winA); $('cardB').style.boxShadow = glow(winB);
+  put($('src'), { o: win(t, 8.9, 24.6, .6, .4) * .9 });
+  // harga turun 1 sen
+  const dA = eIO(seg(t, 17.1, 17.6)), dB = eIO(seg(t, 17.5, 18.0));
+  put($('pA1'), { y: -dA * 112, o: 1 - dA }); put($('pA2'), { y: (1 - dA) * 112, o: dA });
+  put($('pB1'), { y: -dB * 112, o: 1 - dB }); put($('pB2'), { y: (1 - dB) * 112, o: dB * (1 - .6 * seg(t, 18.5, 18.7)) });
+  const st = seg(t, 18.45, 18.85);
+  put($('stamp'), { o: st > 0 ? Math.min(1, st * 4) : 0, x: -110, y: -50, s: lerp(2.6, 1, eBack(st)), r: -8 });
+  // persentase: 73/27, lalu 31/69
+  const p1 = eOut(seg(t, 13.6, 14.5)), p2 = eOut(seg(t, 21.6, 22.6));
+  const showP = Math.max(win(t, 13.55, 16.6, .3, .35), win(t, 21.55, 24.6, .3, .3));
+  const second = t > 19;
+  const a = second ? Math.round(31 * p2) : Math.round(73 * p1), b = second ? Math.round(69 * p2) : Math.round(27 * p1);
+  $('pctA').textContent = a + '%'; $('pctB').textContent = b + '%';
+  $('pctAs').textContent = second ? 'tadinya 73%' : 'pilih ini'; $('pctBs').textContent = second ? 'tadinya 27%' : 'pilih ini';
+  $('pctA').style.color = second ? '#8BA79B' : '#2EE6A0'; $('pctB').style.color = second ? '#2EE6A0' : '#8BA79B';
+  $('pctA').style.textShadow = second ? 'none' : `0 0 40px rgba(46,230,160,${(.6 * winA).toFixed(2)})`;
+  $('pctB').style.textShadow = second ? `0 0 40px rgba(46,230,160,${(.6 * winB).toFixed(2)})` : 'none';
+  put($('cardA').querySelector('.pct'), { o: showP, y: (1 - showP) * 20 }); put($('cardB').querySelector('.pct'), { o: showP, y: (1 - showP) * 20 });
+  return { shake: shake(t, 18.62, .45, 14), flash: .9 * win(t, 18.6, 19.4, .05, .7) };
+}
+function renderEq(t) {
+  const o = win(t, 24.6, 27.65, .5, .4), e1 = eExpo(seg(t, 24.6, 25.3)), e2 = eExpo(seg(t, 24.9, 25.6)), out = seg(t, 27.25, 27.65);
+  put($('eq1'), { o, y: (1 - e1) * 90, blur: (1 - e1) * 12 + out * 12, s: 1 + out * .05 });
+  put($('eq2'), { o, y: (1 - e2) * 90, blur: (1 - e2) * 12 + out * 12, s: 1 + out * .05 });
+  const g = win(t, 25.8, 27.6, .35, .3);
+  ['b1', 'b2'].forEach(id => { $(id).style.boxShadow = `0 0 0 ${(4 * g).toFixed(1)}px rgba(46,230,160,.9) inset,0 0 ${(70 * g).toFixed(0)}px rgba(46,230,160,.45)`;
+    $(id).style.background = `rgba(46,230,160,${(.12 * g).toFixed(3)})`; put($(id), { s: 1 + .06 * Math.sin(Math.PI * seg(t, 25.8, 26.4)) }); });
+}
+function renderZero(t) {
+  const o = win(t, 27.6, 31.1, .5, .45), e = eExpo(seg(t, 27.6, 28.6));
+  put($('zero0'), { o, s: lerp(.6, 1, e) * (1 + .015 * Math.sin(t * 2.2)) });
+  $('zero0').style.filter = `${(1 - e) * 16 > .05 ? `blur(${((1 - e) * 16).toFixed(1)}px) ` : ''}drop-shadow(0 0 60px rgba(46,230,160,.45))`;
+  put($('ring'), { o: o * .9, s: lerp(.5, 1, e), r: t * 70 });
+  put($('zeroT'), { o: win(t, 28.1, 31.1, .5, .45), y: (1 - eExpo(seg(t, 28.1, 28.9))) * 50 });
+  return { flash: .5 * win(t, 27.6, 28.6, .1, .8) };
+}
+function renderTip(t) {
+  const o = win(t, 34.05, 38.1, .5, .4), e = eExpo(seg(t, 34.1, 34.9));
+  put($('tip'), { o, y: (1 - e) * 120, s: lerp(.92, 1, e) * (1 - .04 * seg(t, 37.7, 38.1)), blur: (1 - e) * 12 + seg(t, 37.7, 38.1) * 12 });
+  $('tip').querySelector('small').style.opacity = eOut(seg(t, 35.4, 36.1)).toFixed(3);
+}
+function renderOutro(t) {
+  const e = eBack(seg(t, 38.1, 38.8));
+  put($('oLogo'), { o: win(t, 38.1, 43, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(t, 38.4, 43, .5), y: (1 - eExpo(seg(t, 38.4, 39.1))) * 40 });
+  put($('oTag'), { o: win(t, 38.6, 43, .5), y: (1 - eExpo(seg(t, 38.6, 39.3))) * 40 });
+  put($('receipt'), { o: win(t, 38.9, 43, .5), y: (1 - eExpo(seg(t, 38.9, 39.7))) * 70 });
+  put($('brand'), { o: 1 - seg(t, 37.8, 38.2) });
+  return { flash: .4 * win(t, 38.1, 39, .1, .7) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  const c = renderCart(t); flash += c.flash;
+  const m = renderCmp(t); sh += m.shake;
+  const x = renderExp(t); sh += x.shake; flash += x.flash;
+  renderEq(t);
+  const z = renderZero(t); flash += z.flash;
+  renderTip(t);
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  // kamera: zoom pelan + guncangan saat benturan
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+// posisi tombol "+ Tambah" dan ujung bar progres, diukur dari tata letak asli (barang kedua sudah terbuka penuh)
+const AT = { btn: { x: 849, y: 1328 }, bar: { x: 920, y: 1135 }, it2: 900, sugg: 1262 };
+function measure() {
+  const s = $('stage').getBoundingClientRect(), b = $('addBtn').getBoundingClientRect(), f = $('fill').parentElement.getBoundingClientRect();
+  AT.btn = { x: b.left - s.left + b.width / 2, y: b.top - s.top + b.height / 2 };
+  AT.bar = { x: f.right - s.left, y: f.top - s.top + f.height / 2 };
+  AT.it2 = $('it2').getBoundingClientRect().top - s.top - 4; AT.sugg = $('sugg').getBoundingClientRect().top - s.top;
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>
