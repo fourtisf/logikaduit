@@ -96,7 +96,10 @@ img,svg{display:block}
   box-shadow:0 1px 0 rgba(157,245,207,.25) inset,0 10px 22px -8px #000}
 #tag{width:100%;height:auto;overflow:visible;touch-action:pan-y;cursor:grab;margin-top:-6px}
 #tag.dragging{cursor:grabbing}
-#tag3d{display:none;width:100%;aspect-ratio:500/620;touch-action:pan-y;cursor:grab;outline:none}
+#tag3d{display:none;width:100%;aspect-ratio:500/620;touch-action:pan-y;cursor:grab;outline:none;
+  /* cahaya di belakang label memudar ke tepi kiri-kanan, supaya tidak ada kotak samar */
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 #tag3d.dragging{cursor:grabbing}
 .stage.is3d{width:min(100%,500px)}
 .stage.is3d #tag3d{display:block}
@@ -143,7 +146,7 @@ section{padding-block:clamp(80px,11vw,150px)}
 .lab .sub{margin:0 0 18px;font-size:15px;color:var(--sage)}
 
 /* hotelling */
-#street{width:100%;height:auto;touch-action:none;user-select:none}
+#street{width:100%;height:auto;touch-action:pan-y;user-select:none}
 #street .pin{cursor:grab;outline:none}
 #street .pin:focus-visible .ring{stroke:var(--ice);stroke-width:3}
 .shares{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 16px}
@@ -158,6 +161,7 @@ section{padding-block:clamp(80px,11vw,150px)}
 .cart{list-style:none;margin:0 0 14px;padding:0}
 .cart li{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px dashed rgba(157,245,207,.14)}
 .cart label{display:flex;align-items:center;gap:12px;flex:1;cursor:pointer;font-weight:500}
+.cart label .price{margin-left:auto}
 .cart input[type=checkbox]{appearance:none;width:22px;height:22px;border-radius:7px;margin:0;flex:none;cursor:pointer;
   box-shadow:0 0 0 1.5px rgba(157,245,207,.4) inset;display:grid;place-items:center;transition:background .15s}
 .cart input[type=checkbox]:checked{background:var(--emerald);box-shadow:none}
@@ -167,11 +171,11 @@ section{padding-block:clamp(80px,11vw,150px)}
 .cart .off{opacity:.45}
 .cart .rm{background:none;border:0;color:var(--sage);cursor:pointer;font-size:20px;line-height:1;padding:4px 6px;border-radius:8px}
 .add{display:flex;gap:10px;margin-bottom:18px}
-.add input{flex:1;min-width:0;height:42px;border-radius:12px;border:0;padding:0 14px;font:500 15px var(--sans);color:var(--ice);
+.add input{flex:1;min-width:0;width:100%;height:42px;border-radius:12px;border:0;padding:0 14px;font:500 15px var(--sans);color:var(--ice);
   background:rgba(3,16,11,.6);box-shadow:0 0 0 1px rgba(157,245,207,.16) inset}
 .add input::placeholder{color:#6C887C}
 .totals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.totals div{padding:12px 14px;border-radius:14px;background:rgba(3,16,11,.55);box-shadow:0 0 0 1px rgba(157,245,207,.1) inset}
+.totals div{display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(3,16,11,.55);box-shadow:0 0 0 1px rgba(157,245,207,.1) inset}
 .totals small{display:block;font-size:12.5px;color:var(--sage);line-height:1.3;margin-bottom:4px}
 .totals strong{font-size:19px;font-weight:800;letter-spacing:-.01em}
 .totals .real strong{color:var(--emerald)}
@@ -231,7 +235,7 @@ section{padding-block:clamp(80px,11vw,150px)}
   .top .btn-sm{height:38px;padding:0 14px;font-size:14px}
   .top .btn-sm svg{display:none}
   .totals{grid-template-columns:1fr}
-  .totals div{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .totals div{flex-direction:row;justify-content:space-between;align-items:baseline;gap:10px}
   .totals small{margin:0}
   .read{grid-template-columns:1fr}
   .stage-act{flex-direction:column;align-items:stretch;text-align:center}
@@ -280,7 +284,7 @@ section{padding-block:clamp(80px,11vw,150px)}
       <p class="lede">Kenapa minimarket buka sebelahan? Kenapa harga selalu berakhiran 9? Logika Duit menjawabnya dalam satu menit, pakai riset yang bisa kamu cek sendiri.</p>
       <div class="cta">
         <a class="btn btn-main" data-link="instagram" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Follow di Instagram</a>
-        <a class="btn btn-ghost" data-link="tiktok" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.9 3.8 4.1 4v3.1c-1.5 0-2.9-.4-4.1-1.2v6.3c0 3.3-2.7 5.8-6 5.8s-5.9-2.6-5.9-5.8c0-3.4 2.9-6.1 6.4-5.8v3.2c-1.6-.3-3.2.9-3.2 2.6 0 1.4 1.2 2.6 2.7 2.6 1.6 0 2.8-1.2 2.8-2.8V3h3.2z"/></svg>TikTok</a>
+        <a class="btn btn-ghost" data-link="tiktok" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.9 3.8 4.1 4v3.1c-1.5 0-2.9-.4-4.1-1.2v6.3c0 3.3-2.7 5.8-6 5.8s-5.9-2.6-5.9-5.8c0-3.4 2.9-6.1 6.4-5.8v3.2c-1.6-.3-3.2.9-3.2 2.6 0 1.4 1.2 2.6 2.7 2.6 1.6 0 2.8-1.2 2.8-2.8V3h3.2z"/></svg>Follow di TikTok</a>
         <a class="btn btn-ghost" href="#episode">Lihat episode</a>
       </div>
     </div>
@@ -394,7 +398,7 @@ section{padding-block:clamp(80px,11vw,150px)}
         <ul class="cart" id="cart"></ul>
         <form class="add" id="addForm">
           <label class="sr" for="addPrice">Harga barang lain</label>
-          <input id="addPrice" inputmode="numeric" autocomplete="off" placeholder="Tambah harga, misal 34900">
+          <input id="addPrice" inputmode="numeric" autocomplete="off" placeholder="Misal 34900">
           <button class="btn btn-ghost btn-sm" type="submit">Tambah</button>
         </form>
         <div class="totals" aria-live="polite">
@@ -466,7 +470,6 @@ section{padding-block:clamp(80px,11vw,150px)}
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* ====== Ubah link di sini ====== */
 const LINKS = {
@@ -486,14 +489,12 @@ const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 /* ====== Hero 3D: label harga tiga dimensi (Three.js r128) ======
    Depan: Rp99.900. Belakang: Rp100.000. Tombol "Bulatkan ke atas" membalik label.
    Kalau WebGL atau Three.js tidak tersedia, label SVG di bawah tetap dipakai. */
-function initLD3D() {
+function initLD3D(gl) {
   const stage = document.getElementById('stage'), cv = document.getElementById('tag3d');
   if (!window.THREE || !cv) return null;
   let renderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+  try { renderer = new THREE.WebGLRenderer({ canvas: cv, context: gl, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
   catch (e) { return null; }
-  if (!renderer.getContext()) return null;
-  stage.classList.add('is3d');
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
@@ -641,19 +642,40 @@ function initLD3D() {
     setRounded(v) { flipFrom = flip; flipTo = v ? Math.PI : 0; flipT0 = performance.now(); if (!reduce) swingV += 0.9; wake(); }
   };
 }
-// Three.js dimuat dari cdnjs; kalau gagal, coba jsDelivr. Kalau dua-duanya gagal, label SVG tetap tampil.
-if (window.THREE) window.LD3D = initLD3D();
-else {
-  const sc = document.createElement('script');
-  sc.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js';
-  sc.onload = () => { window.LD3D = initLD3D();
-    if (window.LD3D && document.getElementById('roundBtn').getAttribute('aria-pressed') === 'true') window.LD3D.setRounded(true); };
-  document.head.appendChild(sc);
-}
+// Three.js dimuat setelah teks tampil, dan hanya kalau perangkat punya GPU sungguhan.
+// GPU software (SwiftShader, llvmpipe) berat dan boros baterai, jadi label SVG yang dipakai.
+// Urutan CDN: cdnjs, lalu jsDelivr. Kalau dua-duanya gagal atau lebih dari 8 detik, label SVG tetap tampil.
+(() => {
+  const stage = document.getElementById('stage'), cv = document.getElementById('tag3d');
+  const attrs = { alpha: true, antialias: true, depth: true, stencil: true, premultipliedAlpha: true,
+    powerPreference: 'high-performance', failIfMajorPerformanceCaveat: true };
+  let gl = null;
+  try { gl = cv.getContext('webgl2', attrs) || cv.getContext('webgl', attrs); } catch (e) {}
+  if (!gl) return;
+  let gpu = gl.getParameter(gl.RENDERER) || '';
+  if (/^webkit webgl$/i.test(gpu)) {   // Chrome menyembunyikan nama GPU; Firefox & Safari tidak (dan Firefox memberi peringatan kalau ekstensi ini dipakai)
+    const info = gl.getExtension('WEBGL_debug_renderer_info'); if (info) gpu = gl.getParameter(info.UNMASKED_RENDERER_WEBGL) || gpu; }
+  if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(gpu)) return;
+  stage.classList.add('is3d');   // ruang label 3D disiapkan dari awal, jadi tata letak tidak bergeser
+  let settled = false;
+  const useSvg = () => { settled = true; clearTimeout(timer); stage.classList.remove('is3d'); stage.dispatchEvent(new Event('svgmode')); };
+  const timer = setTimeout(useSvg, 8000);
+  const load = urls => {
+    const sc = document.createElement('script'); sc.src = urls[0];
+    sc.onload = () => { if (settled) return; settled = true; clearTimeout(timer);
+      window.LD3D = initLD3D(gl);
+      if (!window.LD3D) return useSvg();
+      if (document.getElementById('roundBtn').getAttribute('aria-pressed') === 'true') window.LD3D.setRounded(true); };
+    sc.onerror = () => { if (settled) return; if (urls.length > 1) load(urls.slice(1)); else useSvg(); };
+    document.head.appendChild(sc);
+  };
+  load(['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js']);
+})();
 
 /* ====== Hero: label harga yang bisa diayun & dibulatkan ====== */
 (() => {
-  const svg = document.getElementById('tag'), swing = document.getElementById('swing');
+  const svg = document.getElementById('tag'), swing = document.getElementById('swing'), stage = document.getElementById('stage');
+  const is3d = () => stage.classList.contains('is3d');   // mode 3D aktif atau sedang dimuat, label SVG disembunyikan
   const pA = document.getElementById('pA'), pAg = document.getElementById('pAglow'), pB = document.getElementById('pB');
   const hi = document.getElementById('hi'), sub = document.getElementById('tSub'), kicker = document.getElementById('tKicker');
   const btn = document.getElementById('roundBtn'), rBrain = document.getElementById('rBrain'), rDiff = document.getElementById('rDiff'), hint = document.getElementById('hint');
@@ -666,7 +688,7 @@ else {
 
   let boxA = null, boxB = null;
   function measure() {
-    if (window.LD3D) return;   // mode 3D aktif, label SVG disembunyikan
+    if (is3d()) return;
     try {
       const yb = pB.getAttribute('y'); pB.setAttribute('y', 340);
       const a = pA.getExtentOfChar(2), b = pB.getExtentOfChar(2);
@@ -687,7 +709,7 @@ else {
     swing.setAttribute('transform', `rotate(${th.toFixed(3)} 230 0)`);
     if (drag || Math.abs(th) > 0.02 || Math.abs(om) > 0.02) requestAnimationFrame(loop); else { running = false; swing.setAttribute('transform', 'rotate(0 230 0)'); }
   }
-  function kick() { if (window.LD3D) return; if (!running && !reduce) { running = true; last = performance.now(); requestAnimationFrame(loop); } }
+  function kick() { if (is3d()) return; if (!running && !reduce) { running = true; last = performance.now(); requestAnimationFrame(loop); } }
   function toSvg(e) { const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()); }
   svg.addEventListener('pointerdown', e => { if (reduce) return; drag = true; svg.classList.add('dragging'); svg.setPointerCapture(e.pointerId); move(e); kick(); });
   svg.addEventListener('pointermove', e => { if (drag) move(e); });
@@ -721,6 +743,7 @@ else {
   const start = () => { measure(); hi.setAttribute('stroke', '#2EE6A0');
     setTimeout(() => { hi.setAttribute('opacity', 1); }, reduce ? 0 : 900); kick(); };
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+  stage.addEventListener('svgmode', start);   // 3D batal dipakai, label SVG mengambil alih
   addEventListener('resize', () => measure());
 })();
 
@@ -803,14 +826,17 @@ else {
   const tF = document.getElementById('tFloor'), tR = document.getElementById('tReal'), tC = document.getElementById('tCeil'), gap = document.getElementById('gapMsg');
   function priceHTML(p) { const s = rp(p), i = s.lastIndexOf('.');
     return i > 0 ? `<i>${s.slice(0, i)}</i>${s.slice(i)}` : `<i>${s}</i>`; }
+  // daftar digambar ulang tiap kali berubah; fokus keyboard dikembalikan ke elemen yang setara
+  const refocus = (k, sel) => { const li = ul.children[Math.min(k, ul.children.length - 1)];
+    const el = li ? li.querySelector(sel) || li.querySelector('input') : inp; el.focus(); };
   function draw() {
     ul.innerHTML = '';
     items.forEach((it, k) => {
       const li = document.createElement('li'); if (!it.on) li.className = 'off';
-      li.innerHTML = `<label><input type="checkbox" ${it.on ? 'checked' : ''}><span>${it.n}</span></label><span class="price">${priceHTML(it.p)}</span>` +
+      li.innerHTML = `<label><input type="checkbox" ${it.on ? 'checked' : ''}><span>${it.n}</span><span class="price">${priceHTML(it.p)}</span></label>` +
         (it.custom ? `<button class="rm" aria-label="Hapus ${it.n}">×</button>` : '');
-      li.querySelector('input').addEventListener('change', e => { it.on = e.target.checked; draw(); });
-      const rm = li.querySelector('.rm'); if (rm) rm.addEventListener('click', () => { items.splice(k, 1); draw(); });
+      li.querySelector('input').addEventListener('change', e => { it.on = e.target.checked; draw(); refocus(k, 'input'); });
+      const rm = li.querySelector('.rm'); if (rm) rm.addEventListener('click', () => { items.splice(k, 1); draw(); refocus(k, '.rm'); });
       ul.appendChild(li);
     });
     const on = items.filter(i => i.on);

@@ -38,6 +38,7 @@ Jangan membangun ulang situs ini dengan framework (React, Next.js, Tailwind buil
 logikaduit-website/
 ├── index.html          ← SELURUH website (HTML + CSS + JS dalam satu file)
 ├── og-image.png        ← gambar pratinjau saat link dibagikan (1200×630)
+├── .htaccess           ← redirect ke https://logikaduit.com, cache, gzip (Hostinger)
 ├── CLAUDE.md           ← file ini
 └── assets/
     ├── logikaduit-icon.png            ← ikon app (dipakai sebagai apple-touch-icon)
@@ -46,9 +47,9 @@ logikaduit-website/
     └── logikaduit-foto-profil.png     ← foto profil Instagram/TikTok
 ```
 
-Yang wajib di-upload ke server adalah `index.html`, `og-image.png`, dan folder `assets/`. `CLAUDE.md` tidak perlu di-upload.
+Yang wajib di-upload ke server adalah `index.html`, `og-image.png`, folder `assets/`, dan `.htaccess` (hanya setelah SSL aktif, lihat bagian 9). `CLAUDE.md` tidak perlu di-upload.
 
-Font dimuat dari Google Fonts. Three.js r128 dimuat dari cdnjs, dengan cadangan jsDelivr. Tidak ada file JS atau CSS lain.
+Font dimuat dari Google Fonts. Three.js r128 dimuat dari cdnjs, dengan cadangan jsDelivr, dan dimuat **async** oleh script utama (bukan tag `<script src>` yang menahan tampilan). Tidak ada file JS atau CSS lain.
 
 ---
 
@@ -122,7 +123,10 @@ Pendukung: zamrud tua `#0E8F64` dan `#0B4D38` untuk gradasi dan cahaya latar.
 - Kamera sedikit bergeser mengikuti posisi kursor (parallax).
 
 **Wajib dipertahankan:**
-- **Cadangan:** kalau WebGL tidak ada atau Three.js gagal dimuat dari cdnjs **dan** jsDelivr, label SVG 2D otomatis dipakai (class `.is3d` tidak ditambahkan).
+- **Cadangan:** kalau WebGL tidak ada atau Three.js gagal dimuat dari cdnjs **dan** jsDelivr, label SVG 2D otomatis dipakai (class `.is3d` tidak ditambahkan, atau dilepas lagi).
+  - Urutannya: script utama membuat konteks WebGL di `#tag3d` dulu. Kalau tidak ada, atau GPU-nya software (SwiftShader, llvmpipe), SVG langsung dipakai dan Three.js **tidak diunduh**. Kalau ada GPU sungguhan, `.is3d` dipasang (ruangnya disiapkan, jadi tidak ada pergeseran tata letak), lalu Three.js dimuat async dan `initLD3D(gl)` dipanggil. Kalau dua CDN gagal atau lewat 8 detik, SVG mengambil alih lewat event `svgmode`.
+  - Mesin uji Lighthouse/PageSpeed tidak punya GPU, jadi skornya mengukur versi SVG. Untuk menguji jalur 3D di mesin tanpa GPU, samarkan nama renderer (`UNMASKED_RENDERER_WEBGL`) di skrip tes, jangan di index.html.
+- **Tepi kanvas:** `#tag3d` memakai `mask-image` yang memudar di tepi kiri-kanan, supaya cahaya zamrud tidak terpotong jadi kotak samar.
 - **Hemat baterai:** render berhenti saat hero tidak terlihat (IntersectionObserver) atau tab disembunyikan. `pixelRatio` maksimal 2.
 - **`prefers-reduced-motion`:** tanpa ayunan atau putaran otomatis, dan pembalikan label langsung tanpa animasi.
 - **Warna:** Three.js r128 menganggap warna hex sebagai linear. Karena itu semua warna dilewatkan ke `C(hex)` (`convertSRGBToLinear()`), dan `renderer.outputEncoding = sRGBEncoding`.
@@ -174,8 +178,10 @@ Cari tahu dulu jenis hostingnya. Kalau di hPanel → **Websites** ada logikaduit
 2. Hapus file bawaan Hostinger (misalnya `default.php` atau `index.php` bawaan).
 3. Upload `index.html`, `og-image.png`, dan folder `assets/`.
 4. hPanel → Security → **SSL**: pasang SSL gratis untuk logikaduit.com dan www, lalu aktifkan **Force HTTPS**.
-5. **Setelah SSL aktif**, buat `.htaccess` di `public_html`. Server Hostinger memakai LiteSpeed, jadi aturan Apache berlaku:
+5. **Setelah SSL aktif**, upload `.htaccess` (sudah ada di repo) ke `public_html`. Kalau di-upload sebelum SSL aktif, semua pengunjung diarahkan ke https yang belum jalan. Server Hostinger memakai LiteSpeed, jadi aturan Apache berlaku. Isinya:
    ```apache
+   DirectoryIndex index.html
+
    RewriteEngine On
    RewriteCond %{HTTPS} off [OR]
    RewriteCond %{HTTP_HOST} ^www\. [NC]
