@@ -30,7 +30,7 @@ LINES = [
     "Kata gratis bikin otak berhenti menghitung. Namanya efek harga nol.",
     "Promo gratis ongkir pakai trik yang sama.",
     "Sebelum nambah barang, tanya dulu: kalau ongkirnya bayar, barang ini tetap kamu beli?",
-    "Biar nggak gampang ketipu harga. Logika Duit.",
+    "Biar nggak gampang ketipu harga, follow Logika Duit!",
 ]
 # arahan gaya dibuat singkat dan dalam bahasa Inggris supaya tidak ikut dibacakan
 DIRECTION = "Say in a warm, upbeat, casual Indonesian content-creator voice, slightly fast, with a clear pause between paragraphs:"

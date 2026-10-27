@@ -363,6 +363,12 @@ def sfx():
         b = bell(mtof(m), 2.4, .6, ratio=2.0)
         place(s, W(38.1) + .05 * k, b, .1, pan=(k - 2) * .2)
         place(wet, W(38.1) + .05 * k, b, .12)
+    place(s, W(38.9), pop(380, 820, .14), .25, pan=-.1)          # tombol follow muncul
+    place(s, W(40.3), tap(), .5, pan=.15)                        # jari menekan follow
+    for k, m in enumerate((79, 84, 88, 91)):                     # berhasil follow
+        b = bell(mtof(m), 1.2, .8, ratio=2.0)
+        place(s, W(40.42) + .06 * k, b, .13, pan=.2)
+        place(wet, W(40.42) + .06 * k, b, .1)
     return s + reverb(wet, 1.8)
 
 

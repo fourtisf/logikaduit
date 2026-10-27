@@ -79,8 +79,8 @@ em{font-style:normal;color:var(--emerald)}
 #sugg b{display:block;font-size:32px;font-weight:700}
 #sugg small{display:block;font-size:24px;color:var(--sage)}
 #sugg .add{font-weight:800;font-size:30px;color:#032015;padding:18px 28px;border-radius:999px;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 12px 34px -10px rgba(46,230,160,.8)}
-#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5)}
-#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint)}
+#finger,#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5)}
+#ripple,#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint)}
 .spark{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--emerald);box-shadow:0 0 14px var(--emerald)}
 
 /* perbandingan */
@@ -134,11 +134,15 @@ em{font-style:normal;color:var(--emerald)}
 #tip small{display:block;font-size:36px;line-height:1.35;color:#BFD6CC;font-weight:500}
 
 /* penutup */
-#oLogo{left:430px;top:640px;width:220px;height:220px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
-#oWord{left:0;top:900px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
 #oWord b{color:var(--emerald)}
-#oTag{left:0;top:1000px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
-#receipt{left:150px;top:1090px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
   background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
   -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
   mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
@@ -233,10 +237,13 @@ em{font-style:normal;color:var(--emerald)}
     <img id="oLogo" class="abs" src="../assets/logikaduit-icon.svg" alt="">
     <div id="oWord" class="abs">LOGIKA <b>DUIT</b></div>
     <div id="oTag" class="abs">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
     <div id="receipt" class="abs"><h5>Sumber <span>EP 3</span></h5><ol>
       <li>Shampanier, K., Mazar, N. &amp; Ariely, D. (2007). <i>Zero as a Special Price.</i> Marketing Science, 26(6), 742–757.</li>
       <li>Ariely, D. (2008). <i>Predictably Irrational,</i> bab 3.</li></ol>
       <p>Harga di keranjang hanya ilustrasi.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
   </div>
 
   <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
@@ -284,7 +291,7 @@ const CAPS = [
   [27.5, 30.95, 'Kata *"gratis"* bikin otak | berhenti menghitung.'],
   [31.0, 33.95, 'Promo gratis ongkir | pakai _trik_ _yang_ _sama_.'],
   [34.0, 37.95, 'Sebelum nambah barang, | tanya dulu:'],
-  [38.0, 43, 'Biar nggak gampang | ketipu *harga*.']
+  [38.0, 43, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
 ];
 const capEls = CAPS.map(([a, b, text]) => {
   const el = document.createElement('div'); el.className = 'cap'; const words = [];
@@ -449,7 +456,17 @@ function renderOutro(t) {
   put($('oTag'), { o: win(t, 38.6, 43, .5), y: (1 - eExpo(seg(t, 38.6, 39.3))) * 40 });
   put($('receipt'), { o: win(t, 38.9, 43, .5), y: (1 - eExpo(seg(t, 38.9, 39.7))) * 70 });
   put($('brand'), { o: 1 - seg(t, 37.8, 38.2) });
-  return { flash: .4 * win(t, 38.1, 39, .1, .7) };
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(t, 38.9, 39.4)), tap = seg(t, 40.3, 40.8), done = t >= 40.4;
+  const pulse = t < 40.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(t, 39.4, 40.3) * 2) : 0;
+  put($('oFollow'), { o: win(t, 38.9, 43, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(t, 40.4, 41.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(t, 40.4, 41.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(t, 40.4, 40.7))) : .3 });
+  const fm = eIO(seg(t, 39.5, 40.25));
+  put($('finger2'), { o: win(t, 39.45, 41.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(t, 38.1, 39, .1, .7) + .35 * win(t, 40.4, 41.2, .05, .6) };
 }
 
 window.render = t => {
@@ -468,12 +485,13 @@ window.render = t => {
 };
 window.DURATION = DURATION;
 // posisi tombol "+ Tambah" dan ujung bar progres, diukur dari tata letak asli (barang kedua sudah terbuka penuh)
-const AT = { btn: { x: 849, y: 1328 }, bar: { x: 920, y: 1135 }, it2: 900, sugg: 1262 };
+const AT = { btn: { x: 849, y: 1328 }, bar: { x: 920, y: 1135 }, it2: 900, sugg: 1262, follow: { x: 540, y: 1050 } };
 function measure() {
   const s = $('stage').getBoundingClientRect(), b = $('addBtn').getBoundingClientRect(), f = $('fill').parentElement.getBoundingClientRect();
   AT.btn = { x: b.left - s.left + b.width / 2, y: b.top - s.top + b.height / 2 };
   AT.bar = { x: f.right - s.left, y: f.top - s.top + f.height / 2 };
   AT.it2 = $('it2').getBoundingClientRect().top - s.top - 4; AT.sugg = $('sugg').getBoundingClientRect().top - s.top;
+  const fo = $('oPill').getBoundingClientRect(); AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
 }
 window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
   .then(() => { measure(); window.render(0); return true; });

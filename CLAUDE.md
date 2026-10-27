@@ -292,3 +292,6 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Arahan gaya harus singkat dan berbahasa Inggris. Arahan panjang berbahasa Indonesia ikut dibacakan oleh model 3.8.
 - Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
 - Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
+- Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
+
+**Penutup video:** setiap video diakhiri ajakan follow, di suara dan di layar ("Biar nggak gampang ketipu harga, follow Logika Duit!" plus tombol "Follow Logika Duit" yang ditekan). Tanpa username.

@@ -27,7 +27,7 @@ Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-au
 | 27,5 | Kata "gratis" bikin otak berhenti menghitung. Namanya efek harga nol. | Kata "gratis" bikin otak berhenti menghitung. |
 | 31,0 | Promo gratis ongkir pakai trik yang sama. | Promo gratis ongkir pakai trik yang sama. |
 | 34,0 | Sebelum nambah barang, tanya dulu: kalau ongkirnya bayar, barang ini tetap kamu beli? | Sebelum nambah barang, tanya dulu: (kartu tips) |
-| 38,0 | Biar nggak gampang ketipu harga. Logika Duit. | Biar nggak gampang ketipu harga. (logo dan struk sumber) |
+| 38,0 | Biar nggak gampang ketipu harga, follow Logika Duit! | Biar nggak gampang ketipu harga, follow Logika Duit! (logo, tombol "Follow Logika Duit" ditekan, struk sumber) |
 
 ## Caption untuk Instagram dan TikTok
 
@@ -37,7 +37,7 @@ Ada dua versi: tanpa suara, dan dengan musik + efek suara original dari `ep03-au
 >
 > Tips: sebelum nambah barang, tanya dulu "kalau ongkirnya bayar, barang ini tetap kubeli?"
 >
-> Kamu pernah begini juga? Cerita di komentar.
+> Kamu pernah begini juga? Cerita di komentar, dan follow Logika Duit buat episode berikutnya.
 >
 > Sumber: Shampanier, Mazar & Ariely (2007), Marketing Science; Ariely (2008), Predictably Irrational, bab 3. Harga keranjang hanya ilustrasi.
 >
