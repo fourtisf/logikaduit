@@ -92,8 +92,9 @@ def final(video, folder, out):
     m = loudness_json(ins, mix_filter(0))
     ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:"
           f"measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
-    # limiter setelah loudnorm: mode linear bisa menaikkan puncak di atas 0 dBFS (suara pecah)
-    subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', video] + ins + ['-filter_complex', mix_filter(1) + ',' + ln + ',aresample=48000,alimiter=limit=0.8:attack=2:release=60:level=false[a]',
+    # limiter setelah loudnorm: mode linear bisa menaikkan puncak di atas 0 dBFS (suara pecah).
+    # lowpass 16 kHz + batas -3 dB supaya klik tajam tidak melonjak lagi saat dikompres ke AAC
+    subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', video] + ins + ['-filter_complex', mix_filter(1) + ',' + ln + ',aresample=48000,lowpass=f=16000,alimiter=limit=0.7:attack=2:release=60:level=false[a]',
                     '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', out],
                    check=True)
     print('selesai:', out)
