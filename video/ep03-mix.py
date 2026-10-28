@@ -3,7 +3,7 @@
 #       -> <folder>/vo.wav (narasi di posisi akhir) dan <folder>/warp.json (tempo baru untuk video, musik, efek)
 #   python3 video/ep03-mix.py final <video.mp4> <folder> <hasil.mp4>
 #       -> gabung video + music.wav + sfx.wav + vo.wav dari <folder>; musik otomatis mengecil saat ada suara,
-#          lalu loudness -14 LUFS (standar TikTok/Reels). Video di-copy tanpa render ulang.
+#          lalu loudness -14 LUFS (standar TikTok/Reels). Video dikompres ke ukuran kecil yang tetap HD (CRF 23).
 # Zip berasal dari ep03-tts-gemini.py (01.wav ... 15.wav + lines.json).
 import io, json, os, subprocess, sys, tempfile, wave, zipfile
 import numpy as np
@@ -87,6 +87,16 @@ def mix_filter(k):
             '[duck][fx][vo]amix=inputs=3:normalize=0:duration=longest')
 
 
+def video_codec():
+    """Video final dikompres ulang supaya kecil tapi tetap HD: x264 CRF 23 (sekitar 10 MB untuk 50 detik).
+    Gradasi gelap tetap mulus berkat aq-mode 3. LD_VIDEO_CRF=copy untuk menyimpan master tanpa kompres ulang."""
+    crf = os.environ.get('LD_VIDEO_CRF', '23')
+    if crf == 'copy':
+        return ['-c:v', 'copy']
+    return ['-c:v', 'libx264', '-preset', 'slow', '-crf', crf, '-tune', 'film', '-x264-params', 'aq-mode=3',
+            '-profile:v', 'high', '-pix_fmt', 'yuv420p']
+
+
 def final(video, folder, out):
     ins = ['-i', os.path.join(folder, 'music.wav'), '-i', os.path.join(folder, 'sfx.wav'), '-i', os.path.join(folder, 'vo.wav')]
     m = loudness_json(ins, mix_filter(0))
@@ -95,7 +105,7 @@ def final(video, folder, out):
     # limiter setelah loudnorm: mode linear bisa menaikkan puncak di atas 0 dBFS (suara pecah).
     # lowpass 16 kHz + batas -3 dB supaya klik tajam tidak melonjak lagi saat dikompres ke AAC
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', video] + ins + ['-filter_complex', mix_filter(1) + ',' + ln + ',aresample=48000,lowpass=f=16000,alimiter=limit=0.7:attack=2:release=60:level=false[a]',
-                    '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', out],
+                    '-map', '0:v', '-map', '[a]'] + video_codec() + ['-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-shortest', out],
                    check=True)
     print('selesai:', out)
 
