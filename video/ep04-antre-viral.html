@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP4: antre makanan viral (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+
+/* orang: kaki di bawah tengah, jadi skala tidak menggeser pijakan */
+.pp{width:56px;height:112px;transform-origin:50% 100%}
+.pp .hd{position:absolute;left:12px;top:0;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#D9EEE4,#7FA394 72%)}
+.pp .bd{position:absolute;left:0;top:37px;width:56px;height:75px;border-radius:28px 28px 14px 14px;
+  background:linear-gradient(180deg,var(--c1,#2B6A52),var(--c2,#11382A));box-shadow:0 0 0 2px rgba(157,245,207,.10) inset}
+.pp::after{content:"";position:absolute;left:2px;right:2px;bottom:-9px;height:16px;border-radius:50%;background:rgba(0,0,0,.5);filter:blur(4px);z-index:-1}
+.pp.hot .hd{background:radial-gradient(circle at 36% 30%,#F2FFF9,#9DF5CF 70%)}
+.pp.hot .bd{background:linear-gradient(180deg,#6AF3C0,#0E8F64);box-shadow:0 0 0 2px rgba(230,255,244,.35) inset,0 0 36px rgba(46,230,160,.55)}
+.pp.stop .hd{background:radial-gradient(circle at 36% 30%,#F2FFF9,#BDEFD8 70%);box-shadow:0 0 18px rgba(157,245,207,.7)}
+.pp.stop .bd{box-shadow:0 0 0 3px rgba(157,245,207,.55) inset,0 0 26px rgba(157,245,207,.35)}
+
+/* warung */
+.stall{width:420px;height:370px}
+.stall .sign{position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap;padding:8px 28px;border-radius:999px;border:3px solid var(--emerald);
+  color:var(--emerald);font-weight:800;font-size:36px;letter-spacing:-.01em;background:rgba(3,16,11,.88);text-shadow:0 0 18px rgba(46,230,160,.85);
+  box-shadow:0 0 34px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.25) inset}
+.stall .awn{position:absolute;left:0;right:0;top:78px;height:72px;border-radius:22px 22px 0 0;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(0,0,0,.28)),repeating-linear-gradient(90deg,#1FB884 0 35px,#0B4D38 35px 70px)}
+.stall .awn::after{content:"";position:absolute;left:0;right:0;top:100%;height:18px;background:radial-gradient(circle at 17.5px 0,#0E6B4C 17px,transparent 18px) 0 0/35px 18px repeat-x}
+.stall .bx{position:absolute;left:20px;right:20px;top:150px;height:152px;background:linear-gradient(180deg,#0C2B20,#071A13);box-shadow:0 0 0 2px rgba(157,245,207,.12) inset}
+.stall .bx::before{content:"";position:absolute;left:10%;right:10%;top:0;height:110px;background:radial-gradient(60% 100% at 50% 0,rgba(157,245,207,.22),transparent)}
+.stall .board{position:absolute;left:50%;top:28px;transform:translateX(-50%);padding:12px 28px;border-radius:16px;background:#020A07;
+  box-shadow:0 0 0 2px rgba(157,245,207,.2) inset;text-align:center;white-space:nowrap}
+.stall .board b{display:block;font-size:30px;font-weight:800}
+.stall .board small{display:block;font-size:28px;color:var(--emerald);font-weight:800;margin-top:2px}
+.stall .ctr{position:absolute;left:0;right:0;top:300px;height:70px;border-radius:10px 10px 18px 18px;background:linear-gradient(180deg,#1B5440,#0B2A1F);
+  box-shadow:0 4px 0 rgba(157,245,207,.35) inset,0 40px 80px -30px #000}
+
+/* hook */
+#timer{left:0;top:1408px;width:1080px;text-align:center}
+#timer .pill{font-size:30px;gap:16px;padding:12px 34px 12px 18px;color:var(--ice);background:linear-gradient(160deg,rgba(16,52,38,.92),rgba(5,20,15,.96));
+  box-shadow:0 0 0 2px rgba(157,245,207,.2) inset,0 20px 50px -20px #000}
+#timer svg{width:50px;height:50px}
+#timer b{font-size:50px;letter-spacing:-.02em;color:var(--emerald);text-shadow:0 0 24px rgba(46,230,160,.6);min-width:190px;text-align:left}
+#scrim{left:0;top:0;width:1080px;height:1920px;background:rgba(3,16,11,.62);z-index:2500}
+#rate{left:130px;top:780px;width:820px;padding:44px 46px;box-sizing:border-box;display:flex;gap:36px;align-items:center;
+  box-shadow:0 0 0 2px rgba(157,245,207,.2) inset,0 0 90px -30px rgba(46,230,160,.4),0 50px 120px -40px #000}
+#rate .bowl{width:200px;height:176px;flex:none}
+#rate b{display:block;font-size:46px;font-weight:800;letter-spacing:-.02em}
+#rate .stars{display:flex;gap:10px;margin:16px 0 12px}
+#rate .stars i{position:relative;width:70px;height:70px}
+#rate .stars svg{position:absolute;inset:0}
+#rate small{display:block;font-size:32px;color:var(--sage);font-weight:700}
+
+/* dua warung */
+#same{left:470px;top:900px;width:140px;text-align:center}
+#kamuTag{z-index:3001}
+#kamuTag .pill{font-size:28px;padding:6px 18px}
+#qmark{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:44px;font-weight:800;color:#032015;
+  background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 30px rgba(46,230,160,.7);z-index:3001}
+#think{left:500px;top:1062px;padding:18px 36px;border-radius:999px;font-size:46px;font-weight:800;letter-spacing:-.02em;color:var(--emerald);white-space:nowrap;
+  text-shadow:0 0 26px rgba(46,230,160,.6);box-shadow:0 0 0 3px rgba(46,230,160,.5) inset,0 0 60px -10px rgba(46,230,160,.5),0 30px 80px -30px #000}
+#think::before,#think::after{content:"";position:absolute;border-radius:50%;background:rgba(10,38,28,.95);box-shadow:0 0 0 3px rgba(46,230,160,.5) inset}
+#think::before{width:30px;height:30px;left:-26px;bottom:-14px}
+#think::after{width:16px;height:16px;left:-50px;bottom:-34px}
+#qcount{left:0;top:612px;width:600px;text-align:center}
+#qcount .pill{font-size:32px;padding:10px 26px}
+#herd{left:110px;top:1400px;width:860px;height:96px;border-radius:30px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#herd b{font-size:40px;font-weight:800;letter-spacing:-.02em;color:var(--emerald)}
+#herd small{font-size:24px;color:var(--sage);font-weight:500}
+
+/* jalan di New York */
+#city{left:0;top:0;width:1080px;height:1920px}
+.sky{position:absolute;bottom:640px;background:linear-gradient(180deg,#0B2219,#06150F);box-shadow:0 0 0 2px rgba(157,245,207,.05) inset}
+.sky i{position:absolute;width:10px;height:14px;background:rgba(157,245,207,.16)}
+#bld{position:absolute;left:610px;top:640px;width:380px;height:640px;background:linear-gradient(180deg,#14392B,#0A2119);
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 0 120px -30px rgba(0,0,0,.9)}
+#bld .wd{position:absolute;width:58px;height:64px;border-radius:6px;background:linear-gradient(160deg,rgba(157,245,207,.12),rgba(3,16,11,.92) 60%);
+  box-shadow:0 0 0 2px rgba(157,245,207,.12) inset}
+#bld .lit{background:linear-gradient(160deg,rgba(157,245,207,.30),rgba(46,230,160,.08) 70%)}
+#bld .door{position:absolute;left:150px;bottom:0;width:80px;height:66px;border-radius:10px 10px 0 0;background:#030C08;box-shadow:0 0 0 2px rgba(157,245,207,.18) inset}
+#bld .roof{position:absolute;left:-14px;right:-14px;top:-18px;height:18px;border-radius:6px 6px 0 0;background:#1B4A38}
+#target{left:728px;top:836px;width:58px;height:64px;border-radius:6px;z-index:5}
+#lt6{left:806px;top:842px;z-index:5}
+#lt6 .pill{font-size:22px;padding:4px 14px}
+#walk{position:absolute;left:0;top:1280px;width:1080px;height:160px;background:repeating-linear-gradient(90deg,transparent 0 118px,rgba(157,245,207,.05) 118px 120px),
+  linear-gradient(180deg,#0E2C21,#081A14);box-shadow:0 3px 0 rgba(157,245,207,.25) inset}
+#walk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:#123D2E;box-shadow:0 -2px 0 rgba(157,245,207,.2)}
+#gaze{left:0;top:0;width:1080px;height:1920px;z-index:1000;overflow:visible}
+#cnt{left:80px;top:680px;width:470px;padding:30px 36px 28px;box-sizing:border-box}
+#cnt small{display:block;font-size:30px;color:var(--sage);font-weight:700}
+#cnt b{display:block;font-size:150px;font-weight:800;letter-spacing:-.045em;line-height:1;color:var(--emerald);text-shadow:0 0 50px rgba(46,230,160,.5);margin:8px 0 6px}
+#cnt span{display:block;font-size:28px;color:#CFE6DB;font-weight:500}
+#x10{left:110px;top:960px;padding:6px 22px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:54px;letter-spacing:-.02em;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset;white-space:nowrap}
+
+/* label terlaris */
+#menu{left:120px;top:680px;width:840px;padding:34px 40px 26px;box-sizing:border-box}
+#menu .h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+#menu .h b{font-size:44px;font-weight:800;letter-spacing:-.02em}
+#menu .h small{font-size:26px;color:var(--sage);font-weight:500}
+.mrow{position:relative;display:flex;align-items:center;gap:20px;height:76px;border-bottom:2px dashed rgba(157,245,207,.14)}
+.mrow:last-child{border-bottom:0}
+.mrow .nm{width:300px;font-size:34px;font-weight:700;white-space:nowrap}
+.mrow .bdg{width:150px}
+.mrow .bdg .pill{font-size:24px;padding:6px 16px}
+.mrow .tr{flex:1;height:16px;border-radius:8px;background:rgba(157,245,207,.10);position:relative}
+.mrow .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,#2C5E4B,#5C8D78)}
+.mrow.hot .tr i{background:linear-gradient(90deg,#0E8F64,var(--emerald));box-shadow:0 0 22px rgba(46,230,160,.55)}
+#lift{left:120px;top:1214px;width:840px;padding:22px 40px 22px;box-sizing:border-box;text-align:center}
+#lift b{display:block;font-size:116px;font-weight:800;letter-spacing:-.045em;line-height:1;color:var(--emerald);text-shadow:0 0 50px rgba(46,230,160,.5)}
+#lift small{display:block;font-size:32px;color:#CFE6DB;font-weight:500;margin-top:8px}
+#lift span{display:block;font:500 24px var(--mono);color:var(--sage);margin-top:14px}
+
+/* tips */
+#tip{left:90px;top:680px;width:900px;padding:56px 60px 54px;box-sizing:border-box;box-shadow:0 0 0 3px rgba(46,230,160,.45) inset,0 0 80px -20px rgba(46,230,160,.45),0 50px 120px -40px #000}
+#tip .q{font-size:160px;line-height:.6;color:var(--emerald);font-weight:800;height:70px}
+#tip p{margin:0;font-size:72px;font-weight:800;line-height:1.1;letter-spacing:-.035em}
+#tip hr{border:0;border-top:2px dashed rgba(157,245,207,.25);margin:40px 0 30px}
+#tip small{display:block;font-size:38px;line-height:1.35;color:#BFD6CC;font-weight:500}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:140px;top:1104px;width:800px;padding:24px 30px 38px;box-sizing:border-box;font:500 22px/1.5 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 8px;font:700 22px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:10px 0 0 28px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:6px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:8px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <!-- 3. jalan di New York (paling belakang) -->
+    <div id="city" class="abs">
+      <div id="sky"></div>
+      <div id="bld"><i class="roof"></i><i class="door"></i></div>
+      <div id="walk"></div>
+    </div>
+    <div id="target" class="abs"></div>
+    <div id="lt6" class="abs"><span class="pill">Lantai 6</span></div>
+    <svg id="gaze" class="abs" viewBox="0 0 1080 1920"><defs>
+      <linearGradient id="gz" gradientUnits="userSpaceOnUse" x1="0" y1="1240" x2="0" y2="860"><stop offset="0" stop-color="#2EE6A0" stop-opacity=".15"/><stop offset="1" stop-color="#9DF5CF" stop-opacity=".85"/></linearGradient></defs></svg>
+
+    <!-- 1-2. warung -->
+    <div id="stHook" class="abs stall"></div>
+    <div id="stA" class="abs stall"></div>
+    <div id="stB" class="abs stall"></div>
+    <div id="people"></div>
+
+    <div id="scrim" class="abs"></div>
+    <div id="rate" class="abs glass top">
+      <svg class="bowl" viewBox="0 0 200 176"><defs><linearGradient id="bw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A4A38"/><stop offset="1" stop-color="#081D16"/></linearGradient></defs>
+        <path d="M70 46c-8-10 8-16 0-28M100 42c-8-10 8-16 0-28M130 46c-8-10 8-16 0-28" stroke="#9DF5CF" stroke-opacity=".45" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M128 70L176 18M140 74L188 30" stroke="#9DF5CF" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="100" cy="84" rx="86" ry="18" fill="#E6FFF4" fill-opacity=".9"/>
+        <path d="M30 84c10-12 22-12 32 0s22 12 32 0 22-12 32 0 22 12 32 0" stroke="#8BA79B" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M14 84h172c0 46-38 80-86 80S14 130 14 84z" fill="url(#bw)" stroke="#2EE6A0" stroke-opacity=".7" stroke-width="3"/>
+        <path d="M40 112c14 22 40 34 60 34" stroke="#9DF5CF" stroke-opacity=".35" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+      <div><b>Menu viral</b><div class="stars" id="stars"></div><small>Rasanya: 3 dari 5</small></div>
+    </div>
+    <div id="same" class="abs"><span class="pill">Sama</span></div>
+    <div id="qmark" class="abs">?</div>
+    <div id="kamuTag" class="abs"><span class="pill">Kamu</span></div>
+    <div id="think" class="abs glass top">Pasti enak</div>
+    <div id="qcount" class="abs top"><span class="pill" id="qcountT">Antrean: 11 orang</span></div>
+    <div id="herd" class="abs glass top"><b>Efek ikut-ikutan</b><small>Banerjee (1992), peraih Nobel Ekonomi 2019</small></div>
+
+    <div id="cnt" class="abs glass top"><small>Pejalan kaki yang ikut berhenti</small><b id="cntN">0%</b><span id="cntS">saat 1 orang menatap ke atas</span></div>
+    <div id="x10" class="abs top">10× lipat</div>
+
+    <!-- 4. label terlaris -->
+    <div id="menu" class="abs glass top"><div class="h"><b>Menu</b><small>restoran di Beijing</small></div>
+      <div class="mrow"><span class="nm">Bebek panggang</span><span class="bdg"></span><span class="tr"><i></i></span></div>
+      <div class="mrow hot"><span class="nm">Mapo tahu</span><span class="bdg"><span class="pill">Terlaris</span></span><span class="tr"><i></i></span></div>
+      <div class="mrow"><span class="nm">Mi dandan</span><span class="bdg"></span><span class="tr"><i></i></span></div>
+      <div class="mrow hot"><span class="nm">Ayam kungpao</span><span class="bdg"><span class="pill">Terlaris</span></span><span class="tr"><i></i></span></div>
+      <div class="mrow"><span class="nm">Sup asam pedas</span><span class="bdg"></span><span class="tr"><i></i></span></div>
+    </div>
+    <div id="lift" class="abs glass top"><b id="liftN">+13–20%</b><small>pesanan untuk menu berlabel terlaris</small><span>Cai, Chen &amp; Fang (2009)</span></div>
+
+    <!-- 5. tips -->
+    <div id="tip" class="abs glass top"><div class="q">“</div><p>Antrean panjang itu bukti <em>ramai</em>, bukan bukti <em>enak</em>.</p><hr>
+      <small>Cek dulu ulasan orang yang sudah makan, bukan panjang antreannya.</small></div>
+
+    <!-- 6. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 4</span></h5><ol>
+      <li>Milgram, S., Bickman, L. &amp; Berkowitz, L. (1969). <i>Note on the Drawing Power of Crowds of Different Size.</i> JPSP, 13(2), 79–82.</li>
+      <li>Banerjee, A. V. (1992). <i>A Simple Model of Herd Behavior.</i> QJE, 107(3), 797–817.</li>
+      <li>Cai, H., Chen, Y. &amp; Fang, H. (2009). <i>Observational Learning.</i> American Economic Review, 99(3), 864–882.</li></ol>
+      <p>Warung, menu, dan rating hanya ilustrasi.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="timer" class="abs"><span class="pill"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#2EE6A0" stroke-width="4"/>
+    <path id="hand" d="M25 25V11" stroke="#E6FFF4" stroke-width="4" stroke-linecap="round"/><circle cx="25" cy="25" r="3.5" fill="#E6FFF4"/></svg>Waktu antre <b id="timerT">0:00:00</b></span></div>
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 48;
+const OUT = 43.8;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 2.55, 'Kenapa kita rela antre | *2* *jam* buat | makanan viral?'],
+  [2.6, 4.75, 'Padahal rasanya… | _biasa_ _aja_.'],
+  [4.8, 8.15, 'Dua warung, menu sama, | harga sama. | Kamu pilih yang *mana*?'],
+  [8.2, 11.75, 'Kebanyakan pilih | yang ramai. Kata otak: | *"pasti* *enak"*.'],
+  [11.8, 14.15, 'Ada eksperimennya. | *New* *York,* *1969*.'],
+  [14.2, 17.55, '*1* *orang* berdiri | di trotoar, menatap | jendela lantai 6.'],
+  [17.6, 19.95, 'Yang ikut berhenti | cuma *4%*.'],
+  [20.0, 22.55, 'Lalu yang menatap | ditambah jadi | *15* *orang*.'],
+  [22.6, 26.35, 'Yang ikut berhenti | melonjak jadi *40%*. | _10×_ _lipat_!'],
+  [26.4, 28.75, 'Padahal di atas sana | nggak ada *kejadian* | *apa-apa*.'],
+  [28.8, 32.95, 'Makin panjang antrean, | makin banyak yang | *ikut* *antre*.'],
+  [33.0, 34.75, 'Label *"terlaris"* | juga begitu.'],
+  [34.8, 39.35, 'Menu "paling laris" | dipesan *13–20%* | lebih banyak.'],
+  [39.4, 43.75, 'Jadi, ingat:'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+/* ---------- bahan: warung, orang, bintang, gedung ---------- */
+function mkStall(el, sign, name, price) {
+  el.innerHTML = `<div class="awn"></div><div class="bx"><div class="board"><b>${name}</b><small>${price}</small></div></div><div class="ctr"></div><div class="sign">${sign}</div>`;
+}
+mkStall($('stHook'), 'Lagi viral', 'Menu viral', 'Rp35.000');
+mkStall($('stA'), 'Warung A', 'Mie ayam', 'Rp15.000');
+mkStall($('stB'), 'Warung B', 'Mie ayam', 'Rp15.000');
+
+const TINTS = [['#2B6A52', '#11382A'], ['#245E49', '#0E3024'], ['#357A60', '#143F30'], ['#1F5443', '#0C2A20'], ['#3E846A', '#174634']];
+function person(hot) {
+  const el = document.createElement('div'); el.className = 'pp abs' + (hot ? ' hot' : '');
+  el.innerHTML = '<i class="hd"></i><i class="bd"></i>';
+  const [c1, c2] = TINTS[Math.floor(rnd() * TINTS.length)];
+  el.style.setProperty('--c1', c1); el.style.setProperty('--c2', c2);
+  $('people').appendChild(el);
+  return { el, hd: el.firstChild, ph: rnd() * 6.28 };
+}
+// kaki di (x, y); look 0..1 = menengadah; walk = fase langkah (null = berdiri)
+function placeP(p, t, { x, y, s = 1, o = 1, look = 0, walk = null }) {
+  const bob = walk == null ? Math.sin(t * 1.7 + p.ph) * 1.6 : -Math.abs(Math.sin(walk)) * 7;
+  const lean = walk == null ? -4 * look + .8 * Math.sin(t * 1.1 + p.ph) : 3 * Math.sin(walk);
+  put(p.el, { o, x: x - 28, y: y - 112 + bob, s, r: lean });
+  p.hd.style.transform = `translate(${(2 * look).toFixed(1)}px,${(-6 * look).toFixed(1)}px)`;
+  p.el.style.zIndex = Math.round(y);
+}
+const hide = p => { p.el.style.visibility = 'hidden'; p.el.style.opacity = 0; };
+
+// antrean = garis berliku; orang ke-k berdiri di jarak k*GAP dari kasir
+function polyline(pts) {
+  const segs = []; let L = 0;
+  for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], l = Math.hypot(x1 - x0, y1 - y0); segs.push({ x0, y0, x1, y1, l, L }); L += l; }
+  return d => { const s = segs.find(s => d <= s.L + s.l) || segs[segs.length - 1], p = (d - s.L) / s.l; return [lerp(s.x0, s.x1, p), lerp(s.y0, s.y1, p)]; };
+}
+const GAP = 66;
+const qHook = polyline([[640, 1112], [110, 1112], [110, 1236], [970, 1236], [970, 1360], [-400, 1360]]);
+const qWar = polyline([[300, 1112], [110, 1112], [110, 1236], [970, 1236], [970, 1360], [-400, 1360]]);
+const depth = y => .9 + (y - 1112) / 248 * .16;
+
+const queue = Array.from({ length: 46 }, () => person(false));
+const kamu = person(true);
+const crowd = Array.from({ length: 15 }, () => person(true));
+const walkers = Array.from({ length: 36 }, () => person(false));
+
+const STAR = 'M35 5l9.4 19 21 3.1-15.2 14.8 3.6 20.9L35 52.9 16.2 62.8l3.6-20.9L4.6 27.1l21-3.1z';
+$('stars').innerHTML = Array.from({ length: 5 }, (_, i) => `<i><svg viewBox="0 0 70 70"><path d="${STAR}" fill="none" stroke="#8BA79B" stroke-opacity=".6" stroke-width="3" stroke-linejoin="round"/></svg>` +
+  (i < 3 ? `<svg class="sf" viewBox="0 0 70 70"><path d="${STAR}" fill="#2EE6A0" stroke="#9DF5CF" stroke-width="3" stroke-linejoin="round"/></svg>` : '') + '</i>').join('');
+const starFill = [...document.querySelectorAll('#stars .sf')];
+
+// gedung: 4 kolom x 7 baris jendela; lantai 1 berisi pintu, jadi baris ke-3 dari atas = lantai 6
+(() => {
+  const b = $('bld');
+  for (let r = 0; r < 7; r++) for (let c = 0; c < 4; c++) {
+    const w = document.createElement('i'); w.className = 'wd' + (rnd() < .28 && !(r === 2 && c === 1) ? ' lit' : '');
+    w.style.left = 34 + c * 84 + 'px'; w.style.top = 40 + r * 78 + 'px'; b.appendChild(w);
+  }
+  const sky = $('sky');
+  [[0, 180, 470], [150, 160, 560], [290, 200, 400], [460, 170, 520]].forEach(([x, w, h]) => {
+    const d = document.createElement('div'); d.className = 'sky'; Object.assign(d.style, { left: x + 'px', width: w + 'px', height: h + 'px' });
+    for (let i = 0; i < 14; i++) { const k = document.createElement('i'); k.style.left = 16 + Math.floor(rnd() * (w - 40) / 22) * 22 + 'px'; k.style.top = 20 + Math.floor(rnd() * (h - 60) / 34) * 34 + 'px'; d.appendChild(k); }
+    sky.appendChild(d);
+  });
+})();
+const WIN = { x: 757, y: 868 };          // jendela lantai 6 yang ditatap
+
+// garis tatapan dari kepala ke jendela
+const svgNS = 'http://www.w3.org/2000/svg';
+const mkLine = () => { const l = document.createElementNS(svgNS, 'line'); l.setAttribute('stroke', 'url(#gz)'); l.setAttribute('stroke-width', '3');
+  l.setAttribute('stroke-dasharray', '2 10'); l.setAttribute('stroke-linecap', 'round'); $('gaze').appendChild(l); return l; };
+const crowdLines = crowd.map(mkLine), walkLines = walkers.map(mkLine);
+function gazeLine(l, x, y, p, o) {
+  if (o < .01 || p < .01) { l.setAttribute('opacity', 0); return; }
+  l.setAttribute('x1', x); l.setAttribute('y1', y); l.setAttribute('x2', lerp(x, WIN.x, p).toFixed(1)); l.setAttribute('y2', lerp(y, WIN.y, p).toFixed(1));
+  l.setAttribute('opacity', o.toFixed(3));
+}
+
+// kerumunan 15 orang: orang pertama di tengah depan
+const CROWD = [[355, 1345, 1], [215, 1345, 1], [285, 1345, 1], [425, 1345, 1], [495, 1345, 1], [565, 1345, 1], [145, 1345, 1], [635, 1345, 1],
+  [180, 1305, .94], [250, 1305, .94], [320, 1305, .94], [390, 1305, .94], [460, 1305, .94], [530, 1305, .94], [600, 1305, .94]];
+// pejalan kaki: lewat di depan kerumunan. Fase 1 (1 orang menatap): hanya satu yang berhenti.
+// Fase 2 (15 orang): 2 dari tiap 5 yang lewat ikut berhenti (40%).
+const LANE = 1420;
+const walk = walkers.map((p, i) => {
+  const dir = i % 4 === 3 ? -1 : 1, v = 150 + rnd() * 40, t0 = 11.4 + i * .44 + rnd() * .2, sx = 170 + rnd() * 440;
+  const tA = t0 + (dir > 0 ? sx + 60 : 1140 - sx) / v;
+  return { p, dir, v, t0, sx, tA, stop: false };
+});
+(() => {
+  let first = false, n2 = 0;
+  walk.forEach(w => {
+    if (!first && w.tA > 18.0 && w.tA < 19.6) { w.stop = true; first = true; }
+    else if (w.tA > 22.75 && w.tA < 26.2) { w.stop = n2 % 5 === 0 || n2 % 5 === 2; n2++; }
+  });
+})();
+
+/* ---------- adegan ---------- */
+function renderStalls(t) {
+  // warung viral di hook
+  const oH = win(t, -1, 4.85, .5, .45);
+  put($('stHook'), { o: oH, x: 720 - 210, y: 870 - 185, s: 1.12 });
+  $('stHook').querySelector('.sign').style.opacity = (t < .5 ? (Math.sin(t * 60) > -.2 ? 1 : .35) : .9 + .1 * Math.sin(t * 9)).toFixed(2);
+  // dua warung kembar
+  const oW = Math.max(win(t, 4.85, 11.75, .55, .45), win(t, 28.8, 33.0, .5, .4));
+  const eA = t < 20 ? eExpo(seg(t, 4.85, 5.6)) : eExpo(seg(t, 28.8, 29.5)), eB = t < 20 ? eExpo(seg(t, 5.0, 5.75)) : eExpo(seg(t, 28.9, 29.6));
+  const dimB = t > 20 ? .55 * seg(t, 30.0, 31.5) : 0;
+  put($('stA'), { o: oW, x: 300 - 210, y: 880 - 185 + (1 - eA) * 120, s: .92, blur: (1 - eA) * 12 });
+  put($('stB'), { o: oW * (1 - dimB), x: 780 - 210, y: 880 - 185 + (1 - eB) * 120, s: .92, blur: (1 - eB) * 12 });
+  const g = win(t, 5.8, 7.4, .3, .4);
+  [$('stA'), $('stB')].forEach(s => { const b = s.querySelector('.board');
+    b.style.boxShadow = `0 0 0 ${(2 + 2 * g).toFixed(1)}px rgba(46,230,160,${(.2 + .6 * g).toFixed(2)}) inset,0 0 ${(60 * g).toFixed(0)}px rgba(46,230,160,${(.5 * g).toFixed(2)})`; });
+  put($('same'), { o: win(t, 5.9, 7.4, .3, .4), s: lerp(.5, 1, eBack(seg(t, 5.9, 6.3))) });
+}
+
+function renderHook(t) {
+  const o = win(t, -1, 4.85, .5, .45);
+  queue.forEach((p, k) => {
+    if (o <= 0) return;
+    const [x, y] = qHook(k * GAP);
+    placeP(p, t, { x, y, s: depth(y), o: o * (x < -60 ? 0 : 1) });
+  });
+  // jam antre berputar cepat sampai 2 jam
+  const tm = eIO(seg(t, .15, 2.35)) * 7200, h = Math.floor(tm / 3600), m = Math.floor(tm % 3600 / 60), s = Math.floor(tm % 60);
+  $('timerT').textContent = `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  $('hand').setAttribute('transform', `rotate(${(tm / 7200 * 720).toFixed(1)} 25 25)`);
+  const done = eBack(seg(t, 2.35, 2.75));
+  put($('timer'), { o: win(t, -1, 4.8, .5, .45), s: 1 + .08 * Math.sin(Math.PI * seg(t, 2.35, 2.75)), y: 0 });
+  $('timerT').style.color = done > 0 && t < 4.8 ? '#E6FFF4' : '';
+  // kartu rating jatuh: rasanya biasa aja
+  const r = eBack(seg(t, 2.6, 3.05));
+  put($('scrim'), { o: win(t, 2.6, 4.85, .35, .45) });
+  put($('rate'), { o: win(t, 2.6, 4.85, .15, .45), y: (1 - r) * -160, s: lerp(1.25, 1, r), r: (1 - r) * -4, blur: (1 - seg(t, 2.6, 2.85)) * 10 });
+  starFill.forEach((f, i) => put(f, { o: seg(t, 3.0 + i * .2, 3.1 + i * .2), s: lerp(1.6, 1, eBack(seg(t, 3.0 + i * .2, 3.3 + i * .2))) }));
+  return { shake: shake(t, 2.62, .35, 9), flash: .5 * win(t, 2.6, 3.2, .05, .5) };
+}
+
+function renderWarung(t) {
+  const first = t < 20, o = first ? win(t, 4.85, 11.75, .5, .45) : win(t, 28.8, 33.0, .5, .4);
+  if (o <= 0) { hide(kamu); ['kamuTag', 'qmark', 'think', 'qcount', 'herd'].forEach(id => put($(id), { o: 0 })); return; }
+  const base = 10;
+  queue.forEach((p, k) => {
+    const [x, y] = qWar((k < base ? k : k + 1) * GAP);
+    if (k < base) {
+      const pop = first ? eBack(seg(t, 5.0 + k * .05, 5.4 + k * .05)) : 1;
+      placeP(p, t, { x, y, s: depth(y) * lerp(.3, 1, pop), o: o * clamp(pop * 3) });
+    } else if (!first && k < base + 16) {
+      // orang baru berdatangan dari tepi kanan, lalu ikut antre
+      const ta = 29.2 + (k - base) * .17, a = seg(t, ta, ta + .9);
+      if (a <= 0) { hide(p); return; }
+      placeP(p, t, { x: lerp(1150, x, eIO(a)), y, s: depth(y), o, walk: a < 1 ? (t - ta) * 9 : null });
+    } else hide(p);
+  });
+  // "kamu": muncul, bingung, lalu ikut antre di belakang
+  const [kx, ky] = qWar(base * GAP);
+  const kIn = eBack(seg(t, 6.9, 7.3)), kw = eIO(seg(t, 8.4, 9.5));
+  const px = first ? lerp(800, kx, kw) : kx, py = first ? lerp(1400, ky, kw) : ky;
+  const ko = first ? o * clamp(kIn * 2) : o;
+  placeP(kamu, t, { x: px, y: py, s: depth(Math.min(py, 1360)) * (first ? lerp(.4, 1, kIn) : 1), o: ko, walk: first && kw > 0 && kw < 1 ? (t - 8.4) * 9 : null });
+  put($('kamuTag'), { o: ko * (first ? 1 : win(t, 28.8, 33, .5, .4)), x: px - 52, y: py - 112 * depth(py) - 66 });
+  put($('qmark'), { o: first ? win(t, 7.2, 8.6, .2, .3) : 0, x: px + 30, y: py - 200, s: lerp(.3, 1, eBack(seg(t, 7.2, 7.5))) });
+  put($('think'), { o: first ? win(t, 10.5, 11.75, .25, .45) : 0, s: lerp(.4, 1, eBack(seg(t, 10.5, 10.9))) });
+  // jumlah antrean naik
+  const n = first ? 0 : base + 1 + Math.round(16 * seg(t, 29.9, 31.9));
+  $('qcountT').textContent = `Antrean: ${n || base + 1} orang`;
+  put($('qcount'), { o: first ? 0 : win(t, 29.0, 33.0, .4, .4), s: 1 + .05 * Math.sin(Math.PI * 2 * seg(t, 29.9, 31.9) * 4) * (t < 31.9 ? 1 : 0) });
+  put($('herd'), { o: first ? 0 : win(t, 29.6, 33.0, .5, .4), y: (1 - eExpo(seg(t, 29.6, 30.3))) * 40 });
+}
+
+function renderStreet(t) {
+  const o = win(t, 11.8, 28.75, .6, .45);
+  if (o <= 0) { crowd.forEach(hide); walkers.forEach(hide); crowdLines.concat(walkLines).forEach(l => l.setAttribute('opacity', 0));
+    put($('city'), { o: 0 }); put($('target'), { o: 0 }); put($('lt6'), { o: 0 }); put($('cnt'), { o: 0 }); put($('x10'), { o: 0 }); return {}; }
+  put($('city'), { o });
+  // kerumunan: 1 orang di 14,2 detik, lalu 14 orang lagi mulai 20,0 detik
+  crowd.forEach((p, i) => {
+    const [x, y, s] = CROWD[i], ti = i === 0 ? 14.3 : 20.0 + (i - 1) * .08;
+    const pop = eBack(seg(t, ti, ti + .35)), look = eOut(seg(t, ti + .25, ti + .7));
+    if (t < ti) { hide(p); gazeLine(crowdLines[i], 0, 0, 0, 0); return; }
+    placeP(p, t, { x, y, s: s * lerp(.3, 1, pop), o: o * clamp(pop * 3), look });
+    gazeLine(crowdLines[i], x + 4, y - 104, eOut(seg(t, ti + .3, ti + .9)), o * .9);
+  });
+  // pejalan kaki
+  walk.forEach((w, i) => {
+    const run = t - w.t0;
+    if (run < 0) { hide(w.p); gazeLine(walkLines[i], 0, 0, 0, 0); return; }
+    const stopped = w.stop && t >= w.tA;
+    const x = stopped ? w.sx : (w.dir > 0 ? -60 + w.v * run : 1140 - w.v * run);
+    if (x < -80 || x > 1160) { hide(w.p); gazeLine(walkLines[i], 0, 0, 0, 0); return; }
+    const look = stopped ? eOut(seg(t, w.tA + .15, w.tA + .6)) : 0;
+    const y = LANE - 16 * eOut(stopped ? seg(t, w.tA, w.tA + .3) : 0);
+    placeP(w.p, t, { x, y, s: 1.06, o, look, walk: stopped ? null : run * w.v / 38 });
+    w.p.el.classList.toggle('stop', stopped);
+    gazeLine(walkLines[i], x + 4, y - 112, stopped ? eOut(seg(t, w.tA + .3, w.tA + .9)) : 0, o * .55);
+  });
+  // jendela yang ditatap menyala samar
+  const tg = seg(t, 14.6, 15.4);
+  put($('target'), { o: o * tg });
+  $('target').style.boxShadow = `0 0 0 3px rgba(46,230,160,.8) inset,0 0 ${(30 + 30 * Math.sin(t * 3)).toFixed(0)}px rgba(46,230,160,.5)`;
+  put($('lt6'), { o: o * win(t, 15.4, 28.75, .4, .4), x: 0, y: (1 - eExpo(seg(t, 15.4, 16))) * 14 });
+  // penghitung: 4% lalu 40%
+  const c1 = eOut(seg(t, 17.65, 18.25)), c2 = eOut(seg(t, 22.65, 23.6));
+  $('cntN').textContent = Math.round(t < 22.6 ? 4 * c1 : 4 + 36 * c2) + '%';
+  $('cntS').textContent = t < 20.0 ? 'saat 1 orang menatap ke atas' : 'saat 15 orang menatap ke atas';
+  const ce = eExpo(seg(t, 17.6, 18.3));
+  put($('cnt'), { o: win(t, 17.6, 26.35, .4, .4), y: (1 - ce) * 50, s: 1 + .05 * Math.sin(Math.PI * seg(t, 22.6, 23.0)) });
+  const xs = seg(t, 25.0, 25.35);
+  put($('x10'), { o: xs > 0 ? Math.min(1, xs * 4) * (1 - seg(t, 25.95, 26.35)) : 0, s: lerp(2.6, 1, eBack(xs)), r: -6 });
+  return { shake: shake(t, 22.65, .4, 12) + shake(t, 25.05, .3, 7), flash: .7 * win(t, 22.6, 23.4, .05, .6) };
+}
+
+function renderMenu(t) {
+  const o = win(t, 33.0, 39.35, .5, .4), e = eExpo(seg(t, 33.0, 33.8));
+  put($('menu'), { o, y: (1 - e) * 120, s: lerp(.94, 1, e) * (1 - .04 * seg(t, 38.9, 39.35)), blur: (1 - e) * 12 + seg(t, 38.9, 39.35) * 12 });
+  const rows = [...$('menu').querySelectorAll('.mrow')], base = [.62, .48, .55, .44, .5];
+  let hk = 0;
+  rows.forEach((r, i) => {
+    const hot = r.classList.contains('hot'), b = r.querySelector('.bdg .pill');
+    const st = hot ? seg(t, 33.55 + hk * .3, 33.85 + hk * .3) : 0;
+    if (b) put(b, { o: st > 0 ? Math.min(1, st * 4) : 0, s: lerp(2.2, 1, eBack(st)), r: -6 });
+    // pesanan menu berlabel naik 13-20%
+    const grow = hot ? 1 + .18 * eOut(seg(t, 36.4 + hk * .15, 37.3 + hk * .15)) : 1;
+    r.querySelector('.tr i').style.width = (base[i] * grow * 100 * eOut(seg(t, 33.3 + i * .06, 34.1 + i * .06))).toFixed(2) + '%';
+    if (hot) hk++;
+  });
+  const l = eExpo(seg(t, 36.4, 37.1)), n = eOut(seg(t, 36.6, 37.5));
+  put($('lift'), { o: win(t, 36.4, 39.35, .4, .4), y: (1 - l) * 70, blur: seg(t, 38.9, 39.35) * 12 });
+  $('liftN').textContent = `+${Math.round(13 * n)}–${Math.round(20 * n)}%`;
+  return { shake: shake(t, 33.6, .25, 5) + shake(t, 33.9, .25, 5) };
+}
+
+function renderTip(t) {
+  const o = win(t, 39.45, OUT + .1, .5, .4), e = eExpo(seg(t, 39.5, 40.3));
+  put($('tip'), { o, y: (1 - e) * 120, s: lerp(.92, 1, e) * (1 - .04 * seg(t, OUT - .3, OUT + .1)), blur: (1 - e) * 12 + seg(t, OUT - .3, OUT + .1) * 12 });
+  $('tip').querySelector('small').style.opacity = eOut(seg(t, 41.8, 42.5)).toFixed(3);
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan EP3, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+// kamera: zoom keluar di hook (antrean terlihat panjang), zoom ke jendela lantai 6 di 26,4 detik
+function camera(t, sh) {
+  const C = { x: 540, y: 960 };
+  let s = 1, tx = 0, ty = 0;
+  if (t < 4.8) { const P = { x: 690, y: 900 }; s = lerp(1.38, 1, eIO(seg(t, .15, 1.8))); tx = (P.x - C.x) * (1 - s); ty = (P.y - C.y) * (1 - s); }
+  else if (t > 26.2 && t < 28.8) {
+    const k = eIO(seg(t, 26.4, 27.6)); s = lerp(1, 2.3, k);
+    tx = (WIN.x - C.x) * (1 - s) + k * (540 - WIN.x); ty = (WIN.y - C.y) * (1 - s) + k * (1010 - WIN.y);
+  }
+  s *= 1 + .012 * Math.sin(t * .35);
+  put($('cam'), { x: tx + sh, y: ty + sh * .6, s });
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  renderStalls(t);
+  const h = renderHook(t); sh += h.shake; flash += h.flash;
+  renderWarung(t);
+  if ((t > 11.75 && t < 28.8) || t >= 33.0) queue.forEach(hide);
+  const s = renderStreet(t); sh += s.shake || 0; flash += s.flash || 0;
+  const m = renderMenu(t); sh += m.shake;
+  renderTip(t);
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  camera(t, sh);
+};
+window.DURATION = DURATION;
+const AT = { follow: { x: 540, y: 1050 } };
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>

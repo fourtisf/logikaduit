@@ -269,16 +269,23 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3, gratis ongkir.
-- `ep03-gratis-ongkir.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
-- `ep03-naskah.md`: voice over per detik dan sumber.
-- `ep03-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
-- `ep03-audio.py`: musik dan efek suara original (disintesis, bebas hak cipta).
-- `ep03-tts-gemini.py`: narasi Gemini TTS, satu WAV per kalimat.
-- `ep03-mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`) dan Episode 4 (antre makanan viral, `ep04-*`). Tiap episode punya:
+- `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
+- `epNN-naskah.md`: voice over per detik dan sumber.
+- `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
+- `epNN-audio.py`: aransemen musik dan waktu efek suara episode itu.
+- `epNN-tts-gemini.py`: naskah narasi (satu kalimat per teks layar).
+- `epNN-mix.py`: awal tiap teks layar (sama dengan `CAPS` di HTML) dan jeda khusus.
+
+Bahan bersama (dipakai semua episode, jangan disalin ke file episode):
+- `audio_lib.py`: instrumen dan efek suara yang disintesis (bebas hak cipta), reverb, penulisan WAV.
+- `tts_gemini.py`: narasi Gemini TTS, satu WAV per kalimat.
+- `mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).
 - `render.js`: render per frame lewat Playwright ke MP4 (`--jobs 3` untuk paralel, `--warp` untuk tempo baru).
 
-**Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini:
+Episode baru: salin file `ep04-*`, ganti isinya, dan pastikan jumlah kalimat narasi sama dengan jumlah teks layar.
+
+**Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
 python3 -m http.server 8080 &                                       # dari folder repo
 LD_TTS_OUT=build/suara.zip python3 video/ep03-tts-gemini.py        # --voice Leda untuk suara cewek
@@ -294,6 +301,7 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Arahan gaya harus singkat dan berbahasa Inggris. Arahan panjang berbahasa Indonesia ikut dibacakan oleh model 3.8.
 - Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
 - Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
+- Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia.
 - Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
 
 **Penutup video:** setiap video diakhiri ajakan follow, di suara dan di layar ("Biar nggak gampang ketipu harga, follow Logika Duit!" plus tombol "Follow Logika Duit" yang ditekan). Tanpa username.
