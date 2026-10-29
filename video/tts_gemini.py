@@ -212,6 +212,7 @@ def verify_and_fix(key, parts, rate, lines):
     if not model:
         return parts, ["(transkrip dilewati: tidak ada model teks)"]
     tr = [transcribe(key, model, p, rate) for p in parts]
+    tr = [t if t is not None else transcribe(key, model, p, rate) for t, p in zip(tr, parts)]   # sekali lagi kalau gagal
     fixed = set()
     for i in range(len(parts) - 1):
         a, b = tr[i], tr[i + 1]
