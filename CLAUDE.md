@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`) dan Episode 4 (antre makanan viral, `ep04-*`). Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), dan Episode 5 (duit Mixue, `ep05-*`, format pendek). Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -283,7 +283,15 @@ Bahan bersama (dipakai semua episode, jangan disalin ke file episode):
 - `mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).
 - `render.js`: render per frame lewat Playwright ke MP4 (`--jobs 3` untuk paralel, `--warp` untuk tempo baru).
 
-Episode baru: salin file `ep04-*`, ganti isinya, dan pastikan jumlah kalimat narasi sama dengan jumlah teks layar.
+Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat narasi sama dengan jumlah teks layar.
+
+**Format video (pelajaran dari EP3 dan EP4, sekitar 50 detik, sepi penonton):**
+- Durasi 20–30 detik, satu poin saja.
+- Kalimat pertama berupa pernyataan berani yang menyangkut penonton, terdengar sejak detik 0, dan frame pertama bisa jadi cover.
+- Pakai contoh lokal yang dikenal semua orang (Mixue, Indomaret, Shopee, gaji UMR). Riset tetap wajib, tapi cukup ditulis di struk dan caption.
+- Tutup dengan pertanyaan yang memancing komentar, lalu ajakan follow.
+- Buat juga versi tanpa musik (`LD_NO_MUSIC=1 python3 video/epNN-mix.py final ...`), supaya ALFA bisa menambah suara yang sedang tren di aplikasi.
+- Jangan memakai logo atau maskot merek; cukup sebut namanya.
 
 **Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
@@ -301,7 +309,9 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Arahan gaya harus singkat dan berbahasa Inggris. Arahan panjang berbahasa Indonesia ikut dibacakan oleh model 3.8.
 - Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
 - Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
-- Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia.
+- Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia. Nama merek ditulis sesuai ucapan ("Miksue" untuk Mixue); teks layar tetap ejaan asli.
+- Model kadang ikut membacakan arahan gaya di awal, tidak menentu (arahan yang sama pernah aman). `tts_gemini.py` mengecek transkrip 8 detik pertama dan membuang bagian itu otomatis. Arahan lain ("energetic, punchy") lebih sering ikut dibacakan, jadi jangan diganti.
+- Transkrip yang jauh dari naskah ditandai "TIDAK COCOK". Kalau muncul, dengarkan potongannya sebelum dipakai.
 - Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
 
 **Penutup video:** setiap video diakhiri ajakan follow, di suara dan di layar ("Biar nggak gampang ketipu harga, follow Logika Duit!" plus tombol "Follow Logika Duit" yang ditekan). Tanpa username.

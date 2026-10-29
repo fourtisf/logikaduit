@@ -5,6 +5,7 @@
 #   python3 video/epNN-mix.py final <video.mp4> <folder> <hasil.mp4>
 #       -> gabung video + music.wav + sfx.wav + vo.wav dari <folder>; musik otomatis mengecil saat ada suara,
 #          lalu loudness -14 LUFS (standar TikTok/Reels). Video dikompres ke ukuran kecil yang tetap HD (CRF 23).
+#          LD_NO_MUSIC=1: tanpa musik latar (narasi + efek saja), supaya bisa ditambah suara yang sedang tren di aplikasi.
 # Zip berasal dari epNN-tts-gemini.py (01.wav, 02.wav, ... + lines.json).
 import json, os, subprocess, sys, tempfile, wave, zipfile
 from dataclasses import dataclass, field
@@ -88,7 +89,7 @@ def mix_filter(k):
     """Filter mixing; k = nomor input pertama (music, lalu sfx, lalu vo).
     Musik mengecil otomatis saat narasi terdengar (sidechain), efek suara di tengah, narasi paling depan."""
     return (f'[{k + 2}:a]aformat=channel_layouts=stereo,asplit=2[vo][key];'
-            f'[{k}:a]volume=0.34[mu];[mu][key]sidechaincompress=threshold=0.02:ratio=6:attack=20:release=420:makeup=1[duck];'
+            f'[{k}:a]volume={0 if os.environ.get("LD_NO_MUSIC") == "1" else 0.34}[mu];[mu][key]sidechaincompress=threshold=0.02:ratio=6:attack=20:release=420:makeup=1[duck];'
             f'[{k + 1}:a]volume=0.62[fx];'
             '[duck][fx][vo]amix=inputs=3:normalize=0:duration=longest')
 

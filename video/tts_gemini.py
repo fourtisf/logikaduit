@@ -206,8 +206,8 @@ def text_model(key):
 
 
 def verify_and_fix(key, parts, rate, lines):
-    """Transkrip tiap potongan. Kalau kata terakhir sebuah kalimat terbawa ke potongan berikutnya (atau
-    sebaliknya), pindahkan batasnya ke jeda terdekat, lalu cek ulang. Mengembalikan (parts, laporan)."""
+    """Transkrip tiap potongan. Kalau kata-kata terakhir sebuah kalimat terbawa ke potongan berikutnya (atau
+    sebaliknya), pindahkan batasnya ke jeda terpanjang di dekatnya, lalu cek ulang. Mengembalikan (parts, laporan)."""
     model = text_model(key)
     if not model:
         return parts, ["(transkrip dilewati: tidak ada model teks)"]
@@ -217,24 +217,56 @@ def verify_and_fix(key, parts, rate, lines):
         a, b = tr[i], tr[i + 1]
         if a is None or b is None:
             continue
-        last_i, first_n = words(lines[i])[-1], words(lines[i + 1])[0]
-        wb, wa = words(b), words(a)
-        if wb and wb[0] == last_i and wb[0] != first_n:        # ekor kalimat i masuk ke potongan i+1
-            gaps = [g for g in pauses(parts[i + 1], rate) if g[0] > 0.05]
+        li, ln = words(lines[i]), words(lines[i + 1])
+        wa, wb = words(a), words(b)
+        # berapa kata (maksimal 3) yang terbawa: ekor kalimat i di awal potongan i+1, atau awal kalimat i+1 di akhir potongan i.
+        # Kalau lebih dari satu kata, jeda koma ikut terbawa, jadi batas baru = jeda terpanjang (akhir kalimat).
+        tail = max((k for k in range(1, 4) if wb[:k] == li[-k:] and wb[:k] != ln[:k]), default=0)
+        head = max((k for k in range(1, 4) if wa[-k:] == ln[:k] and wa[-k:] != li[-k:]), default=0)
+        longest = lambda gs: max(gs, key=lambda g: g[1] - g[0])
+        if tail:
+            gaps = [g for g in pauses(parts[i + 1], rate) if g[0] > 0.05][:tail]
             if gaps:
-                k = int((gaps[0][0] + gaps[0][1]) / 2 * rate) * 2
+                g = longest(gaps)
+                k = int((g[0] + g[1]) / 2 * rate) * 2
                 parts[i], parts[i + 1] = parts[i] + parts[i + 1][:k], parts[i + 1][k:]
                 fixed.update((i, i + 1))
-        elif wa and wa[-1] == first_n and wa[-1] != last_i:    # awal kalimat i+1 masuk ke potongan i
-            gaps = [g for g in pauses(parts[i], rate) if g[1] < len(parts[i]) / 2 / rate - 0.05]
+        elif head:
+            gaps = [g for g in pauses(parts[i], rate) if g[1] < len(parts[i]) / 2 / rate - 0.05][-head:]
             if gaps:
-                k = int((gaps[-1][0] + gaps[-1][1]) / 2 * rate) * 2
+                g = longest(gaps)
+                k = int((g[0] + g[1]) / 2 * rate) * 2
                 parts[i], parts[i + 1] = parts[i][:k], parts[i][k:] + parts[i + 1]
                 fixed.update((i, i + 1))
     for i in sorted(fixed):
         tr[i] = transcribe(key, model, parts[i], rate)
-    report = [f"{i + 1:2d} {'(diperbaiki) ' if i in fixed else ''}terdengar: {t}" for i, t in enumerate(tr)]
+    report = [f"{i + 1:2d} {'(diperbaiki) ' if i in fixed else ''}{'' if t is None or match(lines[i], t) else 'TIDAK COCOK, '}terdengar: {t}"
+              for i, t in enumerate(tr)]
     return parts, report
+
+
+NUMBER_WORDS = set("nol satu dua tiga empat lima enam tujuh delapan sembilan sepuluh sebelas belas puluh ratus seratus ribu seribu "
+                   "juta koma persen".split())
+
+
+def match(expected, heard):
+    """True kalau sebagian besar kata naskah terdengar di potongan dan potongan tidak jauh lebih panjang (kalimat menyatu).
+    Angka tidak dihitung, karena transkrip menulisnya dengan digit ("97,6%")."""
+    e = [w for w in words(expected) if w not in NUMBER_WORDS]
+    h = words(heard)
+    return len(set(e) & set(h)) >= .6 * len(set(e)) and len(h) <= 1.6 * len(e) + 2
+
+
+def split_checked(key, pcm, rate, lines):
+    """Potong per kalimat. Model kadang ikut membacakan arahan gaya di awal (tidak menentu, arahan yang sama
+    pernah aman); kalau transkrip awal audio berisi arahan itu, potong jadi satu bagian lebih lalu buang yang pertama."""
+    model = text_model(key)
+    head = pcm[:min(len(pcm), rate * 2 * 8)]           # 8 detik pertama
+    heard = transcribe(key, model, head, rate) if model else None
+    if heard and len(set(words(DIRECTION)) & set(words(heard))) >= 4:
+        print("Arahan gaya ikut dibacakan di awal; bagian itu dibuang.")
+        return split_lines(pcm, rate, [DIRECTION] + lines)[1:]
+    return split_lines(pcm, rate, lines)
 
 
 def wav_bytes(pcm, rate):
@@ -267,10 +299,12 @@ def main(lines, default_out):
     print(f"Narasi {dur:.1f} detik (perkiraan {expected:.0f} detik)")
     if dur > expected * 1.8:
         print("PERINGATAN: narasi jauh lebih panjang dari naskah. Mungkin arahan gaya ikut dibacakan; cek full.wav.")
-    parts = split_lines(pcm, rate, lines)
+    parts = split_checked(key, pcm, rate, lines)
     print("Memeriksa tiap potongan dengan transkrip...")
     parts, report = verify_and_fix(key, parts, rate, lines)
     print("\n".join(report))
+    if any("TIDAK COCOK" in r for r in report):
+        print("PERINGATAN: ada potongan yang tidak cocok dengan naskah. Dengarkan full.wav dan potongannya sebelum dipakai.")
     meta = {"model": m, "voice": voice, "lines": [], "transkrip": report}
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr("full.wav", wav_bytes(pcm, rate))
