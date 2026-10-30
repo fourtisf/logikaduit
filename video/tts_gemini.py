@@ -258,16 +258,20 @@ def match(expected, heard):
     return len(set(e) & set(h)) >= .6 * len(set(e)) and len(h) <= 1.6 * len(e) + 2
 
 
-def split_checked(key, pcm, rate, lines):
-    """Potong per kalimat. Model kadang ikut membacakan arahan gaya di awal (tidak menentu, arahan yang sama
-    pernah aman); kalau transkrip awal audio berisi arahan itu, potong jadi satu bagian lebih lalu buang yang pertama."""
-    model = text_model(key)
-    head = pcm[:min(len(pcm), rate * 2 * 8)]           # 8 detik pertama
-    heard = transcribe(key, model, head, rate) if model else None
-    if heard and len(set(words(DIRECTION)) & set(words(heard))) >= 4:
+def split_verified(key, pcm, rate, lines):
+    """Potong per kalimat lalu cek dengan transkrip. Mengembalikan (parts, laporan).
+    Model kadang ikut membacakan arahan gaya di awal (tidak menentu, arahan yang sama pernah aman). Transkrip
+    potongan pertama yang berisi arahan itu jadi tandanya: potong ulang jadi satu bagian lebih, lalu buang yang pertama.
+    (Transkrip 8 detik pertama tidak bisa dipakai: model transkrip melewatkan arahan berbahasa Inggris di tengah audio.)"""
+    parts, report = verify_and_fix(key, split_lines(pcm, rate, lines), rate, lines)
+    if spoke_direction(report[0]):
         print("Arahan gaya ikut dibacakan di awal; bagian itu dibuang.")
-        return split_lines(pcm, rate, [DIRECTION] + lines)[1:]
-    return split_lines(pcm, rate, lines)
+        parts, report = verify_and_fix(key, split_lines(pcm, rate, [DIRECTION] + lines)[1:], rate, lines)
+    return parts, report
+
+
+def spoke_direction(text):
+    return len(set(words(DIRECTION)) & set(words(text))) >= 4
 
 
 def wav_bytes(pcm, rate):
@@ -300,9 +304,8 @@ def main(lines, default_out):
     print(f"Narasi {dur:.1f} detik (perkiraan {expected:.0f} detik)")
     if dur > expected * 1.8:
         print("PERINGATAN: narasi jauh lebih panjang dari naskah. Mungkin arahan gaya ikut dibacakan; cek full.wav.")
-    parts = split_checked(key, pcm, rate, lines)
-    print("Memeriksa tiap potongan dengan transkrip...")
-    parts, report = verify_and_fix(key, parts, rate, lines)
+    print("Memotong per kalimat dan memeriksa tiap potongan dengan transkrip...")
+    parts, report = split_verified(key, pcm, rate, lines)
     print("\n".join(report))
     if any("TIDAK COCOK" in r for r in report):
         print("PERINGATAN: ada potongan yang tidak cocok dengan naskah. Dengarkan full.wav dan potongannya sebelum dipakai.")

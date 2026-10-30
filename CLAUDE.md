@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`, format pendek), dan Episode 6 (isi snack makin kecil, `ep06-*`, format pendek). Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), dan Episode 7 (gaji naik 5%, `ep07-*`); EP5 sampai EP7 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -310,7 +310,7 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
 - Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
 - Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia. Nama merek ditulis sesuai ucapan ("Miksue" untuk Mixue); teks layar tetap ejaan asli.
-- Model kadang ikut membacakan arahan gaya di awal, tidak menentu (arahan yang sama pernah aman). `tts_gemini.py` mengecek transkrip 8 detik pertama dan membuang bagian itu otomatis. Arahan lain ("energetic, punchy") lebih sering ikut dibacakan, jadi jangan diganti.
+- Model kadang ikut membacakan arahan gaya di awal, tidak menentu (arahan yang sama pernah aman; terjadi di EP5, EP6, EP7). `tts_gemini.py` mengenalinya dari transkrip potongan pertama, lalu memotong ulang dan membuang bagian itu otomatis. Transkrip 8 detik pertama tidak bisa dipakai untuk ini, karena model transkrip melewatkan kalimat bahasa Inggris di tengah audio. Arahan lain ("energetic, punchy") lebih sering ikut dibacakan, jadi jangan diganti.
 - Transkrip yang jauh dari naskah ditandai "TIDAK COCOK". Kalau muncul, dengarkan potongannya sebelum dipakai.
 - Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
 
