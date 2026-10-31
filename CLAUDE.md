@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), dan Episode 7 (gaji naik 5%, `ep07-*`); EP5 sampai EP7 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), dan Episode 8 (diskon 50% + 20%, `ep08-*`); EP5 sampai EP8 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.

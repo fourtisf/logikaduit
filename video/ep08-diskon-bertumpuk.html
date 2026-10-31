@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP8: diskon 50% + 20% (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong.
+   Format pendek (sekitar 28 detik): hook kuis "diskon 50% + 20% = berapa?", struk belanja, riset di toko, ajakan simpan. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+.fcoin{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:22px;color:#032015;
+  background:radial-gradient(circle at 34% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 0 3px rgba(3,32,21,.35) inset,0 0 24px rgba(46,230,160,.5)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+.stamp{padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:60px;letter-spacing:-.02em;white-space:nowrap;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+
+
+/* label harga + stiker diskon */
+#tag{left:190px;top:700px;width:700px;height:260px;transform-origin:34px 130px}
+#tag svg{position:absolute;inset:0}
+#tag .nm{position:absolute;left:130px;top:40px;font-size:34px;color:var(--sage);font-weight:700}
+#tag .pr{position:absolute;left:128px;top:92px;font-size:116px;font-weight:800;letter-spacing:-.045em;line-height:1}
+.stk{width:230px;height:230px;display:grid;place-items:center;z-index:3002}
+.stk svg{position:absolute;inset:0}
+.stk div{position:relative;text-align:center}
+.stk small{display:block;font-size:24px;font-weight:800;color:#03251A;margin-bottom:-2px}
+.stk b{display:block;font-size:70px;font-weight:800;letter-spacing:-.04em;color:#032015;line-height:1}
+/* kuis */
+.ans{width:380px;height:150px;border-radius:40px;display:grid;place-items:center;font-size:96px;font-weight:800;letter-spacing:-.04em;
+  background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset,0 30px 80px -30px #000;z-index:3000}
+#stamp1,#stamp2,#stamp3{left:0;top:0}
+/* struk belanja */
+#rcp{left:190px;top:680px;width:700px;padding:30px 40px 44px;box-sizing:border-box;font:500 32px/1.4 var(--mono);color:#CFE6DB;
+  background:linear-gradient(180deg,#0D2A20,#081D16);border-radius:16px 16px 0 0;box-shadow:0 50px 120px -40px #000;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 16px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/24px 16px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 16px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/24px 16px repeat-x}
+#rcp h5{margin:0 0 12px;padding-bottom:14px;font:700 30px var(--mono);color:var(--mint);display:flex;justify-content:space-between;border-bottom:2px dashed rgba(157,245,207,.3)}
+#rcp h5 span{color:var(--sage);font-weight:500}
+.rl{display:flex;justify-content:space-between;align-items:center;height:62px;border-radius:12px;padding:0 12px;margin:0 -12px;overflow:hidden}
+.rl.note{height:44px;font-size:24px;color:var(--sage)}
+.rl.tot{height:96px;margin-top:12px;border-top:2px dashed rgba(157,245,207,.3);font:700 44px var(--mono);color:var(--ice);border-radius:0 0 12px 12px}
+.rl.tot em{text-shadow:0 0 30px rgba(46,230,160,.6)}
+/* riset: diskon 40% vs 20% + 25% */
+.deal{width:430px;height:560px;padding:30px 30px;box-sizing:border-box;text-align:center}
+.deal small{display:block;font-size:30px;color:var(--sage);font-weight:700}
+.deal .st{position:relative;height:220px;margin:12px 0 10px}
+.deal .st .stk{position:absolute;transform-origin:50% 50%}
+.deal .pay small{font-size:26px}
+.deal .pay b{display:block;font-size:64px;font-weight:800;letter-spacing:-.035em;margin-top:2px}
+.deal .tr{height:22px;border-radius:11px;background:rgba(157,245,207,.12);position:relative;margin-top:26px}
+.deal .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:11px}
+.deal .tl{display:flex;justify-content:space-between;font-size:26px;color:var(--sage);font-weight:700;margin-top:12px}
+#eq{left:0;top:1010px;width:1080px;text-align:center;z-index:3002}
+#eq span{display:inline-grid;place-items:center;width:84px;height:84px;border-radius:50%;font-size:60px;font-weight:800;color:#032015;
+  background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 40px rgba(46,230,160,.7)}
+#src{left:0;top:1290px;width:1080px;text-align:center;font:500 24px var(--mono);color:var(--sage)}
+/* ajakan simpan */
+#save{left:110px;top:700px;width:860px;padding:44px 46px;box-sizing:border-box;text-align:center;box-shadow:0 0 0 3px rgba(46,230,160,.45) inset,0 0 80px -20px rgba(46,230,160,.45),0 50px 120px -40px #000}
+#save .bm{position:relative;width:200px;height:240px;margin:0 auto 18px}
+#save .bm svg{position:absolute;inset:0}
+#save b{display:block;font-size:56px;font-weight:800;letter-spacing:-.03em}
+#save .in{display:flex;align-items:center;gap:18px;height:100px;border-radius:50px;padding:0 18px 0 30px;margin-top:34px;text-align:left;
+  background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset;font-size:34px;font-weight:700;color:var(--sage)}
+#save .in span{flex:1;white-space:nowrap}
+#save .in i{display:inline-block;width:4px;height:42px;background:var(--emerald);vertical-align:middle;margin-left:4px}
+#save .in u{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#8CF7CB,var(--emerald));flex:none}
+#save .in u svg{width:32px;height:32px}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div><div id="fcoins"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <!-- 1-2. label harga, stiker diskon, kuis -->
+    <div id="tag" class="abs top"><svg viewBox="0 0 700 260"><defs><linearGradient id="tgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14402F"/><stop offset="1" stop-color="#081D16"/></linearGradient></defs>
+      <path d="M70 6H688a6 6 0 0 1 6 6V248a6 6 0 0 1-6 6H70L6 130Z" fill="url(#tgA)" stroke="#2EE6A0" stroke-opacity=".8" stroke-width="4" stroke-linejoin="round"/>
+      <circle cx="70" cy="130" r="16" fill="#020906" stroke="#9DF5CF" stroke-opacity=".5" stroke-width="3"/></svg>
+      <span class="nm">Sepatu</span><span class="pr">Rp100.000</span></div>
+    <div id="s50" class="abs stk"><svg viewBox="0 0 230 230"><defs><radialGradient id="sgA" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#C8FBE4"/><stop offset="1" stop-color="#2EE6A0"/></radialGradient></defs><path d="M115.0 5.0 L132.9 24.8 L157.1 13.4 L166.1 38.5 L192.8 37.2 L191.5 63.9 L216.6 72.9 L205.2 97.1 L225.0 115.0 L205.2 132.9 L216.6 157.1 L191.5 166.1 L192.8 192.8 L166.1 191.5 L157.1 216.6 L132.9 205.2 L115.0 225.0 L97.1 205.2 L72.9 216.6 L63.9 191.5 L37.2 192.8 L38.5 166.1 L13.4 157.1 L24.8 132.9 L5.0 115.0 L24.8 97.1 L13.4 72.9 L38.5 63.9 L37.2 37.2 L63.9 38.5 L72.9 13.4 L97.1 24.8Z" fill="url(#sgA)" stroke="#E6FFF4" stroke-opacity=".55" stroke-width="3" stroke-linejoin="round"/></svg><div><small>Diskon</small><b>50%</b></div></div>
+    <div id="s20" class="abs stk"><svg viewBox="0 0 230 230"><defs><radialGradient id="sgB" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#9DF5CF"/></radialGradient></defs><path d="M115.0 5.0 L132.9 24.8 L157.1 13.4 L166.1 38.5 L192.8 37.2 L191.5 63.9 L216.6 72.9 L205.2 97.1 L225.0 115.0 L205.2 132.9 L216.6 157.1 L191.5 166.1 L192.8 192.8 L166.1 191.5 L157.1 216.6 L132.9 205.2 L115.0 225.0 L97.1 205.2 L72.9 216.6 L63.9 191.5 L37.2 192.8 L38.5 166.1 L13.4 157.1 L24.8 132.9 L5.0 115.0 L24.8 97.1 L13.4 72.9 L38.5 63.9 L37.2 37.2 L63.9 38.5 L72.9 13.4 L97.1 24.8Z" fill="url(#sgB)" stroke="#E6FFF4" stroke-opacity=".55" stroke-width="3" stroke-linejoin="round"/></svg><div><small>Tambahan</small><b>20%</b></div></div>
+    <div id="a70" class="abs ans">70%</div>
+    <div id="a60" class="abs ans">60%</div>
+    <div id="stamp1" class="abs stamp top">Salah</div>
+
+    <!-- 3-4. struk belanja -->
+    <div id="rcp" class="abs top"><h5>Struk belanja <span>11.11</span></h5>
+      <div class="rl" id="r1"><span>Sepatu</span><span>Rp100.000</span></div>
+      <div class="rl" id="r2"><span>Diskon 50%</span><span>-Rp50.000</span></div>
+      <div class="rl" id="r3"><span>Subtotal</span><span>Rp50.000</span></div>
+      <div class="rl" id="r4"><span>Diskon 20%</span><span>-Rp10.000</span></div>
+      <div class="rl note" id="r5"><span>20% dari Rp50.000, bukan Rp100.000</span></div>
+      <div class="rl tot" id="r6"><span>Bayar</span><em>Rp40.000</em></div></div>
+    <div id="stamp2" class="abs stamp top">Hemat 60%</div>
+
+    <!-- 5-6. riset di toko -->
+    <div id="dA" class="abs glass deal top"><small>Toko A</small><div class="st"><div class="stk" id="dA1" style="left:85px;top:-5px"><svg viewBox="0 0 230 230"><defs><radialGradient id="sgC" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#C8FBE4"/><stop offset="1" stop-color="#2EE6A0"/></radialGradient></defs><path d="M115.0 5.0 L132.9 24.8 L157.1 13.4 L166.1 38.5 L192.8 37.2 L191.5 63.9 L216.6 72.9 L205.2 97.1 L225.0 115.0 L205.2 132.9 L216.6 157.1 L191.5 166.1 L192.8 192.8 L166.1 191.5 L157.1 216.6 L132.9 205.2 L115.0 225.0 L97.1 205.2 L72.9 216.6 L63.9 191.5 L37.2 192.8 L38.5 166.1 L13.4 157.1 L24.8 132.9 L5.0 115.0 L24.8 97.1 L13.4 72.9 L38.5 63.9 L37.2 37.2 L63.9 38.5 L72.9 13.4 L97.1 24.8Z" fill="url(#sgC)" stroke="#E6FFF4" stroke-opacity=".55" stroke-width="3" stroke-linejoin="round"/></svg><div><small>Diskon</small><b>40%</b></div></div></div>
+      <div class="pay"><small>Bayar</small><b>Rp60.000</b></div><div class="tr"><i id="bA" style="background:linear-gradient(90deg,#2C5E4B,#8BA79B)"></i></div><div class="tl"><span>Pembeli</span><span></span></div></div>
+    <div id="dB" class="abs glass deal top"><small>Toko B</small><div class="st">
+      <div class="stk" id="dB1" style="left:10px;top:20px;transform:scale(.8)"><svg viewBox="0 0 230 230"><defs><radialGradient id="sgD" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#C8FBE4"/><stop offset="1" stop-color="#2EE6A0"/></radialGradient></defs><path d="M115.0 5.0 L132.9 24.8 L157.1 13.4 L166.1 38.5 L192.8 37.2 L191.5 63.9 L216.6 72.9 L205.2 97.1 L225.0 115.0 L205.2 132.9 L216.6 157.1 L191.5 166.1 L192.8 192.8 L166.1 191.5 L157.1 216.6 L132.9 205.2 L115.0 225.0 L97.1 205.2 L72.9 216.6 L63.9 191.5 L37.2 192.8 L38.5 166.1 L13.4 157.1 L24.8 132.9 L5.0 115.0 L24.8 97.1 L13.4 72.9 L38.5 63.9 L37.2 37.2 L63.9 38.5 L72.9 13.4 L97.1 24.8Z" fill="url(#sgD)" stroke="#E6FFF4" stroke-opacity=".55" stroke-width="3" stroke-linejoin="round"/></svg><div><small>Diskon</small><b>20%</b></div></div>
+      <div class="stk" id="dB2" style="left:150px;top:-10px;transform:scale(.8)"><svg viewBox="0 0 230 230"><defs><radialGradient id="sgE" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#9DF5CF"/></radialGradient></defs><path d="M115.0 5.0 L132.9 24.8 L157.1 13.4 L166.1 38.5 L192.8 37.2 L191.5 63.9 L216.6 72.9 L205.2 97.1 L225.0 115.0 L205.2 132.9 L216.6 157.1 L191.5 166.1 L192.8 192.8 L166.1 191.5 L157.1 216.6 L132.9 205.2 L115.0 225.0 L97.1 205.2 L72.9 216.6 L63.9 191.5 L37.2 192.8 L38.5 166.1 L13.4 157.1 L24.8 132.9 L5.0 115.0 L24.8 97.1 L13.4 72.9 L38.5 63.9 L37.2 37.2 L63.9 38.5 L72.9 13.4 L97.1 24.8Z" fill="url(#sgE)" stroke="#E6FFF4" stroke-opacity=".55" stroke-width="3" stroke-linejoin="round"/></svg><div><small>Tambahan</small><b>25%</b></div></div></div>
+      <div class="pay"><small>Bayar</small><b>Rp60.000</b></div><div class="tr"><i id="bB" style="background:linear-gradient(90deg,#0E8F64,#2EE6A0);box-shadow:0 0 22px rgba(46,230,160,.6)"></i></div><div class="tl"><span>Pembeli</span><em id="laku">lebih laku</em></div></div>
+    <div id="eq" class="abs"><span>=</span></div>
+    <div id="stamp3" class="abs stamp top">Sama persis</div>
+    <div id="src" class="abs">Chen &amp; Rao (2007), uji di toko sungguhan</div>
+
+    <!-- 7. ajakan simpan -->
+    <div id="save" class="abs glass top"><div class="bm"><svg viewBox="0 0 200 240"><path id="bmP" d="M30 14h140a10 10 0 0 1 10 10v202l-80-56-80 56V24a10 10 0 0 1 10-10z" fill="rgba(46,230,160,0)" stroke="#2EE6A0" stroke-width="10" stroke-linejoin="round"/></svg></div>
+      <b>Simpan buat 11.11</b>
+      <div class="in"><span>Pernah salah hitung diskon?<i id="caret"></i></span><u><svg viewBox="0 0 34 34" fill="none" stroke="#032015" stroke-width="4" stroke-linejoin="round"><path d="M4 16L30 4 22 30 16 19z"/></svg></u></div></div>
+
+    <!-- 8. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 8</span></h5><ol>
+      <li>Chen, H. &amp; Rao, A. R. (2007). <i>When Two Plus Two Is Not Equal to Four: Errors in Processing Multiple Percentage Changes.</i> Journal of Consumer Research, 34(3), 327–340.</li></ol>
+      <p>Harga sepatu dan struk belanja hanya ilustrasi.</p></div>
+    <div id="ripple" class="abs"></div>
+    <div id="finger" class="abs"></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 28.6;
+const OUT = 24.2;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 3.15, 'Diskon *50%* + *20%*. | Jadi diskon | berapa?'],
+  [3.2, 5.55, 'Kalau jawabmu *70%*, | kamu _salah_.'],
+  [5.6, 8.95, 'Diskon kedua dihitung | dari harga yang | sudah dipotong.'],
+  [9.0, 13.95, 'Rp100 ribu jadi 50 ribu, | lalu jadi 40 ribu. | Totalnya cuma *60%*.'],
+  [14.0, 15.95, 'Dan salah hitung ini | *menguntungkan* toko.'],
+  [16.0, 21.45, 'Diskon 20% + 25% lebih | *laku* dari diskon 40%, | padahal *sama* *persis*.'],
+  [21.5, 24.15, 'Simpan buat *11.11*! | Pernah salah | hitung diskon?'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, koin melayang, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+// koin "Rp" melayang di belakang (seperti koin di hero website), dengan blur kedalaman
+const fcoins = Array.from({ length: 8 }, (_, i) => { const d = document.createElement('i'); d.className = 'fcoin'; d.textContent = 'Rp'; $('fcoins').appendChild(d);
+  return { d, x: [70, 1010, 40, 1040, 120, 960, 520, 300][i], y: [640, 700, 1180, 1250, 1470, 1460, 560, 1520][i], s: .6 + rnd() * .8, ph: rnd() * 6, sp: .4 + rnd() * .5, blur: [1, 3, 5, 2, 4, 6, 3, 5][i] }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const on = Math.max(1 - seg(t, 5.2, 5.6), win(t, 21.5, OUT, .6, .4));   // koin melayang di hook dan ajakan simpan
+  fcoins.forEach(c => put(c.d, { o: .5 * on, x: c.x - 32 + 20 * Math.sin(t * c.sp + c.ph), y: c.y - 32 + 26 * Math.cos(t * c.sp * .8 + c.ph),
+    s: c.s, r: 25 * Math.sin(t * c.sp + c.ph), blur: c.blur }));
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+
+/* ---------- adegan ---------- */
+const AT = { follow: { x: 540, y: 1050 } };
+const A70 = { x: 130, y: 1150 }, A60 = { x: 570, y: 1150 };
+
+function renderHook(t) {
+  // label harga, dua stiker diskon menempel, lalu kuis 70% vs 60%
+  const o = win(t, -1, 5.55, .5, .4), out = seg(t, 5.15, 5.55);
+  const sw = 2.5 * Math.sin(t * 1.7) + 2 * Math.sin(Math.PI * seg(t, .5, 1.0)) * (1 - seg(t, .5, 1.0)) * 4;
+  put($('tag'), { o, y: 6 * Math.sin(t * 1.5) - out * 30, r: sw, s: 1 - out * .05, blur: out * 12 });
+  const s1 = seg(t, .45, .8), s2 = seg(t, 1.05, 1.4);
+  put($('s50'), { o: s1 > 0 ? Math.min(1, s1 * 4) * (1 - out) : 0, x: 700, y: 560 + 6 * Math.sin(t * 1.5), s: lerp(2.6, 1, eBack(s1)), r: 12 + 3 * Math.sin(t * 1.3), blur: out * 12 });
+  put($('s20'), { o: s2 > 0 ? Math.min(1, s2 * 4) * (1 - out) : 0, x: 835, y: 900 + 6 * Math.sin(t * 1.5), s: lerp(2.4, .82, eBack(s2)), r: -10 + 3 * Math.sin(t * 1.1), blur: out * 12 });
+  // jawaban kuis
+  const qa = eBack(seg(t, 1.6, 2.0)), qb = eBack(seg(t, 1.72, 2.12));
+  const picked = t >= 2.9, wrong = t >= 4.6;
+  put($('a70'), { o: o * clamp(qa * 3) * (wrong ? 1 - .35 * seg(t, 4.6, 4.9) : 1), x: A70.x, y: A70.y - out * 30, s: lerp(.5, 1, qa) * (picked && !wrong ? 1 + .04 * win(t, 2.9, 3.4, .1, .3) : 1), blur: out * 12 });
+  put($('a60'), { o: o * clamp(qb * 3), x: A60.x, y: A60.y - out * 30, s: lerp(.5, 1, qb) * (wrong ? 1 + .05 * win(t, 4.7, 5.5, .2, .3) : 1), blur: out * 12 });
+  const g70 = picked ? 1 : 0, g60 = wrong ? win(t, 4.7, 5.55, .25, .3) : 0;
+  $('a70').style.boxShadow = `0 0 0 ${(3 + 2 * g70).toFixed(1)}px rgba(${wrong ? '139,167,155' : '46,230,160'},${(.3 + .5 * g70).toFixed(2)}) inset,0 30px 80px -30px #000`;
+  $('a70').style.color = picked && !wrong ? '#2EE6A0' : wrong ? '#8BA79B' : '';
+  $('a60').style.boxShadow = `0 0 0 ${(3 + 3 * g60).toFixed(1)}px rgba(46,230,160,${(.3 + .6 * g60).toFixed(2)}) inset,0 0 ${(80 * g60).toFixed(0)}px -10px rgba(46,230,160,.6),0 30px 80px -30px #000`;
+  $('a60').style.color = g60 > .5 ? '#2EE6A0' : '';
+  // jari ragu-ragu, lalu memilih 70%
+  const hover = .5 - .5 * Math.cos(Math.PI * 2 * seg(t, 1.9, 2.7) * 1.0);
+  const fx = lerp(A70.x + 190, A60.x + 190, t < 2.7 ? 1 - hover : 0) - 35, fy = A70.y + 75 - 35;
+  const tap = seg(t, 2.85, 3.3);
+  put($('finger'), { o: win(t, 1.8, 3.5, .2, .3), x: fx, y: lerp(1560, fy, eOut(seg(t, 1.8, 2.1))), s: tap > 0 && tap < .3 ? .82 : 1 });
+  put($('ripple'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: fx, y: fy, s: 1 + tap * 2.4 });
+  // cap "Salah" di jawaban 70%
+  const st = seg(t, 4.6, 4.95), stw = $('stamp1').offsetWidth;
+  put($('stamp1'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: A70.x + 190 - stw / 2, y: A70.y + 30, s: lerp(2.6, 1, eBack(st)), r: -8 });
+  return { shake: shake(t, .48, .3, 8) + shake(t, 1.08, .3, 6) + shake(t, 4.63, .4, 13), flash: .3 * win(t, 2.9, 3.4, .05, .4) + .6 * win(t, 4.6, 5.2, .05, .5) };
+}
+
+function renderReceipt(t) {
+  // struk tercetak baris demi baris: 100.000 -> 50.000 -> 40.000
+  const o = win(t, 5.6, 13.95, .5, .4), e = eExpo(seg(t, 5.6, 6.3)), out = seg(t, 13.55, 13.95);
+  put($('rcp'), { o, y: (1 - e) * 140 - out * 30, s: 1 - out * .05, blur: (1 - e) * 10 + out * 12 });
+  const T0 = { r1: 6.0, r2: 6.6, r3: 7.2, r4: 7.8, r5: 8.2, r6: 10.0 };
+  Object.entries(T0).forEach(([id, t0]) => {
+    const el = $(id), p = eOut(seg(t, t0, t0 + .35)), full = id === 'r6' ? 96 : id === 'r5' ? 44 : 62;
+    el.style.height = (full * p).toFixed(1) + 'px'; el.style.opacity = p.toFixed(3);
+    if (id === 'r6') el.style.marginTop = (12 * p).toFixed(1) + 'px';
+  });
+  const h4 = win(t, 8.0, 9.4, .3, .3), h3 = win(t, 8.0, 9.4, .3, .3) * .6, h6 = win(t, 10.2, 13.9, .3, .3);
+  $('r4').style.background = `rgba(46,230,160,${(.16 * h4).toFixed(3)})`; $('r4').style.boxShadow = `0 0 0 2px rgba(46,230,160,${(.7 * h4).toFixed(2)}) inset`;
+  $('r3').style.background = `rgba(230,255,244,${(.07 * h3).toFixed(3)})`;
+  $('r6').style.background = `rgba(46,230,160,${(.12 * h6).toFixed(3)})`;
+  const st = seg(t, 11.6, 11.95), sw = $('stamp2').offsetWidth;
+  put($('stamp2'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: 860 - sw, y: $('rcp').offsetHeight + 680 - 40, s: lerp(2.6, 1, eBack(st)), r: -8 });
+  return { shake: shake(t, 11.63, .4, 12), flash: .5 * win(t, 11.6, 12.2, .05, .5) + .25 * win(t, 10.0, 10.6, .05, .4) };
+}
+
+function renderStore(t) {
+  // riset: diskon 20% + 25% lebih laku daripada diskon 40%, padahal bayarnya sama
+  const o = win(t, 14.0, 21.45, .5, .4), eA = eExpo(seg(t, 14.0, 14.7)), eB = eExpo(seg(t, 14.2, 14.9)), out = seg(t, 21.05, 21.45);
+  put($('dA'), { o, x: 90, y: 690 + (1 - eA) * 140 - out * 30, s: 1 - out * .05, blur: (1 - eA) * 12 + out * 12 });
+  put($('dB'), { o, x: 560, y: 690 + (1 - eB) * 140 - out * 30, s: (1 - out * .05) * (1 + .03 * win(t, 19.0, 21.4, .3, .3)), blur: (1 - eB) * 12 + out * 12 });
+  const st = (id, t0, base) => { const p = seg(t, t0, t0 + .35); $(id).style.transform = `scale(${(base * lerp(2.2, 1, eBack(p))).toFixed(3)}) rotate(${id === 'dB2' ? -8 : 8}deg)`; $(id).style.opacity = Math.min(1, p * 4).toFixed(2); };
+  st('dA1', 14.6, 1); st('dB1', 14.85, .8); st('dB2', 15.1, .8);
+  $('bA').style.width = (55 * eOut(seg(t, 17.6, 18.6))).toFixed(1) + '%';
+  $('bB').style.width = (85 * eOut(seg(t, 17.8, 18.9))).toFixed(1) + '%';
+  $('laku').style.opacity = eOut(seg(t, 18.9, 19.3)).toFixed(2);
+  const hl = win(t, 19.0, 21.4, .3, .3);
+  $('dB').style.boxShadow = `0 0 0 ${(2 + 3 * hl).toFixed(1)}px rgba(46,230,160,${(.14 + .6 * hl).toFixed(2)}) inset,0 0 ${(90 * hl).toFixed(0)}px -20px rgba(46,230,160,.6),0 50px 120px -40px rgba(0,0,0,.95)`;
+  const q = eBack(seg(t, 19.9, 20.25));
+  put($('eq'), { o: o * clamp(q * 3), s: lerp(.4, 1, q) });
+  const s3 = seg(t, 20.2, 20.55), sw = $('stamp3').offsetWidth;
+  put($('stamp3'), { o: s3 > 0 ? Math.min(1, s3 * 4) * (1 - out) : 0, x: 540 - sw / 2, y: 1150, s: lerp(2.6, 1, eBack(s3)), r: -6 });
+  put($('src'), { o: win(t, 16.4, 21.45, .4, .4) * .9, y: 0 });
+  return { shake: shake(t, 20.23, .4, 11), flash: .5 * win(t, 20.2, 20.8, .05, .5) };
+}
+
+function renderSave(t) {
+  // ajakan simpan: ikon simpan ditekan lalu terisi, kotak komentar
+  const o = win(t, 21.5, OUT + .05, .5, .4), e = eExpo(seg(t, 21.5, 22.2)), out = seg(t, OUT - .35, OUT + .05);
+  put($('save'), { o, y: (1 - e) * 120, s: lerp(.94, 1, e) * (1 - .04 * out), blur: (1 - e) * 12 + out * 12 });
+  const fill = eOut(seg(t, 22.75, 23.0));
+  $('bmP').setAttribute('fill', `rgba(46,230,160,${fill.toFixed(2)})`);
+  const bm = $('save').querySelector('.bm');
+  put(bm, { s: 1 + .12 * Math.sin(Math.PI * seg(t, 22.75, 23.15)) });
+  bm.style.filter = `drop-shadow(0 0 ${(40 * fill).toFixed(0)}px rgba(46,230,160,.7))`;
+  const bx = 540 - 35, by = 700 + 44 + 110 - 35, tap = seg(t, 22.7, 23.2);
+  put($('finger'), t > 21.5 ? { o: win(t, 22.1, 23.6, .2, .3), x: lerp(960, bx, eIO(seg(t, 22.1, 22.65))), y: lerp(1560, by, eIO(seg(t, 22.1, 22.65))), s: tap > 0 && tap < .3 ? .82 : 1 } : { o: 0 });
+  if (t > 21.5) put($('ripple'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: bx, y: by, s: 1 + tap * 2.6 });
+  $('caret').style.opacity = Math.sin(t * 9) > 0 ? 1 : 0;
+  return { flash: .35 * win(t, 22.75, 23.3, .05, .4) };
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan episode lain, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  const h = renderHook(t); sh += h.shake; flash += h.flash;
+  const r = renderReceipt(t); sh += r.shake; flash += r.flash;
+  const s = renderStore(t); sh += s.shake; flash += s.flash;
+  if (t > 21.5) flash += renderSave(t).flash; else { put($('save'), { o: 0 }); }
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  // kamera: zoom kecil di awal (pembuka langsung "masuk") + guncangan saat cap menghantam
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>
