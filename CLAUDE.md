@@ -310,7 +310,7 @@ Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap 
 **Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
 python3 -m http.server 8080 &                                       # dari folder repo
-LD_TTS_OUT=build/suara.zip python3 video/ep03-tts-gemini.py        # --voice Leda untuk suara cewek
+LD_TTS_OUT=build/suara.zip python3 video/ep03-tts-gemini.py        # suara Achird (sama dengan Ruang Pikir)
 python3 video/ep03-mix.py prep build/suara.zip build/
 python3 video/ep03-audio.py build/ build/warp.json
 node video/render.js http://127.0.0.1:8080/video/ep03-gratis-ongkir.html build/video.mp4 --warp build/warp.json --jobs 3
@@ -318,9 +318,11 @@ python3 video/ep03-mix.py final build/video.mp4 build/ build/ep03-final.mp4
 ```
 Kalau key belum ada, kirim versi musik + efek suara dan jelaskan cara menyimpan key ke ALFA. Render 42 detik butuh sekitar 10 sampai 20 menit. Angka dari riset di video wajib dicek ke sumber aslinya sebelum tayang.
 
+**Suara standar (pilihan ALFA, November 2026): sama dengan Ruang Pikir.** Voice `Achird` di model `gemini-3.1-flash-tts-preview`, dengan instruksi gaya panjang berbahasa Indonesia ("resep EP01" Ruang Pikir, ada di `DIRECTION` di `tts_gemini.py`; aslinya di repo `fourtisf/ruangpikir`, `video-engine/ep04_pura-pura-gapapa/vo_full.py`). ALFA menilai suara Puck (EP3–EP10 versi awal) dan contoh suara lain di model 3.8 jelek. Jangan ganti suara atau model tanpa persetujuan ALFA.
+
 Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Akun gratis: kuota TTS kecil per hari **per model**. Karena itu seluruh naskah dibacakan dalam **satu permintaan**, lalu dipotong per kalimat. Kalau kuota satu model habis, skrip pindah ke model TTS lain (`gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`, `gemini-3.1-flash-tts-preview`, dan seterusnya).
-- Arahan gaya harus singkat dan berbahasa Inggris. Arahan panjang berbahasa Indonesia ikut dibacakan oleh model 3.8.
+- Model 3.8 membacakan arahan gaya panjang berbahasa Indonesia; model 3.1 (yang dipakai sekarang) tidak. Kalau kuota 3.1 habis dan skrip pindah ke 3.8, arahan yang ikut terbaca dibuang otomatis.
 - Hasil potongan dicek otomatis dengan transkrip (`gemini-3.5-flash-lite`, kuota terpisah). Transkrip harus **satu klip per permintaan**; kalau banyak klip dikirim sekaligus, model mencampur isi antar-klip.
 - Model `gemini-2.5-flash` dan `gemini-2.5-flash-lite` sudah tidak tersedia untuk akun ini.
 - Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia. Nama merek ditulis sesuai ucapan ("Miksue" untuk Mixue); teks layar tetap ejaan asli.

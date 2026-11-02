@@ -9,9 +9,16 @@
 # Hanya pakai library bawaan Python.
 import array, base64, io, json, math, os, re, sys, time, urllib.error, urllib.request, wave, zipfile
 
-# arahan gaya dibuat singkat dan dalam bahasa Inggris supaya tidak ikut dibacakan
-DIRECTION = "Say in a warm, upbeat, casual Indonesian content-creator voice, slightly fast, with a clear pause between paragraphs:"
-MODELS = ["gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts", "gemini-3.1-flash-tts-preview",
+# Suara standar = suara Ruang Pikir (pilihan ALFA, November 2026): voice Achird di model gemini-3.1-flash-tts-preview
+# dengan instruksi gaya panjang "resep EP01" Ruang Pikir (repo fourtisf/ruangpikir, video-engine/ep04_pura-pura-gapapa/vo_full.py).
+# Model 3.1 tidak membacakan instruksi ini; model 3.8 (cadangan kalau kuota habis) kadang membacakannya, dan bagian itu
+# dibuang otomatis oleh split_verified().
+VOICE = "Achird"
+DIRECTION = ("Bacakan dalam bahasa Indonesia gaul yang santai, ramah, hangat dan ekspresif, seperti kreator konten TikTok "
+             "yang lagi cerita fakta seru ke temannya. Senyum saat bicara, intonasi naik di pertanyaan, antusias di bagian kejutan. "
+             "Tempo agak cepat dan energik, jangan lambat. Di kalimat pertama terdengar penasaran, di bagian angka riset terdengar kaget, "
+             "di bagian akhir hangat menenangkan. Beri jeda sekitar satu detik di antara setiap baris.")
+MODELS = ["gemini-3.1-flash-tts-preview", "gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts",
           "gemini-2.5-flash-preview-tts", "gemini-2.5-pro-preview-tts"]
 BASE = os.environ.get("GEMINI_BASE", "https://generativelanguage.googleapis.com")
 
@@ -264,14 +271,15 @@ def split_verified(key, pcm, rate, lines):
     potongan pertama yang berisi arahan itu jadi tandanya: potong ulang jadi satu bagian lebih, lalu buang yang pertama.
     (Transkrip 8 detik pertama tidak bisa dipakai: model transkrip melewatkan arahan berbahasa Inggris di tengah audio.)"""
     parts, report = verify_and_fix(key, split_lines(pcm, rate, lines), rate, lines)
-    if spoke_direction(report[0]):
+    heard = report[0].split("terdengar: ", 1)[-1]
+    if spoke_direction(heard) and not match(lines[0], heard):
         print("Arahan gaya ikut dibacakan di awal; bagian itu dibuang.")
         parts, report = verify_and_fix(key, split_lines(pcm, rate, [DIRECTION] + lines)[1:], rate, lines)
     return parts, report
 
 
 def spoke_direction(text):
-    return len(set(words(DIRECTION)) & set(words(text))) >= 4
+    return len(set(words(DIRECTION)) & set(words(text))) >= 6
 
 
 def wav_bytes(pcm, rate):
@@ -284,7 +292,7 @@ def wav_bytes(pcm, rate):
 def main(lines, default_out):
     """Buat narasi untuk daftar kalimat `lines`; hasil zip ke LD_TTS_OUT atau default_out."""
     out = os.environ.get("LD_TTS_OUT", default_out)
-    voice = sys.argv[sys.argv.index("--voice") + 1] if "--voice" in sys.argv else "Puck"
+    voice = sys.argv[sys.argv.index("--voice") + 1] if "--voice" in sys.argv else VOICE
     key, model = find_config()
     if not key:
         sys.exit("BERHENTI: GEMINI_API_KEY tidak ditemukan (pengaturan environment atau /var/www/ruangpikir/.env).")

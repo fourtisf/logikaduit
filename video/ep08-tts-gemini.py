@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Naskah narasi EP8 (diskon 50% + 20%) untuk Gemini TTS. Cara kerja dan pencarian API key: lihat tts_gemini.py.
 # Pakai:
-#   python3 video/ep08-tts-gemini.py               # suara default: Puck
+#   python3 video/ep08-tts-gemini.py               # suara default: Achird (sama dengan Ruang Pikir)
 #   python3 video/ep08-tts-gemini.py --voice Leda  # suara lain
 # Hasil: zip berisi 01.wav ... 08.wav, full.wav, dan lines.json (lokasi: LD_TTS_OUT, default /root/logikaduit-ep08-suara.zip).
 import tts_gemini

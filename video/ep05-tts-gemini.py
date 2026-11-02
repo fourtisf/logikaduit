@@ -2,7 +2,7 @@
 # Naskah narasi EP5 (duit Mixue dari mana) untuk Gemini TTS. Cara kerja dan pencarian API key: lihat tts_gemini.py.
 # Format pendek: kalimat singkat. "Mixue" ditulis "Miksue" supaya dibaca seperti orang Indonesia menyebutnya.
 # Pakai:
-#   python3 video/ep05-tts-gemini.py               # suara default: Puck
+#   python3 video/ep05-tts-gemini.py               # suara default: Achird (sama dengan Ruang Pikir)
 #   python3 video/ep05-tts-gemini.py --voice Leda  # suara lain
 # Hasil: zip berisi 01.wav ... 07.wav, full.wav, dan lines.json (lokasi: LD_TTS_OUT, default /root/logikaduit-ep05-suara.zip).
 import tts_gemini

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Naskah narasi EP4 (antre makanan viral) untuk Gemini TTS. Cara kerja dan pencarian API key: lihat tts_gemini.py.
 # Pakai:
-#   python3 video/ep04-tts-gemini.py               # suara default: Puck
+#   python3 video/ep04-tts-gemini.py               # suara default: Achird (sama dengan Ruang Pikir)
 #   python3 video/ep04-tts-gemini.py --voice Leda  # suara lain
 # Hasil: zip berisi 01.wav ... 15.wav, full.wav, dan lines.json (lokasi: LD_TTS_OUT, default /root/logikaduit-ep04-suara.zip).
 # Angka tahun ditulis dengan kata supaya dibaca dalam bahasa Indonesia.
