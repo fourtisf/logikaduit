@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), dan Episode 9 (tanggal tua, `ep09-*`); EP5 sampai EP9 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), dan Episode 10 (Alfamart untung berapa, `ep10-*`); EP5 sampai EP10 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -292,6 +292,20 @@ Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat nar
 - Tutup dengan pertanyaan yang memancing komentar, lalu ajakan follow.
 - Buat juga versi tanpa musik (`LD_NO_MUSIC=1 python3 video/epNN-mix.py final ...`), supaya ALFA bisa menambah suara yang sedang tren di aplikasi.
 - Jangan memakai logo atau maskot merek; cukup sebut namanya.
+
+**Data penonton Instagram (awal November 2026):**
+
+| Video | Penonton |
+|---|---|
+| Indomaret & Alfamart sebelahan (dibuat ALFA) | 1.396 |
+| EP5 duit Mixue | 1.289 |
+| EP6 isi snack makin kecil | 1.193 |
+| EP8 diskon 50% + 20% | 238 |
+| EP7 gaji naik 5% | 217 |
+| EP3 gratis ongkir (cover: coklat gratis) | 183 |
+| EP4 antre makanan viral | 180 |
+
+Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap hari ditonton 5–7 kali lebih banyak daripada konten konsep atau hitungan (gaji, diskon, antre). Hook kuis hitungan tidak menolong. Pilih topik dengan nama merek atau barang sehari-hari di kalimat pertama dan di cover. EP10 (Alfamart) dibuat dengan pola ini.
 
 **Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
