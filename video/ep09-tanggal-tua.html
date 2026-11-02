@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP9: tanggal muda boros, tanggal tua mi instan (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong.
+   Format pendek (sekitar 28 detik): hook saldo terkuras dari tanggal 25 ke tanggal 10, dua riset, satu trik, pertanyaan untuk komentar. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+.fcoin{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:22px;color:#032015;
+  background:radial-gradient(circle at 34% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 0 3px rgba(3,32,21,.35) inset,0 0 24px rgba(46,230,160,.5)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+.stamp{padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:60px;letter-spacing:-.02em;white-space:nowrap;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+
+
+.src{left:0;width:1080px;text-align:center;font:500 24px var(--mono);color:var(--sage)}
+#stamp1{left:0;top:0}
+/* saldo + kalender */
+#saldo{left:110px;top:660px;width:860px;height:230px;padding:30px 40px;box-sizing:border-box}
+#saldo small{display:flex;justify-content:space-between;font-size:30px;color:var(--sage);font-weight:700}
+#saldo b{display:block;font-size:100px;font-weight:800;letter-spacing:-.045em;line-height:1;margin-top:8px}
+#saldo .tr{height:16px;border-radius:8px;background:rgba(157,245,207,.12);position:relative;margin-top:16px}
+#saldo .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:8px}
+#cal{left:110px;top:920px;width:860px;padding:26px 30px 30px;box-sizing:border-box}
+#cal .hd{display:flex;justify-content:space-between;font-size:30px;font-weight:800;margin-bottom:14px}
+#cal .hd span{color:var(--sage);font-weight:700}
+#cal .wk{display:grid;grid-template-columns:repeat(7,1fr);font-size:22px;color:var(--sage);font-weight:700;text-align:center;margin-bottom:6px}
+#cal .gd{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+#cal .d{height:62px;border-radius:16px;display:grid;place-items:center;font-size:28px;font-weight:700;color:#BFD6CC;background:rgba(157,245,207,.04)}
+#cal .d.pay{color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 26px rgba(46,230,160,.6)}
+#cal .d.past{color:rgba(139,167,155,.45)}
+#ring{width:92px;height:62px;border-radius:16px;box-shadow:0 0 0 4px var(--ice) inset,0 0 30px rgba(230,255,244,.5);z-index:5}
+.exp{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:999px;font-size:28px;font-weight:800;white-space:nowrap;color:var(--ice);
+  background:linear-gradient(160deg,rgba(22,70,52,.95),rgba(6,24,18,.97));box-shadow:0 0 0 2px rgba(157,245,207,.35) inset,0 14px 34px -12px #000;z-index:3100}
+.exp em{color:var(--sage)}
+/* grafik belanja */
+#chart{left:90px;top:690px;width:900px;height:600px;padding:30px 34px;box-sizing:border-box}
+#chart small{display:block;font-size:30px;color:var(--sage);font-weight:700}
+#chart svg{position:absolute;left:34px;top:90px;width:832px;height:440px;overflow:visible}
+#chart .xl{position:absolute;left:34px;right:34px;bottom:26px;display:flex;justify-content:space-between;font-size:26px;color:var(--sage);font-weight:700}
+#inPill{z-index:3100}
+#inPill .pill{font-size:26px}
+/* piring vs mangkuk */
+.meal{width:430px;height:500px;padding:30px;box-sizing:border-box;text-align:center}
+.meal small{display:block;font-size:30px;color:var(--sage);font-weight:700}
+.meal svg{width:330px;height:300px;margin-top:20px}
+.meal b{display:block;font-size:40px;font-weight:800;margin-top:6px}
+#kal{left:0;top:1220px;width:1080px;text-align:center}
+#kal b{display:block;font-size:120px;font-weight:800;letter-spacing:-.045em;line-height:1;color:var(--emerald);text-shadow:0 0 50px rgba(46,230,160,.5)}
+#kal small{display:block;font-size:32px;color:#CFE6DB;font-weight:500;margin-top:6px}
+/* timbangan bias masa kini */
+#scale{left:90px;top:660px;width:900px;height:720px;overflow:visible}
+.pan{width:300px;text-align:center}
+.pan .ic{width:150px;height:150px;margin:0 auto;border-radius:44px;display:grid;place-items:center}
+.pan .ic svg{width:90px;height:90px}
+.pan b{display:block;font-size:40px;font-weight:800;margin-top:14px}
+#panL .ic{background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 50px rgba(46,230,160,.6)}
+#panR .ic{background:rgba(157,245,207,.07);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset}
+#panR b{color:var(--sage)}
+/* jatah 4 minggu */
+#bundle{left:290px;top:670px;width:500px;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#bundle small{font-size:30px;color:var(--sage);font-weight:700}
+#bundle b{font-size:76px;font-weight:800;letter-spacing:-.04em}
+.env{width:400px;height:230px;padding:26px 30px;box-sizing:border-box;border-radius:30px;overflow:hidden;
+  background:linear-gradient(170deg,#0F3A2B,#071C15);box-shadow:0 0 0 2px rgba(157,245,207,.25) inset,0 30px 80px -30px #000}
+.env::before{content:"";position:absolute;left:0;right:0;top:0;height:90px;background:linear-gradient(160deg,rgba(46,230,160,.35),rgba(14,143,100,.15));clip-path:polygon(0 0,100% 0,50% 100%)}
+.env small{position:relative;display:block;font-size:30px;font-weight:800;color:var(--ice);margin-top:72px}
+.env b{position:relative;display:block;font-size:48px;font-weight:800;letter-spacing:-.03em;color:var(--emerald)}
+#safe{left:0;top:1390px;width:1080px;text-align:center;z-index:3100}
+#safe .pill{font-size:34px;padding:12px 30px}
+/* pertanyaan untuk komentar */
+#ask{left:110px;top:720px;width:860px;padding:44px 46px;box-sizing:border-box;box-shadow:0 0 0 3px rgba(46,230,160,.45) inset,0 0 80px -20px rgba(46,230,160,.45),0 50px 120px -40px #000}
+#ask .hd{display:flex;align-items:center;gap:14px;font-size:30px;color:var(--sage);font-weight:700}
+#ask .hd svg{width:42px;height:42px}
+#ask .chips{display:flex;gap:18px;justify-content:center;margin:34px 0}
+#ask .chips span{font-size:40px;font-weight:800;padding:16px 26px;border-radius:999px;background:rgba(157,245,207,.07);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset}
+#ask .in{display:flex;align-items:center;gap:18px;height:104px;border-radius:52px;padding:0 18px 0 30px;background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset;font-size:36px;font-weight:700;color:var(--sage)}
+#ask .in span{flex:1;white-space:nowrap}
+#ask .in i{display:inline-block;width:4px;height:44px;background:var(--emerald);vertical-align:middle;margin-left:4px}
+#ask .in u{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#8CF7CB,var(--emerald));flex:none}
+#ask .in u svg{width:34px;height:34px}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div><div id="fcoins"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <!-- 1. hook: saldo terkuras, kalender berjalan dari tanggal 25 ke tanggal 10 -->
+    <div id="saldo" class="abs glass top"><small><span>Saldo</span><span id="saldoD">Tanggal 25</span></small><b id="saldoN">Rp5.000.000</b><div class="tr"><i id="saldoBar"></i></div></div>
+    <div id="cal" class="abs glass"><div class="hd">Kalender gajian<span id="calM">Gajian tanggal 25</span></div>
+      <div class="wk"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+      <div class="gd" id="grid"><div id="ring" class="abs"></div></div></div>
+    <div id="exps"></div>
+    <div id="stamp1" class="abs stamp top">Bokek</div>
+
+    <!-- 2. grafik belanja harian -->
+    <div id="chart" class="abs glass top"><small>Belanja harian</small>
+      <svg viewBox="0 0 832 440"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2EE6A0" stop-opacity=".45"/><stop offset="1" stop-color="#2EE6A0" stop-opacity="0"/></linearGradient>
+        <clipPath id="chClip"><rect id="chRect" x="0" y="-40" width="0" height="520"/></clipPath></defs>
+        <path d="M0 440H832" stroke="#9DF5CF" stroke-opacity=".3" stroke-width="3"/>
+        <g clip-path="url(#chClip)"><path id="chArea" fill="url(#ar)"/><path id="chLine" fill="none" stroke="#2EE6A0" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 12px rgba(46,230,160,.7))"/></g></svg>
+      <div class="xl"><span>Uang masuk</span><span>Akhir bulan</span></div></div>
+    <div id="inPill" class="abs"><span class="pill">Uang masuk</span></div>
+    <div id="src1" class="abs src">Stephens (2003), penerima tunjangan bulanan di AS</div>
+
+    <!-- 3. piring di awal bulan vs mi instan di akhir bulan -->
+    <div id="m1" class="abs glass meal top"><small>Minggu pertama</small><svg viewBox="0 0 330 300"><defs><radialGradient id="pl" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="#16473A"/><stop offset="1" stop-color="#081D16"/></radialGradient></defs>
+  <ellipse cx="165" cy="170" rx="155" ry="110" fill="url(#pl)" stroke="#9DF5CF" stroke-opacity=".35" stroke-width="4"/>
+  <ellipse cx="165" cy="165" rx="118" ry="80" fill="none" stroke="#9DF5CF" stroke-opacity=".15" stroke-width="3"/>
+  <path d="M95 175c0-38 28-62 60-62s52 22 52 52c0 14-30 22-58 22s-54-2-54-12z" fill="#E6FFF4"/>
+  <path d="M190 140c18-14 52-8 60 12 6 16-14 28-34 26-24-2-38-24-26-38z" fill="#9DF5CF"/>
+  <circle cx="232" cy="200" r="16" fill="#2EE6A0"/><circle cx="208" cy="214" r="13" fill="#0E8F64"/><circle cx="255" cy="222" r="11" fill="#2EE6A0"/>
+  <path d="M110 158c10-6 22-6 30 0M128 140c8-4 18-4 24 2" stroke="#9DB5AA" stroke-width="4" fill="none" stroke-linecap="round"/></svg><b>Kalori penuh</b></div>
+    <div id="m2" class="abs glass meal top"><small>Minggu terakhir</small><svg viewBox="0 0 330 300"><defs><linearGradient id="bw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A4A38"/><stop offset="1" stop-color="#081D16"/></linearGradient></defs>
+  <path d="M120 70c-8-12 8-20 0-34M165 64c-8-12 8-20 0-34M210 70c-8-12 8-20 0-34" stroke="#9DF5CF" stroke-opacity=".4" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="165" cy="130" rx="125" ry="26" fill="#C9F3DE"/>
+  <path d="M60 130c12-14 26-14 38 0s26 14 38 0 26-14 38 0 26 14 38 0 26-14 38 0" stroke="#8BA79B" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M75 122c12-12 26-12 38 0s26 12 38 0 26-12 38 0 26 12 38 0" stroke="#8BA79B" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+  <path d="M40 130h250c0 70-56 120-125 120S40 200 40 130z" fill="url(#bw)" stroke="#2EE6A0" stroke-opacity=".7" stroke-width="4"/>
+  <path d="M240 112L300 50M254 118L314 58" stroke="#9DF5CF" stroke-width="7" stroke-linecap="round"/></svg><b>Kalori turun</b></div>
+    <div id="kal" class="abs top"><b id="kalN">-10–15%</b><small>kalori yang dimakan di minggu terakhir</small></div>
+    <div id="src2" class="abs src">Shapiro (2005), penerima kupon makanan di AS</div>
+
+    <!-- 4. timbangan: senang sekarang vs aman nanti -->
+    <svg id="scale" class="abs" viewBox="0 0 900 720">
+      <path d="M450 120V600M330 640h240" stroke="#9DF5CF" stroke-opacity=".6" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="450" cy="110" r="22" fill="#2EE6A0"/>
+      <path id="strL" stroke="#9DF5CF" stroke-opacity=".5" stroke-width="4" fill="none"/>
+      <path id="strR" stroke="#9DF5CF" stroke-opacity=".5" stroke-width="4" fill="none"/>
+      <g id="beam"><path d="M150 110H750" stroke="#E6FFF4" stroke-width="12" stroke-linecap="round"/></g></svg>
+    <div id="panL" class="abs pan top"><div class="ic"><svg viewBox="0 0 90 90" fill="none" stroke="#032015" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"><path d="M16 30h58l-5 50H21z"/><path d="M32 30v-6a13 13 0 0 1 26 0v6"/></svg></div><b>Senang sekarang</b></div>
+    <div id="panR" class="abs pan top"><div class="ic"><svg viewBox="0 0 90 90" fill="none" stroke="#8BA79B" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"><rect x="14" y="18" width="62" height="58" rx="10"/><path d="M14 36h62M30 10v14M60 10v14"/></svg></div><b>Aman nanti</b></div>
+
+    <!-- 5. gaji dibagi jadi 4 jatah mingguan -->
+    <div id="bundle" class="abs glass top"><small>Gaji</small><b>Rp4.000.000</b></div>
+    <div id="e1" class="abs env top"><small>Minggu 1</small><b>Rp1.000.000</b></div>
+    <div id="e2" class="abs env top"><small>Minggu 2</small><b>Rp1.000.000</b></div>
+    <div id="e3" class="abs env top"><small>Minggu 3</small><b>Rp1.000.000</b></div>
+    <div id="e4" class="abs env top"><small>Minggu 4</small><b>Rp1.000.000</b></div>
+    <div id="safe" class="abs"><span class="pill">Tanggal tua tetap aman</span></div>
+
+    <!-- 6. pertanyaan -->
+    <div id="ask" class="abs glass top">
+      <div class="hd"><svg viewBox="0 0 42 42" fill="none" stroke="#2EE6A0" stroke-width="3.5" stroke-linejoin="round"><path d="M6 8h30v20H18l-8 7v-7H6z"/></svg>Tulis di komentar</div>
+      <div class="chips"><span>Tgl 5</span><span>Tgl 10</span><span>Tgl 15</span><span>Tgl 20</span></div>
+      <div class="in"><span>Gajiku habis tanggal<i id="caret"></i></span><u><svg viewBox="0 0 34 34" fill="none" stroke="#032015" stroke-width="4" stroke-linejoin="round"><path d="M4 16L30 4 22 30 16 19z"/></svg></u></div></div>
+
+    <!-- 7. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 9</span></h5><ol>
+      <li>Stephens, M. (2003). <i>"3rd of tha Month": Do Social Security Recipients Smooth Consumption Between Checks?</i> American Economic Review, 93(1), 406–422.</li>
+      <li>Shapiro, J. M. (2005). <i>Is There a Daily Discount Rate? Evidence from the Food Stamp Nutrition Cycle.</i> Journal of Public Economics, 89(2–3), 303–325.</li></ol>
+      <p>Saldo, pengeluaran, dan bentuk grafik hanya ilustrasi.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 27.5;
+const OUT = 23.0;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 3.55, 'Tanggal 25 gajian, | tanggal 10 *bokek*. | Kamu juga?'],
+  [3.6, 7.15, 'Riset di Amerika: | uang masuk, belanja | langsung *naik*.'],
+  [7.2, 11.15, 'Minggu terakhir, kalori | yang dimakan turun | *10–15%*.'],
+  [11.2, 15.35, 'Namanya *bias* *masa* *kini*: | senang sekarang | lebih penting.'],
+  [15.4, 19.95, 'Triknya: begitu gajian, | bagi jadi *4* *jatah* | *mingguan*.'],
+  [20.0, 22.95, 'Biasanya gajimu | habis tanggal *berapa*?'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, koin melayang, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+// koin "Rp" melayang di belakang (seperti koin di hero website), dengan blur kedalaman
+const fcoins = Array.from({ length: 8 }, (_, i) => { const d = document.createElement('i'); d.className = 'fcoin'; d.textContent = 'Rp'; $('fcoins').appendChild(d);
+  return { d, x: [70, 1010, 40, 1040, 120, 960, 520, 300][i], y: [640, 700, 1180, 1250, 1470, 1460, 560, 1520][i], s: .6 + rnd() * .8, ph: rnd() * 6, sp: .4 + rnd() * .5, blur: [1, 3, 5, 2, 4, 6, 3, 5][i] }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const on = Math.max(1 - seg(t, 3.2, 3.6), win(t, 20.0, OUT, .6, .4));   // koin melayang di hook dan pertanyaan
+  fcoins.forEach(c => put(c.d, { o: .5 * on, x: c.x - 32 + 20 * Math.sin(t * c.sp + c.ph), y: c.y - 32 + 26 * Math.cos(t * c.sp * .8 + c.ph),
+    s: c.s, r: 25 * Math.sin(t * c.sp + c.ph), blur: c.blur }));
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+
+/* ---------- bahan: kalender, pengeluaran ---------- */
+const FIRST = 2;                                           // tanggal 1 jatuh di hari Rabu (kolom ke-3)
+const days = [];
+for (let i = 0; i < FIRST; i++) { const e = document.createElement('div'); $('grid').appendChild(e); }
+for (let d = 1; d <= 31; d++) { const e = document.createElement('div'); e.className = 'd' + (d === 25 ? ' pay' : ''); e.textContent = d; $('grid').appendChild(e); days.push(e); }
+// urutan hari yang dilewati: 25 ... 31, lalu 1 ... 10 (bulan berikutnya, kalender sama)
+const PATH = [25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const EXP = [['Ngopi', 'Rp35.000'], ['Checkout', 'Rp420.000'], ['Nongkrong', 'Rp150.000'], ['Ojol', 'Rp28.000'], ['Konser', 'Rp850.000'], ['Skincare', 'Rp210.000'], ['Makan enak', 'Rp180.000']];
+const exps = EXP.map(([n, v]) => { const el = document.createElement('div'); el.className = 'exp abs'; el.innerHTML = `${n} <em>-${v}</em>`; $('exps').appendChild(el); return el; });
+// kurva belanja harian: melonjak setelah uang masuk, lalu turun pelan sampai akhir bulan (bentuk ilustrasi)
+const CH = Array.from({ length: 31 }, (_, i) => { const x = i / 30 * 832, base = 330 - 230 * Math.exp(-i / 4.5) - 40 * Math.exp(-i / 14);
+  return [x, i === 0 ? 400 : base + 18 * Math.sin(i * 1.7) + 10 * Math.sin(i * .9)]; });
+$('chLine').setAttribute('d', 'M' + CH.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join(' L'));
+$('chArea').setAttribute('d', 'M0 440 L' + CH.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join(' L') + ' L832 440 Z');
+
+/* ---------- adegan ---------- */
+const AT = { follow: { x: 540, y: 1050 } };
+const rp = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
+
+function renderHook(t) {
+  const o = win(t, -1, 3.55, .5, .4), out = seg(t, 3.15, 3.55);
+  put($('saldo'), { o, y: 4 * Math.sin(t * 1.6) - out * 30, s: (1 - out * .05) * (1 + .03 * win(t, 2.75, 3.4, .05, .3)), blur: out * 12 });
+  put($('cal'), { o, y: 4 * Math.sin(t * 1.6 + 1) - out * 30, s: 1 - out * .05, blur: out * 12 });
+  // hari berjalan dari tanggal 25 ke tanggal 10, saldo terkuras (paling cepat di awal)
+  const p = eIO(seg(t, .35, 2.6)), k = Math.min(PATH.length - 1, Math.floor(p * (PATH.length - 1) + 1e-6));
+  const day = PATH[k], cell = days[day - 1];
+  $('ring').style.left = cell.offsetLeft + 'px'; $('ring').style.top = cell.offsetTop + 'px'; $('ring').style.width = cell.offsetWidth + 'px';
+  put($('ring'), { o: o * (t > .3 ? 1 : 0), x: 0, y: 0, s: 1 + .08 * Math.sin(Math.PI * ((p * (PATH.length - 1)) % 1)) });
+  days.forEach((d, i) => { const n = i + 1, idx = PATH.indexOf(n); d.classList.toggle('past', idx >= 0 && idx < k && n !== 25 && k < PATH.length); });
+  $('saldoD').textContent = 'Tanggal ' + day;
+  const left = 5000000 - (5000000 - 43000) * Math.pow(seg(t, .35, 2.6), .55);
+  $('saldoN').textContent = rp(Math.round(left / 1000) * 1000);
+  const frac = left / 5000000;
+  $('saldoBar').style.width = (frac * 100).toFixed(2) + '%';
+  $('saldoBar').style.background = frac > .25 ? 'linear-gradient(90deg,#0E8F64,#2EE6A0)' : 'linear-gradient(90deg,#2C5E4B,#8BA79B)';
+  $('saldoBar').style.boxShadow = frac > .25 ? '0 0 22px rgba(46,230,160,.6)' : 'none';
+  $('saldoN').style.color = frac > .1 ? '' : '#8BA79B';
+  // pengeluaran beterbangan keluar dari kartu saldo
+  exps.forEach((el, i) => {
+    const t0 = .45 + i * .3, q = seg(t, t0, t0 + .9);
+    const side = i % 2 ? 1 : -1, w = el.offsetWidth;
+    put(el, { o: q > 0 && q < 1 ? Math.min(1, q * 6) * (1 - seg(q, .6, 1)) : 0, x: 540 - w / 2 + side * (60 + 300 * eOut(q)), y: (i % 3 === 0 ? 690 : i % 3 === 1 ? 790 : 860) + 30 * eOut(q), s: lerp(.6, 1, eBack(clamp(q * 2))) });
+  });
+  // cap "Bokek"
+  const st = seg(t, 2.75, 3.1), sw = $('stamp1').offsetWidth;
+  put($('stamp1'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: 790 - sw / 2, y: 745, s: lerp(2.6, 1, eBack(st)), r: -8 });
+  return { shake: shake(t, 2.78, .4, 13), flash: .6 * win(t, 2.75, 3.3, .05, .5) };
+}
+
+function renderChart(t) {
+  const o = win(t, 3.6, 7.15, .5, .4), e = eExpo(seg(t, 3.6, 4.3)), out = seg(t, 6.75, 7.15);
+  put($('chart'), { o, y: (1 - e) * 120 - out * 30, s: 1 - out * .05, blur: (1 - e) * 12 + out * 12 });
+  $('chRect').setAttribute('width', (832 * eIO(seg(t, 4.1, 5.6))).toFixed(1));
+  const ip = eBack(seg(t, 4.4, 4.75));
+  put($('inPill'), { o: o * clamp(ip * 3), x: 90 + 34 + 30, y: 690 + 90 + CH[1][1] - 70, s: lerp(.4, 1, ip) });
+  put($('src1'), { o: win(t, 4.8, 7.15, .4, .4) * .9, y: 1320 });
+  return { flash: .3 * win(t, 4.4, 4.9, .05, .4) };
+}
+
+function renderMeals(t) {
+  const o = win(t, 7.2, 11.15, .5, .4), e1 = eExpo(seg(t, 7.2, 7.9)), e2 = eExpo(seg(t, 7.5, 8.2)), out = seg(t, 10.75, 11.15);
+  put($('m1'), { o: o * (1 - .3 * seg(t, 8.6, 9.0)), x: 90, y: 680 + (1 - e1) * 140 - out * 30, s: 1 - out * .05, blur: (1 - e1) * 12 + out * 12 });
+  const hl = win(t, 8.6, 11.1, .3, .3);
+  put($('m2'), { o, x: 560, y: 680 + (1 - e2) * 140 - out * 30, s: (1 - out * .05) * (1 + .03 * hl), blur: (1 - e2) * 12 + out * 12 });
+  $('m2').style.boxShadow = `0 0 0 ${(2 + 3 * hl).toFixed(1)}px rgba(46,230,160,${(.14 + .6 * hl).toFixed(2)}) inset,0 0 ${(90 * hl).toFixed(0)}px -20px rgba(46,230,160,.6),0 50px 120px -40px rgba(0,0,0,.95)`;
+  const k = eBack(seg(t, 8.9, 9.3)), n = eOut(seg(t, 8.9, 9.6));
+  put($('kal'), { o: o * clamp(k * 3), s: lerp(.5, 1, k), blur: out * 12 });
+  $('kalN').textContent = `-${Math.round(10 * n)}–${Math.round(15 * n)}%`;
+  put($('src2'), { o: win(t, 9.4, 11.15, .4, .4) * .9, y: 1420 });
+  return { shake: shake(t, 8.93, .35, 9), flash: .45 * win(t, 8.9, 9.5, .05, .5) };
+}
+
+function renderScale(t) {
+  const o = win(t, 11.2, 15.35, .5, .4), e = eExpo(seg(t, 11.2, 11.9)), out = seg(t, 14.95, 15.35);
+  put($('scale'), { o, y: (1 - e) * 80 - out * 30, blur: (1 - e) * 10 + out * 12 });
+  // balok miring: "senang sekarang" lebih berat
+  const a = -14 * eBack(seg(t, 12.0, 12.8)) + 1.2 * Math.sin(t * 2) * seg(t, 12.8, 13.2);
+  $('beam').setAttribute('transform', `rotate(${a.toFixed(2)} 450 110)`);
+  const rad = a * Math.PI / 180;
+  const end = (dx) => ({ x: 450 + dx * Math.cos(rad), y: 110 + dx * Math.sin(rad) });
+  const L = end(-300), R = end(300);
+  [['panL', L], ['panR', R]].forEach(([id, p]) => put($(id), { o, x: 90 + p.x - 150, y: 660 + p.y + 200 - out * 30, blur: out * 12 }));
+  [['strL', L], ['strR', R]].forEach(([id, p]) => $(id).setAttribute('d', `M${p.x.toFixed(1)} ${p.y.toFixed(1)}L${(p.x - 70).toFixed(1)} ${(p.y + 205).toFixed(1)}M${p.x.toFixed(1)} ${p.y.toFixed(1)}L${(p.x + 70).toFixed(1)} ${(p.y + 205).toFixed(1)}`));
+  $('panL').querySelector('.ic').style.boxShadow = `0 0 ${(50 + 40 * win(t, 12.6, 15.3, .3, .3)).toFixed(0)}px rgba(46,230,160,.6)`;
+  return { flash: .35 * win(t, 12.6, 13.2, .05, .5) };
+}
+
+function renderEnvelopes(t) {
+  const o = win(t, 15.4, 19.95, .5, .4), e = eExpo(seg(t, 15.4, 16.1)), out = seg(t, 19.55, 19.95);
+  put($('bundle'), { o, y: (1 - e) * 100 - out * 30, s: (1 + .06 * Math.sin(Math.PI * seg(t, 16.3, 16.6))) * (1 - out * .05), blur: out * 12 });
+  const POS = [[120, 900], [560, 900], [120, 1150], [560, 1150]];
+  ['e1', 'e2', 'e3', 'e4'].forEach((id, i) => {
+    const p = eExpo(seg(t, 16.5 + i * .15, 17.2 + i * .15));
+    put($(id), { o: o * clamp(p * 4), x: lerp(340, POS[i][0], p), y: lerp(700, POS[i][1], p) - out * 30, s: lerp(.4, 1, p) * (1 - out * .05), r: (1 - p) * (i % 2 ? 10 : -10), blur: out * 12 });
+  });
+  const sp = eBack(seg(t, 18.4, 18.75));
+  put($('safe'), { o: o * clamp(sp * 3), s: lerp(.5, 1, sp) });
+  return { flash: .3 * win(t, 18.4, 18.9, .05, .4) };
+}
+
+function renderAsk(t) {
+  const o = win(t, 20.0, OUT + .05, .5, .4), e = eExpo(seg(t, 20.0, 20.7)), out = seg(t, OUT - .35, OUT + .05);
+  put($('ask'), { o, y: (1 - e) * 120, s: lerp(.94, 1, e) * (1 - .04 * out), blur: (1 - e) * 12 + out * 12 });
+  [...$('ask').querySelectorAll('.chips span')].forEach((c, i) => {
+    const p = eBack(seg(t, 20.5 + i * .12, 20.85 + i * .12)), hl = win(t, 21.3 + i * .35, 21.7 + i * .35, .1, .2);
+    put(c, { o: clamp(p * 3), s: lerp(.5, 1, p) * (1 + .06 * hl) });
+    c.style.boxShadow = `0 0 0 3px rgba(46,230,160,${(.3 + .6 * hl).toFixed(2)}) inset,0 0 ${(40 * hl).toFixed(0)}px rgba(46,230,160,.5)`;
+  });
+  $('caret').style.opacity = Math.sin(t * 9) > 0 ? 1 : 0;
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan episode lain, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  const h = renderHook(t); sh += h.shake; flash += h.flash;
+  flash += renderChart(t).flash;
+  const m = renderMeals(t); sh += m.shake; flash += m.flash;
+  flash += renderScale(t).flash;
+  flash += renderEnvelopes(t).flash;
+  renderAsk(t);
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  // kamera: zoom kecil di awal (pembuka langsung "masuk") + guncangan saat cap menghantam
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>
