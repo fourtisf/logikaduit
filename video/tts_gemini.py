@@ -86,7 +86,7 @@ def tts(key, model, voice, text):
                 time.sleep(5)
                 continue
             sys.exit(f"GAGAL: jawaban Gemini tidak berisi audio ({e}).")
-        except urllib.error.URLError as e:
+        except (urllib.error.URLError, TimeoutError) as e:   # TimeoutError: server lama sekali tidak menjawab
             if attempt < 4:
                 time.sleep(5 * attempt)
                 continue
