@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP12: selama kamu nonton, BCA untung berapa (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong.
+   Format "bongkar bisnis merek": penghitung untung BCA yang berjalan sesuai waktu nyata video (window.REAL_T dari render.js),
+   laba 2025 dibagi per hari/menit/detik, grafik bunga tabungan 0% vs bunga dasar kredit 6,8-9,1%, selisih = mesin uang, kuis bank.
+   Tidak memakai logo atau warna merek bank; ikon bank hanya ilustrasi umum. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+.fcoin{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:22px;color:#032015;
+  background:radial-gradient(circle at 34% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 0 3px rgba(3,32,21,.35) inset,0 0 24px rgba(46,230,160,.5)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+.stamp{padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:60px;letter-spacing:-.02em;white-space:nowrap;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+
+
+/* penghitung (meteran) untung BCA */
+.meter{display:flex;align-items:flex-end;font-weight:800;letter-spacing:-.03em;font-feature-settings:"tnum"}
+.meter .rp{margin-right:.08em}
+.meter .dg{display:inline-block;overflow:hidden;position:relative;width:.62em}
+.meter .dg b{display:block;font-weight:800;text-align:center}
+.meter .sep{display:inline-block;width:.26em;text-align:center}
+.meter .dim{opacity:.18}
+#big{left:50px;top:720px;width:980px;height:440px;box-sizing:border-box;padding:40px 40px 0;text-align:center}
+#big .lab{display:flex;align-items:center;justify-content:center;gap:14px;font-size:34px;font-weight:700;color:var(--sage)}
+#big .live{width:16px;height:16px;border-radius:50%;background:var(--emerald);box-shadow:0 0 18px var(--emerald)}
+#bigM{justify-content:center;font-size:140px;line-height:1.15;margin-top:22px;color:var(--ice)}
+#bigM .rp{color:var(--emerald)}
+#big .sub{font-size:32px;font-weight:700;color:var(--mint);margin-top:14px}
+#big .sec{position:absolute;left:40px;right:40px;bottom:30px;height:6px;border-radius:3px;background:rgba(157,245,207,.12);overflow:hidden}
+#big .sec i{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:3px;background:linear-gradient(90deg,#0E8F64,#2EE6A0);transform-origin:0 50%}
+#pillM{left:110px;top:1392px;width:860px;height:96px;box-sizing:border-box;border-radius:48px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;z-index:3010;
+  background:linear-gradient(160deg,rgba(16,52,38,.92),rgba(5,20,15,.96));box-shadow:0 0 0 2px rgba(46,230,160,.45) inset,0 0 50px -10px rgba(46,230,160,.5),0 30px 60px -20px rgba(0,0,0,.9)}
+#pillM .lab{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700;color:var(--sage);line-height:1.15}
+#pillM .live{width:12px;height:12px;border-radius:50%;background:var(--emerald);box-shadow:0 0 14px var(--emerald);flex:none}
+#smallM{font-size:50px;line-height:1.15;color:var(--ice)}
+#smallM .rp{color:var(--emerald)}
+/* laba setahun */
+#year{left:0;top:660px;width:1080px;text-align:center}
+#year small{display:block;font-size:36px;color:var(--sage);font-weight:700}
+#year b{display:block;font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1.05;margin-top:6px;font-feature-settings:"tnum";
+  background:linear-gradient(180deg,#E6FFF4 0%,#9DF5CF 35%,#2EE6A0 70%,#0E8F64 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 50px rgba(46,230,160,.45))}
+#rows{left:130px;top:930px;width:820px;padding:14px 40px;box-sizing:border-box}
+.row{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:2px dashed rgba(157,245,207,.16);font-feature-settings:"tnum"}
+.row:last-child{border-bottom:0}
+.row span{font-size:34px;color:var(--sage);font-weight:700}
+.row b{font-size:54px;font-weight:800;letter-spacing:-.03em}
+.row.hot b{color:var(--emerald);text-shadow:0 0 30px rgba(46,230,160,.6)}
+/* grafik bunga */
+#axis{left:110px;top:1250px;width:860px;height:3px;background:rgba(157,245,207,.35);border-radius:2px}
+.bar{width:240px;border-radius:22px 22px 0 0;transform-origin:50% 100%}
+#barL{left:180px;background:linear-gradient(180deg,#9DF5CF,#2EE6A0)}
+#barR{left:660px;background:linear-gradient(180deg,#2EE6A0,#0E8F64);box-shadow:0 0 60px -10px rgba(46,230,160,.6)}
+#bandR{left:660px;width:240px;border-radius:22px 22px 0 0;background:repeating-linear-gradient(135deg,rgba(230,255,244,.28) 0 14px,rgba(230,255,244,.08) 14px 28px)}
+.blab{width:400px;text-align:center}
+.blab b{display:block;font-size:38px;font-weight:800}
+.blab small{display:block;font-size:26px;color:var(--sage);font-weight:700;margin-top:2px}
+.bval{width:520px;text-align:center;font-weight:800;letter-spacing:-.04em;font-feature-settings:"tnum"}
+#valL{font-size:150px;color:var(--emerald);text-shadow:0 0 50px rgba(46,230,160,.5)}
+#valR{font-size:84px;color:var(--ice)}
+#valR small{display:block;font-size:24px;color:var(--sage);font-weight:700;letter-spacing:0;margin-top:2px}
+#saver{left:560px;top:820px;width:420px;padding:30px 34px;box-sizing:border-box}
+#saver small{display:block;font-size:26px;color:var(--sage);font-weight:700}
+#saver b{display:block;font-size:46px;font-weight:800;letter-spacing:-.02em;margin:4px 0 18px;font-feature-settings:"tnum"}
+#saver .ln{display:flex;justify-content:space-between;font-size:28px;font-weight:700;color:var(--sage);border-top:2px dashed rgba(157,245,207,.18);padding-top:16px}
+#saver .ln i{font-style:normal;color:var(--emerald);font-weight:800;font-size:34px}
+.flow{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:19px;color:#032015;z-index:3005;
+  background:radial-gradient(circle at 35% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 22px rgba(46,230,160,.7)}
+#gapArrow{left:538px;width:4px;background:linear-gradient(180deg,#E6FFF4,#2EE6A0);border-radius:2px;box-shadow:0 0 20px rgba(46,230,160,.8);transform-origin:50% 100%}
+.gapline{height:0;border-top:3px dashed rgba(230,255,244,.55)}
+#gapTag{left:430px;top:960px;width:220px;text-align:center;z-index:3006}
+#gapTag .pill{font-size:32px;padding:14px 22px;line-height:1.15;display:inline-block;text-align:center}
+/* bank */
+.bank{width:300px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.bank svg{width:120px;height:110px}
+.bank b{font-size:52px;font-weight:800;letter-spacing:-.03em;margin-top:14px}
+#askIn{left:110px;top:1140px;width:860px;height:104px;border-radius:52px;display:flex;align-items:center;gap:18px;padding:0 18px 0 30px;box-sizing:border-box;z-index:3001;
+  background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset;font-size:36px;font-weight:700;color:var(--sage)}
+#askIn span{flex:1;white-space:nowrap}
+#askIn i{display:inline-block;width:4px;height:44px;background:var(--emerald);vertical-align:middle;margin-left:4px}
+#askIn u{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#8CF7CB,var(--emerald));flex:none}
+#askIn u svg{width:34px;height:34px}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div><div id="fcoins"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+
+    <!-- 1. hook: penghitung untung BCA berjalan sejak detik pertama -->
+    <div id="big" class="abs glass top">
+      <div class="lab"><i class="live" id="live1"></i>Untung BCA sejak kamu mulai nonton</div>
+      <div id="bigM" class="meter"></div>
+      <div class="sub" id="bigSub">± Rp1,8 juta per detik</div>
+      <div class="sec"><i id="secBar"></i></div>
+    </div>
+    <div id="pillM" class="abs"><div class="lab"><i class="live" id="live2"></i><span>Untung BCA sejak<br>video ini mulai</span></div><div id="smallM" class="meter"></div></div>
+
+    <!-- 2. laba setahun dibagi jadi per detik -->
+    <div id="year" class="abs top"><small>Laba bersih BCA tahun 2025</small><b id="yearN">Rp57,5 triliun</b></div>
+    <div id="rows" class="abs glass top">
+      <div class="row" id="r1"><span>Per hari</span><b>Rp157,7 miliar</b></div>
+      <div class="row" id="r2"><span>Per menit</span><b>Rp109,5 juta</b></div>
+      <div class="row hot" id="r3"><span>Per detik</span><b>Rp1,8 juta</b></div>
+    </div>
+
+    <!-- 3-5. grafik bunga tabungan vs bunga kredit -->
+    <div id="axis" class="abs"></div>
+    <div id="barL" class="abs bar"></div>
+    <div id="bandR" class="abs"></div>
+    <div id="barR" class="abs bar"></div>
+    <div id="labL" class="abs blab"><b>Tabungan</b><small>saldo di bawah Rp10 juta</small></div>
+    <div id="labR" class="abs blab"><b>Pinjaman</b><small>bunga dasar kredit</small></div>
+    <div id="valL" class="abs bval">0%</div>
+    <div id="valR" class="abs bval">6,8–9,1%<small>bunga dasar kredit BCA, Juni 2026</small></div>
+    <div id="saver" class="abs glass top"><small>Saldo tabunganmu</small><b>Rp9.800.000</b><div class="ln">Bunga setahun <i>Rp0</i></div></div>
+    <div id="flows"></div>
+    <div id="gapArrow" class="abs"></div>
+    <div id="gapL" class="abs gapline"></div>
+    <div id="gapR" class="abs gapline"></div>
+    <div id="gapTag" class="abs"><span class="pill">Selisih<br>bunga</span></div>
+
+    <!-- 6. kamu nasabah bank apa? -->
+    <div id="k1" class="abs glass bank top"><svg viewBox="0 0 120 110" fill="none"><path d="M10 38L60 8l50 30z" fill="#2EE6A0" fill-opacity=".9"/><rect x="14" y="40" width="92" height="8" rx="3" fill="#9DF5CF"/><g fill="#9DF5CF" fill-opacity=".85"><rect x="22" y="52" width="12" height="40" rx="3"/><rect x="45" y="52" width="12" height="40" rx="3"/><rect x="68" y="52" width="12" height="40" rx="3"/><rect x="88" y="52" width="12" height="40" rx="3"/></g><rect x="8" y="94" width="104" height="10" rx="4" fill="#2EE6A0"/></svg><b>BCA</b></div>
+    <div id="k2" class="abs glass bank top"><svg viewBox="0 0 120 110" fill="none"><path d="M10 38L60 8l50 30z" fill="#2EE6A0" fill-opacity=".9"/><rect x="14" y="40" width="92" height="8" rx="3" fill="#9DF5CF"/><g fill="#9DF5CF" fill-opacity=".85"><rect x="22" y="52" width="12" height="40" rx="3"/><rect x="45" y="52" width="12" height="40" rx="3"/><rect x="68" y="52" width="12" height="40" rx="3"/><rect x="88" y="52" width="12" height="40" rx="3"/></g><rect x="8" y="94" width="104" height="10" rx="4" fill="#2EE6A0"/></svg><b>BRI</b></div>
+    <div id="k3" class="abs glass bank top"><svg viewBox="0 0 120 110" fill="none"><path d="M10 38L60 8l50 30z" fill="#2EE6A0" fill-opacity=".9"/><rect x="14" y="40" width="92" height="8" rx="3" fill="#9DF5CF"/><g fill="#9DF5CF" fill-opacity=".85"><rect x="22" y="52" width="12" height="40" rx="3"/><rect x="45" y="52" width="12" height="40" rx="3"/><rect x="68" y="52" width="12" height="40" rx="3"/><rect x="88" y="52" width="12" height="40" rx="3"/></g><rect x="8" y="94" width="104" height="10" rx="4" fill="#2EE6A0"/></svg><b>Mandiri</b></div>
+    <div id="askIn" class="abs"><span>Aku nasabah<i id="caret"></i></span><u><svg viewBox="0 0 34 34" fill="none" stroke="#032015" stroke-width="4" stroke-linejoin="round"><path d="M4 16L30 4 22 30 16 19z"/></svg></u></div>
+
+    <!-- 7. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 12</span></h5><ol>
+      <li>PT Bank Central Asia Tbk (2026). <i>Kinerja 2025.</i> Laba bersih Rp57,56 triliun.</li>
+      <li>BCA. <i>Suku bunga Tahapan</i> (sejak 1 Maret 2025): saldo di bawah Rp10 juta 0%.</li>
+      <li>BCA. <i>Suku Bunga Dasar Kredit</i>, data Juni 2026: 6,81–9,14%.</li></ol>
+      <p>Per detik = laba setahun ÷ 31.536.000 detik.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 29.5;
+const OUT = 25.0;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 4.55, 'Selama kamu nonton | video ini, *BCA* untung | *Rp50* *juta* lebih.'],
+  [4.6, 8.95, 'Laba bersih BCA 2025: | *Rp57,5* *triliun*. | Rp1,8 juta tiap detik.'],
+  [9.0, 13.35, 'Dari mana? Tabungan | di bawah Rp10 juta, | bunganya *0%*.'],
+  [13.4, 17.75, 'Lalu dipinjamkan | dengan bunga dasar | sekitar *7–9%*.'],
+  [17.8, 21.75, 'Selisih bunga itulah | *mesin* *uang* | terbesarnya.'],
+  [21.8, 24.95, 'Kamu nasabah | *BCA*, *BRI*, atau | *Mandiri*?'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, koin melayang, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+// koin "Rp" melayang di belakang (seperti koin di hero website), dengan blur kedalaman
+const fcoins = Array.from({ length: 8 }, (_, i) => { const d = document.createElement('i'); d.className = 'fcoin'; d.textContent = 'Rp'; $('fcoins').appendChild(d);
+  return { d, x: [70, 1010, 40, 1040, 120, 960, 520, 300][i], y: [640, 700, 1180, 1250, 1470, 1460, 560, 1520][i], s: .6 + rnd() * .8, ph: rnd() * 6, sp: .4 + rnd() * .5, blur: [1, 3, 5, 2, 4, 6, 3, 5][i] }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const on = Math.max(1 - seg(t, 4.2, 4.6), win(t, 21.8, OUT, .6, .4));   // koin melayang di hook dan pertanyaan
+  fcoins.forEach(c => put(c.d, { o: .5 * on, x: c.x - 32 + 20 * Math.sin(t * c.sp + c.ph), y: c.y - 32 + 26 * Math.cos(t * c.sp * .8 + c.ph),
+    s: c.s, r: 25 * Math.sin(t * c.sp + c.ph), blur: c.blur }));
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+
+/* ---------- penghitung untung: laba 2025 Rp57,56 triliun / 31.536.000 detik ---------- */
+const PER_SEC = 57.56e12 / (365 * 24 * 3600);       // sekitar Rp1.825.000 per detik
+const realT = t => Math.max(0, window.REAL_T != null ? window.REAL_T : t);   // detik di video jadi (render.js), bukan timeline asli
+function makeMeter(el, size) {
+  // "Rp" + 8 digit (dd.ddd.ddd); tiap digit sebuah gulungan 0-9 seperti meteran
+  const H = size * 1.15, slots = [];
+  el.style.height = H + 'px';
+  const rp = document.createElement('span'); rp.className = 'rp'; rp.textContent = 'Rp'; el.appendChild(rp);
+  for (let i = 0; i < 8; i++) {
+    if (i === 2 || i === 5) { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '.'; el.appendChild(s); slots.push({ sep: s, p: 8 - i }); }
+    const d = document.createElement('span'); d.className = 'dg'; d.style.height = H + 'px';
+    const strip = document.createElement('span'); strip.style.display = 'block';
+    for (let k = 0; k <= 10; k++) { const b = document.createElement('b'); b.textContent = k % 10; b.style.height = b.style.lineHeight = H + 'px'; strip.appendChild(b); }
+    d.appendChild(strip); el.appendChild(d); slots.push({ d, strip, p: 7 - i });
+  }
+  return N => {
+    slots.forEach(o => {
+      if (o.sep) { o.sep.classList.toggle('dim', N < Math.pow(10, o.p)); return; }
+      const v = N / Math.pow(10, o.p), rate = PER_SEC / Math.pow(10, o.p);
+      let pos;
+      const f = v - Math.floor(v);
+      pos = Math.floor(v) % 10 + (rate > 8 ? 0 : eIO(clamp((f - .8) / .2)));   // digit kecil berganti tiap frame, digit besar menggulung
+      o.strip.style.transform = `translateY(${(-pos * H).toFixed(1)}px)`;
+      o.d.classList.toggle('dim', N < Math.pow(10, o.p) && o.p > 0);
+    });
+  };
+}
+const bigM = makeMeter($('bigM'), 140), smallM = makeMeter($('smallM'), 50);
+const flows = Array.from({ length: 18 }, () => { const c = document.createElement('i'); c.className = 'flow abs'; c.textContent = 'Rp'; $('flows').appendChild(c); return c; });
+const AT = { follow: { x: 540, y: 1050 } };
+const fmtT = x => 'Rp' + x.toFixed(1).replace('.', ',') + ' triliun';
+
+/* ---------- adegan ---------- */
+function renderMeters(t) {
+  const N = PER_SEC * realT(t);
+  // kartu besar di hook, lalu mengecil ke pil di bawah yang terus berjalan sampai pertanyaan
+  const out = eIO(seg(t, 4.1, 4.45));
+  put($('big'), { o: 1 - out, y: 6 * Math.sin(t * 1.4) + out * 40, s: lerp(1, .9, out) * (1 + .01 * Math.sin(t * 2)), blur: out * 14 });
+  bigM(N);
+  put($('bigSub'), { o: win(t, 1.4, 4.6, .4, .3), y: (1 - eExpo(seg(t, 1.4, 2.0))) * 20 });
+  $('secBar').style.transform = `scaleX(${(realT(t) % 1).toFixed(3)})`;
+  const pl = win(t, 4.35, OUT - .05, .35, .35);
+  put($('pillM'), { o: pl, y: (1 - eExpo(seg(t, 4.35, 5.0))) * 120, s: 1 + .035 * PULSE });
+  smallM(N);
+  const blink = .55 + .45 * Math.sin(t * 6);
+  $('live1').style.opacity = $('live2').style.opacity = blink.toFixed(2);
+  return {};
+}
+let PULSE = 0;
+
+function renderYear(t) {
+  const o = win(t, 4.6, 8.95, .5, .4), out = seg(t, 8.55, 8.95), e = eExpo(seg(t, 4.6, 5.4));
+  put($('year'), { o, s: lerp(.7, 1, e) * (1 + .01 * Math.sin(t * 2.2)), y: -out * 30, blur: (1 - e) * 12 + out * 12 });
+  $('yearN').textContent = fmtT(57.5 * eOut(seg(t, 4.75, 5.9)));
+  put($('rows'), { o: o * clamp(seg(t, 5.9, 6.3) * 2), y: (1 - eExpo(seg(t, 5.9, 6.5))) * 50 - out * 30, blur: out * 12 });
+  [['r1', 6.2], ['r2', 6.9], ['r3', 7.6]].forEach(([id, t0]) => {
+    const p = eExpo(seg(t, t0, t0 + .5));
+    put($(id), { o: clamp(p * 1.5), x: (1 - p) * 60, s: id === 'r3' ? 1 + .06 * win(t, 7.6, 8.9, .2, .5) : 1 });
+  });
+  return { flash: .45 * win(t, 4.6, 5.3, .05, .6) + .3 * win(t, 7.6, 8.0, .05, .3), shake: shake(t, 7.62, .3, 6) };
+}
+
+const BASE = 1250, PX = 45;   // garis dasar grafik, 45 px per 1%
+function renderChart(t) {
+  const o = win(t, 9.0, 21.75, .5, .4), out = seg(t, 21.35, 21.75);
+  const fade = { o, y: -out * 30, blur: out * 12 };
+  put($('axis'), { o: o * .9, s: 1 });
+  $('axis').style.transformOrigin = '0 50%'; $('axis').style.transform = `scaleX(${eExpo(seg(t, 9.0, 9.7)).toFixed(3)})`;
+  // kiri: bunga tabungan 0% (garis tipis)
+  const hL = 10, eL = eExpo(seg(t, 9.3, 9.9));
+  Object.assign($('barL').style, { top: (BASE - hL) + 'px', height: hL + 'px' });
+  put($('barL'), { ...fade, o: o * eL, s: 1 });
+  put($('labL'), { ...fade, o: o * eL, x: 300 - 200, y: BASE + 18 - out * 30 });
+  const v0 = eBack(seg(t, 9.9, 10.35));
+  put($('valL'), { o: o * clamp(v0 * 3), x: 300 - 260, y: BASE - 240 - out * 30, s: lerp(1.8, 1, v0), blur: out * 12 });
+  // kartu tabungan: bunga setahun Rp0 (hilang saat bar pinjaman tumbuh)
+  const sv = win(t, 10.6, 13.9, .5, .4);
+  put($('saver'), { o: sv, y: (1 - eExpo(seg(t, 10.6, 11.2))) * 50, blur: (1 - sv) * 8 });
+  // kanan: bunga dasar kredit 6,81-9,14% (data Juni 2026)
+  const g = eExpo(seg(t, 14.1, 15.3)), hR = 6.81 * PX * g, hB = 9.14 * PX * g;
+  Object.assign($('barR').style, { top: (BASE - hR) + 'px', height: hR + 'px' });
+  Object.assign($('bandR').style, { top: (BASE - hB) + 'px', height: (hB - hR + 2) + 'px' });
+  const oR = o * clamp(seg(t, 13.9, 14.2) * 3);
+  put($('barR'), { ...fade, o: oR, s: 1 }); put($('bandR'), { ...fade, o: oR, s: 1 });
+  put($('labR'), { ...fade, o: oR, x: 780 - 200, y: BASE + 18 - out * 30 });
+  const vr = eBack(seg(t, 15.0, 15.4));
+  put($('valR'), { o: o * clamp(vr * 3), x: 780 - 260, y: BASE - 9.14 * PX - 150 - out * 30, s: lerp(.6, 1, vr), blur: out * 12 });
+  // uang mengalir dari tabungan ke pinjaman (13,6-15,2), lalu dari selisih bunga ke penghitung (18,6-21,2)
+  flows.forEach((c, j) => {
+    let x, y, a = 0, s = 1;
+    const p1 = seg(t, 13.6 + j * .08, 13.6 + j * .08 + .7);
+    const p2 = seg(t, 18.6 + j * .13, 18.6 + j * .13 + .75);
+    if (p1 > 0 && p1 < 1) { const e = eIO(p1); x = lerp(300, 780, e); y = lerp(BASE - 40, BASE - 200, e) - 260 * Math.sin(Math.PI * e); a = 1; s = .8; }
+    else if (p2 > 0 && p2 < 1) { const e = eIO(p2), x0 = 700 + (j % 4) * 55; x = lerp(x0, 540 + 260, e); y = lerp(BASE - 9.14 * PX + 40, 1440, e) - 180 * Math.sin(Math.PI * e); a = 1; s = lerp(1, .6, e); }
+    put(c, { o: a * o, x: (x || 0) - 28, y: (y || 0) - 28, s, r: (p1 + p2) * 360 });
+  });
+  // pil penghitung berdenyut tiap koin tiba
+  PULSE = 0;
+  for (let j = 0; j < flows.length; j++) { const ta = 18.6 + j * .13 + .75; PULSE = Math.max(PULSE, win(t, ta, ta + .25, .02, .2)); }
+  // selisih: panah dari 0% ke puncak bunga kredit
+  const ga = eExpo(seg(t, 17.9, 18.6)), top = BASE - 9.14 * PX;
+  Object.assign($('gapArrow').style, { top: top + 'px', height: (BASE - top) + 'px' });
+  put($('gapArrow'), { o: o * clamp(ga * 2), s: 1 });
+  $('gapArrow').style.transform = `scaleY(${ga.toFixed(3)})`;
+  Object.assign($('gapL').style, { left: '420px', width: '120px', top: (BASE - 10) + 'px' });
+  Object.assign($('gapR').style, { left: '540px', width: '120px', top: top + 'px' });
+  put($('gapL'), { o: o * ga, s: 1 }); put($('gapR'), { o: o * ga, s: 1 });
+  const tg = eBack(seg(t, 18.4, 18.8));
+  put($('gapTag'), { o: o * clamp(tg * 3), s: lerp(.5, 1, tg) * (1 + .02 * Math.sin(t * 4)), y: -out * 30, blur: out * 12 });
+  return { flash: .35 * win(t, 9.9, 10.5, .05, .4) + .35 * win(t, 15.0, 15.6, .05, .4) + .3 * win(t, 18.4, 19.0, .05, .4),
+           shake: shake(t, 9.95, .3, 8) + shake(t, 18.45, .3, 6) };
+}
+
+function renderBanks(t) {
+  const o = win(t, 21.8, OUT + .05, .5, .4), out = seg(t, OUT - .35, OUT + .05);
+  const cyc = Math.floor(Math.max(0, t - 22.9) / .45) % 3, on = win(t, 22.9, OUT, .2, .3);
+  [['k1', 60, 21.8], ['k2', 390, 21.95], ['k3', 720, 22.1]].forEach(([id, x, t0], i) => {
+    const e = eExpo(seg(t, t0, t0 + .6)), h = (cyc === i ? 1 : 0) * on;
+    put($(id), { o: o * clamp(e * 2), x, y: 760 + (1 - e) * 90 - out * 30, s: (1 + .04 * h) * (1 - out * .05), blur: (1 - e) * 10 + out * 12 });
+    $(id).style.boxShadow = `0 0 0 ${(2 + 3 * h).toFixed(1)}px rgba(46,230,160,${(.14 + .6 * h).toFixed(2)}) inset,0 0 ${(80 * h).toFixed(0)}px -20px rgba(46,230,160,.6),0 50px 120px -40px rgba(0,0,0,.95)`;
+  });
+  put($('askIn'), { o: win(t, 22.6, OUT + .05, .4, .4), y: (1 - eExpo(seg(t, 22.6, 23.2))) * 50 - out * 30, blur: out * 12 });
+  $('caret').style.opacity = Math.sin(t * 9) > 0 ? 1 : 0;
+  return {};
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan episode lain, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  const y = renderYear(t); flash += y.flash; sh += y.shake;
+  const c = renderChart(t); flash += c.flash; sh += c.shake;
+  renderMeters(t);
+  renderBanks(t);
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  // kamera: zoom kecil di awal (pembuka langsung "masuk") + guncangan saat angka menghantam
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>

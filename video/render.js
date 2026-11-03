@@ -6,6 +6,7 @@
 //   --jobs 3          render beberapa bagian sekaligus (lebih cepat di mesin multi-core), lalu digabung
 //   --warp warp.json  ubah tempo: {"duration": D, "anchors": [[detik_asli, detik_baru], ...]}
 //                     dipakai supaya animasi pas dengan voice over (dibuat oleh ep03-mix.py)
+//                     window.REAL_T berisi detik di video jadi (setelah tempo diubah), untuk penghitung waktu nyata
 // Butuh Playwright (Chromium) dan ffmpeg dengan libx264.
 const { chromium } = require('playwright');
 const { spawn, execFileSync } = require('child_process');
@@ -52,7 +53,7 @@ async function renderRange(errors, from, to, file, label) {
     '-r', String(FPS), '-g', String(FPS * 2), file], { stdio: ['pipe', 'inherit', 'inherit'] });
   const done = new Promise((res, rej) => ff.on('close', c => c === 0 ? res() : rej(new Error('ffmpeg keluar dengan kode ' + c))));
   for (let i = from; i < to; i++) {
-    await page.evaluate(tt => window.render(tt), toOrig(i / FPS));
+    await page.evaluate(([tt, rt]) => { window.REAL_T = rt; window.render(tt); }, [toOrig(i / FPS), i / FPS]);
     const buf = await stage.screenshot({ type: 'png' });
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
     if ((i - from) % 150 === 0) console.log(`${label}: frame ${i - from}/${to - from}`);
@@ -71,7 +72,7 @@ async function renderRange(errors, from, to, file, label) {
     const stage = await page.$('#stage');
     fs.mkdirSync(out, { recursive: true });
     for (const t of stills.split(',').map(Number)) {
-      await page.evaluate(tt => window.render(tt), toOrig(t));
+      await page.evaluate(([tt, rt]) => { window.REAL_T = rt; window.render(tt); }, [toOrig(t), t]);
       await stage.screenshot({ path: path.join(out, `t${String(t.toFixed(2)).padStart(5, '0')}.png`) });
     }
   } else {

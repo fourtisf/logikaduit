@@ -1,6 +1,6 @@
 # Musik latar dan efek suara original untuk video EP11 (Indomie di Alfamart, siapa yang untung). Semua disintesis (bebas hak cipta),
 # instrumennya ada di audio_lib.py. Waktu efek suara mengikuti timeline di ep11-indomie-alfamart.html.
-# Pakai: python3 video/ep10-audio.py <folder-output> [warp.json]   -> music.wav dan sfx.wav (48 kHz, stereo)
+# Pakai: python3 video/ep11-audio.py <folder-output> [warp.json]   -> music.wav dan sfx.wav (48 kHz, stereo)
 # warp.json (dari ep11-mix.py) menggeser semua waktu supaya cocok dengan video yang temponya disesuaikan voice over.
 import sys
 import numpy as np

@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), dan Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`); EP5 sampai EP11 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), dan Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`); EP5 sampai EP12 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -305,7 +305,7 @@ Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat nar
 | EP3 gratis ongkir (cover: coklat gratis) | 183 |
 | EP4 antre makanan viral | 180 |
 
-Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap hari ditonton 5–7 kali lebih banyak daripada konten konsep atau hitungan (gaji, diskon, antre). Hook kuis hitungan tidak menolong. Pilih topik dengan nama merek atau barang sehari-hari di kalimat pertama dan di cover. EP10 (Alfamart) dan EP11 (Indomie di Alfamart) dibuat dengan pola ini.
+Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap hari ditonton 5–7 kali lebih banyak daripada konten konsep atau hitungan (gaji, diskon, antre). Hook kuis hitungan tidak menolong. Pilih topik dengan nama merek atau barang sehari-hari di kalimat pertama dan di cover. EP10 (Alfamart), EP11 (Indomie di Alfamart), dan EP12 (BCA) dibuat dengan pola ini.
 
 **Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
