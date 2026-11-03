@@ -176,7 +176,19 @@ def pauses(pcm, rate, min_s=0.18):
     return out
 
 
+# nama huruf Indonesia, untuk singkatan yang di naskah dieja per huruf ("Be-Ce-A" = BCA)
+LETTERS = {"a": "a", "be": "b", "ce": "c", "de": "d", "e": "e", "ef": "f", "ge": "g", "ha": "h", "i": "i", "je": "j", "ka": "k",
+           "el": "l", "em": "m", "en": "n", "o": "o", "pe": "p", "ki": "q", "er": "r", "es": "s", "te": "t", "u": "u", "ve": "v",
+           "we": "w", "eks": "x", "ye": "y", "zet": "z"}
+
+
+def spelled(m):
+    parts = m.group(0).lower().split("-")
+    return "".join(LETTERS[p] for p in parts) if all(p in LETTERS for p in parts) else m.group(0)
+
+
 def words(t):
+    t = re.sub(r"[A-Za-z]+(?:-[A-Za-z]+)+", spelled, t)
     return re.findall(r"[a-z]+", t.lower().replace("nggak", "enggak"))
 
 
