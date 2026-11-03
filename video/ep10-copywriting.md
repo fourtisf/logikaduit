@@ -1,6 +1,6 @@
 # Copywriting EP10: Belanja Rp100 ribu di Alfamart, untungnya cuma Rp2.700
 
-Video: `logikaduit-ep10-alfamart.mp4` (sekitar 29 detik) dan `logikaduit-ep10-alfamart-tanpa-musik.mp4`. Cover: frame pertama (uang Rp100.000 + pertanyaan).
+Video: `logikaduit-ep10-alfamart-suara-baru.mp4` (sekitar 34 detik, suara Achird seperti Ruang Pikir) dan `logikaduit-ep10-alfamart-suara-baru-tanpa-musik.mp4`. Cover: frame pertama (uang Rp100.000 + pertanyaan).
 
 ## Instagram Reels
 
@@ -37,10 +37,10 @@ Alfamart untung berapa dari belanjaanmu? Cuma sekitar Rp2.700 per Rp100 ribu �
 ## Komentar yang di-pin (IG dan TikTok)
 
 ```
-Tim Alfamart atau tim Indomaret? Ketik A atau I 👇 Yang paling banyak, kita bongkar bisnis lawannya di video berikutnya!
+Tim Alfamart atau tim Indomaret? Ketik A atau I 👇 Next: beli Indomie di Alfamart, siapa yang untung lebih gede?
 ```
 
-Persaingan dua merek ini memancing banyak komentar. Janji "video berikutnya" membuat orang follow. Kalau ramai, buat lanjutan tentang Indomaret dengan data yang sudah dicek.
+Persaingan dua merek ini memancing banyak komentar, dan teaser video berikutnya membuat orang follow. Jangan janji membongkar keuangan Indomaret: perusahaannya tidak tercatat di bursa, jadi laporan keuangannya tidak terbuka untuk umum.
 
 ## Judul alternatif (untuk teks cover atau tes A/B)
 
