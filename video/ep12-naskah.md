@@ -1,6 +1,6 @@
 # Episode 12: Selama kamu nonton video ini, BCA untung Rp50 juta lebih
 
-Video 9:16, 1080×1920, format pendek "bongkar bisnis merek". Timeline animasi asli 29,5 detik; versi final mengikuti panjang narasi Gemini.
+Video 9:16, 1080×1920, format pendek "bongkar bisnis merek". Timeline animasi asli 29,5 detik; versi final dengan narasi Gemini 33,1 detik.
 Musik dan efek suara original dari `ep12-audio.py` (bebas hak cipta), loudness -14 LUFS. Ada versi tanpa musik (`LD_NO_MUSIC=1`). Caption ada di `ep12-copywriting.md`.
 Halaman HTML disusun dari bagian bersama EP7 (teks layar, latar, penutup) ditambah adegan EP12.
 

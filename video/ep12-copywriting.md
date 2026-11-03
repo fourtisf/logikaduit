@@ -1,6 +1,6 @@
 # Copywriting EP12: Selama kamu nonton video ini, BCA untung Rp50 juta lebih
 
-Video: `logikaduit-ep12-untung-bca.mp4` (suara Achird seperti Ruang Pikir) dan `logikaduit-ep12-untung-bca-tanpa-musik.mp4`. Cover: frame sekitar detik 2–3, saat penghitung sudah jutaan.
+Video: `logikaduit-ep12-untung-bca.mp4` (sekitar 33 detik, suara Achird seperti Ruang Pikir) dan `logikaduit-ep12-untung-bca-tanpa-musik.mp4`. Cover: frame sekitar detik 2–3, saat penghitung sudah jutaan.
 
 ## Instagram Reels
 
