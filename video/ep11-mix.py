@@ -8,6 +8,8 @@ EP11 = Episode(
     cap=[0, 4.6, 8.6, 13.0, 18.0, 22.0, 25.0],
     end=29.5,
     pause={0: 0.45},               # jeda sebentar setelah pertanyaan pembuka supaya penonton sempat menebak
+    max_pause=0.26,                # Achird banyak jeda napas di tengah kalimat; dipendekkan supaya video tetap pendek
+    speed=1.05,
 )
 
 if __name__ == '__main__':

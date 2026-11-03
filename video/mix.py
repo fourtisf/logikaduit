@@ -23,13 +23,28 @@ class Episode:
     end: float            # durasi timeline asli
     pause: dict = field(default_factory=dict)   # {nomor kalimat (dari 0): jeda sesudahnya, detik}
     marks: list = field(default_factory=list)   # [(detik asli, nomor kalimat)]: momen yang jatuh tepat setelah kalimat itu selesai
+    max_pause: float = 0  # >0: jeda di dalam satu kalimat (napas, koma) dipendekkan jadi paling lama segini (detik)
+    speed: float = 1.0    # >1: narasi sedikit dipercepat tanpa mengubah nada (ffmpeg atempo), misalnya 1.05
 
 
-def load_line(raw):
+def tighten(x, max_pause):
+    """Perpendek jeda hening di dalam satu kalimat jadi paling lama max_pause detik. Potongan selalu di bagian hening."""
+    env = np.convolve(np.abs(x), np.ones(480) / 480, mode='same')
+    quiet = (env < env.max() * 10 ** (-36 / 20)).astype(np.int8)
+    d = np.diff(np.concatenate([[0], quiet, [0]]))
+    keep, m = np.ones(len(x), bool), int(max_pause * SR)
+    for a, b in zip(np.where(d == 1)[0], np.where(d == -1)[0]):
+        if a > 0 and b < len(x) and b - a > m:
+            keep[a + m // 2:b - m // 2] = False
+    return x[keep]
+
+
+def load_line(raw, speed=1.0):
     """WAV dari zip -> mono float 48 kHz (resample lewat ffmpeg), tanpa hening di awal/akhir."""
     with tempfile.NamedTemporaryFile(suffix='.wav') as src:
         src.write(raw); src.flush()
-        pcm = subprocess.run(['ffmpeg', '-v', 'error', '-i', src.name, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'],
+        tempo = ['-af', f'atempo={speed}'] if speed != 1.0 else []
+        pcm = subprocess.run(['ffmpeg', '-v', 'error', '-i', src.name] + tempo + ['-ac', '1', '-ar', str(SR), '-f', 's16le', '-'],
                              check=True, capture_output=True).stdout
     x = np.frombuffer(pcm, '<i2').astype(float) / 32768
     env = np.convolve(np.abs(x), np.ones(480) / 480, mode='same')
@@ -49,7 +64,9 @@ def prep(ep, zpath, outdir):
     os.makedirs(outdir, exist_ok=True)
     z = zipfile.ZipFile(zpath)
     meta = json.loads(z.read('lines.json'))
-    lines = [load_line(z.read(l['file'])) for l in meta['lines']]
+    lines = [load_line(z.read(l['file']), ep.speed) for l in meta['lines']]
+    if ep.max_pause:
+        lines = [tighten(x, ep.max_pause) for x in lines]
     CAP, END = ep.cap, ep.end
     assert len(lines) == len(CAP), f'zip berisi {len(lines)} kalimat, seharusnya {len(CAP)}'
     d = [len(x) / SR for x in lines]

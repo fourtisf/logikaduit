@@ -28,6 +28,7 @@ Halaman HTML disusun dari bagian bersama EP7 (teks layar, latar, penutup) ditamb
 | 25,0 | Biar nggak gampang ketipu harga, follow Logika Duit! | Logo, tombol "Follow Logika Duit" ditekan, struk sumber |
 
 Di naskah TTS, "Indofood" ditulis "Indofud" supaya dibaca berlogat Indonesia.
+Jeda napas di dalam kalimat dipendekkan (paling lama 0,26 detik) dan narasi dipercepat 5% (`max_pause` dan `speed` di `ep11-mix.py`). Hasilnya 33,7 detik; tanpa itu 37,5 detik.
 
 ## Sumber (cek sebelum tayang)
 
