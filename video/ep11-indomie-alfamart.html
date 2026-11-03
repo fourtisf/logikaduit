@@ -75,7 +75,7 @@ em{font-style:normal;color:var(--emerald)}
 .stack .lab{position:absolute;left:-60px;right:-60px;top:560px;text-align:center}
 .stack .lab b{display:block;font-size:40px;font-weight:800}
 .stack .lab small{display:block;font-size:26px;color:var(--sage);font-weight:700;margin-top:2px}
-.stack .val{position:absolute;left:-60px;right:-60px;text-align:center;font-size:72px;font-weight:800;letter-spacing:-.04em}
+.stack .val{position:absolute;left:-60px;right:-60px;text-align:center;font-size:72px;font-weight:800;letter-spacing:-.04em;z-index:5;text-shadow:0 3px 0 #03100B,0 0 14px #03100B}
 .cn{position:absolute;left:20px;width:200px;height:64px}
 #legend{left:0;top:1440px;width:1080px;text-align:center;font:500 24px var(--mono);color:var(--sage)}
 /* rahasianya: merek */
@@ -326,14 +326,14 @@ function renderStacks(t) {
     put($(id), { o: o * (id === 'sB' ? clamp(e * 3) : 1), x, y: 720 + (1 - e) * 60 - out * 30, s: 1.15, blur: out * 12 });
   });
   const drop = (cid, k, t0) => { const p = seg(t, t0, t0 + .32), y = 480 - k * 26;
-    put($(cid), { o: p > 0 ? 1 : 0, x: 0, y: p < 1 ? lerp(y - 360, y, eOut(p)) - 34 * Math.sin(Math.PI * seg(p, .7, 1)) * 0 : y, s: 1 }); };
+    put($(cid), { o: clamp(p * 3), x: 0, y: p < 1 ? lerp(y - 170, y, eOut(p)) : y, s: 1 }); };   // jatuh pendek sambil muncul, supaya tidak menutupi angka
   for (let k = 0; k < 3; k++) drop('ca' + k, k, 5.4 + k * .3);
   for (let k = 0; k < 12; k++) drop('cb' + k, k, 9.3 + k * .13);
-  const nA = eOut(seg(t, 5.4, 6.3)), nB = eOut(seg(t, 9.3, 10.9));
+  const nA = seg(t, 5.4 + .32, 5.4 + .6 + .32), nB = seg(t, 9.3 + .32, 9.3 + 11 * .13 + .32);   // angka naik seiring koin mendarat
   $('vA').textContent = rp(Math.round(2700 * nA / 100) * 100); $('vB').textContent = rp(Math.round(12300 * nB / 100) * 100);
   $('vA').style.top = (480 - 3 * 26 - 90) + 'px'; $('vB').style.top = (480 - 12 * 26 - 90) + 'px';
   $('vA').style.color = t > 9.3 ? '#8BA79B' : ''; $('vB').style.color = '#2EE6A0';
-  $('vB').style.textShadow = '0 0 40px rgba(46,230,160,.5)';
+  $('vB').style.textShadow = '0 3px 0 #03100B,0 0 14px #03100B,0 0 40px rgba(46,230,160,.5)';
   put($('legend'), { o: win(t, 5.6, 12.95, .4, .4) * .9 });
   const st = seg(t, 11.3, 11.65), sw = $('stamp1').offsetWidth;
   put($('stamp1'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: 540 - sw / 2, y: 900, s: lerp(2.6, 1, eBack(st)), r: -8 });

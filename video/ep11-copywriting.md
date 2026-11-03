@@ -1,6 +1,6 @@
 # Copywriting EP11: Beli Indomie di Alfamart, siapa yang untung lebih gede?
 
-Video: `logikaduit-ep11-indomie-alfamart.mp4` dan `logikaduit-ep11-indomie-alfamart-tanpa-musik.mp4`. Cover: frame pertama (bungkus mi + "Yang jualan" VS "Yang bikin").
+Video: `logikaduit-ep11-indomie-alfamart.mp4` (sekitar 34 detik, suara Achird seperti Ruang Pikir) dan `logikaduit-ep11-indomie-alfamart-tanpa-musik.mp4`. Cover: frame pertama (bungkus mi + "Yang jualan" VS "Yang bikin").
 Waktu posting: tidak lama setelah EP10, karena komentar yang di-pin di EP10 sudah menjanjikan episode ini.
 
 ## Instagram Reels
