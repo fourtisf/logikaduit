@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), dan Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`); EP5 sampai EP12 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`), dan Episode 13 (bayar QRIS, kok lebih boros?, `ep13-*`); EP5 sampai EP13 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -285,8 +285,16 @@ Bahan bersama (dipakai semua episode, jangan disalin ke file episode):
 
 Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat narasi sama dengan jumlah teks layar.
 
+**Rumus hook (mulai EP13, November 2026), belajar dari Ruang Pikir yang cepat viral (1,8 ribu sampai 21,5 ribu penonton per video):**
+- Hook menjanjikan manfaat buat penonton: "Mau [hasil]? Coba [satu trik] ini." Contoh Ruang Pikir: "Mau cepat akrab sama orang baru? Coba satu pertanyaan ini." Orang menonton sampai habis untuk dapat triknya, lalu mengirim videonya ke teman.
+- Topiknya tentang perilaku penonton sendiri soal uang (boros, gaji habis, ketipu harga), bukan untung perusahaan.
+- Judul di layar pendek dengan pola tagline: "[situasi], kok [hasil aneh]?" (paling banyak 6 kata), plus satu kalimat masalah di bawah adegan ("Mau jajan lebih hemat?").
+- Ada tokoh "kamu" dengan ekspresi (gaya Logika Duit: kepala bulat, hoodie zamrud; bukan tokoh kapsul Ruang Pikir). Contohnya SVG `.person` (badan dan ekspresi) dan `.face` (kepala saja) di `ep13-qris-boros.html`; ekspresi diatur fungsi `face()`.
+- Satu riset utama dan paling banyak dua angka, lalu triknya. Ditutup tantangan: "coba, lalu tulis hasilnya di komentar".
+- Durasi bukan penentu utama: video Ruang Pikir 40–47 detik tetap viral. 30–40 detik boleh, asal penonton punya alasan bertahan.
+
 **Format video (pelajaran dari EP3 dan EP4, sekitar 50 detik, sepi penonton):**
-- Durasi 20–30 detik, satu poin saja.
+- Satu poin saja.
 - Kalimat pertama berupa pernyataan berani yang menyangkut penonton, terdengar sejak detik 0, dan frame pertama bisa jadi cover.
 - Pakai contoh lokal yang dikenal semua orang (Mixue, Indomaret, Shopee, gaji UMR). Riset tetap wajib, tapi cukup ditulis di struk dan caption.
 - Tutup dengan pertanyaan yang memancing komentar, lalu ajakan follow.
@@ -304,8 +312,10 @@ Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat nar
 | EP7 gaji naik 5% | 217 |
 | EP3 gratis ongkir (cover: coklat gratis) | 183 |
 | EP4 antre makanan viral | 180 |
+| EP10 Alfamart untung Rp2.700 | 185 |
+| EP9 tanggal tua | 164 |
 
-Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap hari ditonton 5–7 kali lebih banyak daripada konten konsep atau hitungan (gaji, diskon, antre). Hook kuis hitungan tidak menolong. Pilih topik dengan nama merek atau barang sehari-hari di kalimat pertama dan di cover. EP10 (Alfamart), EP11 (Indomie di Alfamart), dan EP12 (BCA) dibuat dengan pola ini.
+Pelajarannya: konten "bongkar bisnis merek" dan barang yang dipegang orang tiap hari ditonton 5–7 kali lebih banyak daripada konten konsep atau hitungan (gaji, diskon, antre). Hook kuis hitungan tidak menolong. Pilih topik dengan nama merek atau barang sehari-hari di kalimat pertama dan di cover. EP10 (Alfamart), EP11 (Indomie di Alfamart), dan EP12 (BCA) dibuat dengan pola ini, tapi EP10 hanya 185 penonton: nama merek saja tidak cukup. Snack dan Mixue laku karena menyangkut penonton langsung ("kamu dikurangin isinya"). Karena itu mulai EP13 dipakai rumus hook di atas.
 
 **Suara AI:** butuh `GEMINI_API_KEY` di pengaturan environment Claude Code (menu environment di judul sesi, lalu Edit). ALFA menyimpannya sendiri; **jangan pernah minta key ditempel di chat**, dan jangan mencetak atau menyimpannya di repo. Kalau key ada, buat video lengkap langsung di sesi ini (contoh EP3; untuk episode lain ganti `ep03` dan nama file HTML-nya):
 ```bash
@@ -328,7 +338,7 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Tahun ditulis dengan kata di naskah ("seribu sembilan ratus enam puluh sembilan"), supaya dibaca dalam bahasa Indonesia. Nama merek ditulis sesuai ucapan ("Miksue" untuk Mixue); teks layar tetap ejaan asli.
 - Model kadang ikut membacakan arahan gaya di awal, tidak menentu (arahan yang sama pernah aman; terjadi di EP5, EP6, EP7). `tts_gemini.py` mengenalinya dari transkrip potongan pertama, lalu memotong ulang dan membuang bagian itu otomatis. Transkrip 8 detik pertama tidak bisa dipakai untuk ini, karena model transkrip melewatkan kalimat bahasa Inggris di tengah audio. Arahan lain ("energetic, punchy") lebih sering ikut dibacakan, jadi jangan diganti.
 - Achird sering berhenti lama untuk napas di tengah kalimat, sehingga video jadi panjang. Di `epNN-mix.py`, `Episode(max_pause=0.26, speed=1.05)` memendekkan jeda di dalam kalimat dan mempercepat narasi sedikit tanpa mengubah nada (EP11: 37,5 jadi 33,7 detik).
-- Singkatan ditulis per huruf dengan tanda hubung ("Be-Ce-A", "Be-Er-I") supaya dieja dengan huruf Indonesia. Pemeriksa transkrip mengenali bentuk ini sebagai "BCA" dan "BRI".
+- Singkatan ditulis per huruf dengan tanda hubung ("Be-Ce-A", "Be-Er-I") supaya dieja dengan huruf Indonesia. QRIS ditulis "Kris" (cara baca resmi Bank Indonesia). Pemeriksa transkrip mengenali bentuk ini sebagai "BCA" dan "BRI".
 - Transkrip yang jauh dari naskah ditandai "TIDAK COCOK". Kalau muncul, dengarkan potongannya sebelum dipakai.
 - Kalimat penutup yang sama ("Biar nggak gampang ketipu harga, follow Logika Duit!") kadang terbaca salah, misalnya "Logika Diet" di EP9. Cek transkrip kalimat terakhir; kalau salah, pakai potongan penutup dari episode lain dengan suara yang sama.
 - Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
