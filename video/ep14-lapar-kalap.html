@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP14: lapar, kok belanjanya kalap? (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong.
+   Rumus hook EP13: "Mau [hasil]? Coba trik ini", judul "X, kok Y?", tokoh "kamu" dengan ekspresi, satu riset utama, tantangan.
+   Riset: Xu, Schwarz & Wyer (2015), PNAS: pembeli yang lapar belanja 64% lebih banyak di toserba, dan yang dibeli bukan makanan.
+   Barang, harga, dan struk di video hanya ilustrasi. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+.fcoin{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:22px;color:#032015;
+  background:radial-gradient(circle at 34% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 0 3px rgba(3,32,21,.35) inset,0 0 24px rgba(46,230,160,.5)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+.stamp{padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:60px;letter-spacing:-.02em;white-space:nowrap;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+
+
+.person{width:430px;height:440px;overflow:visible}
+.face{width:150px;height:150px}
+#p1{left:20px;top:820px}
+#growl{left:250px;top:770px;z-index:3004}
+#growl span{display:inline-block;font-size:44px;font-weight:800;letter-spacing:.02em;color:var(--mint);padding:10px 24px;border-radius:30px;
+  background:rgba(157,245,207,.08);box-shadow:0 0 0 2px rgba(157,245,207,.3) inset;transform:rotate(-8deg)}
+#cart{left:520px;top:700px;width:520px;padding:26px 26px 22px;box-sizing:border-box;z-index:3003}
+#cart h6,#cart2 h6{margin:0 0 10px;display:flex;justify-content:space-between;align-items:center;font-size:32px;font-weight:800}
+#cart h6 em,#cart2 h6 em{font-style:normal;font-size:26px;color:#032015;background:var(--emerald);border-radius:999px;padding:2px 14px;font-feature-settings:"tnum"}
+.crow{position:relative;display:flex;align-items:center;gap:14px;padding:9px 0;border-top:2px dashed rgba(157,245,207,.14);font-feature-settings:"tnum"}
+.crow i{width:52px;height:52px;border-radius:14px;background:rgba(157,245,207,.08);display:grid;place-items:center;flex:none}
+.crow i svg{width:40px;height:40px}
+.crow span{flex:1;font-size:27px;font-weight:700;white-space:nowrap}
+.crow b{font-size:27px;font-weight:800;color:var(--mint)}
+.crow u{position:absolute;left:66px;right:0;top:50%;height:4px;border-radius:2px;background:var(--emerald);transform-origin:0 50%;transform:scaleX(0)}
+.ctot{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:12px;border-top:2px solid rgba(157,245,207,.3);font-feature-settings:"tnum"}
+.ctot span{font-size:28px;font-weight:700;color:var(--sage)}
+.ctot b{font-size:46px;font-weight:800;color:var(--emerald)}
+#hookQ{left:0;top:1380px;width:1080px;text-align:center}
+#hookQ span{display:inline-block;font-size:44px;font-weight:800;letter-spacing:-.02em;color:var(--ice)}
+#hookQ em{font-style:normal;color:var(--emerald)}
+#trick{left:110px;top:850px;width:860px;padding:40px 44px;box-sizing:border-box;display:flex;align-items:center;gap:30px;z-index:3008}
+#trick .ico{width:150px;height:150px;flex:none}
+#trick small{display:block;font-size:28px;color:var(--sage);font-weight:700}
+#trick b{display:block;font-size:56px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+/* toserba dan struk */
+#store{left:190px;top:650px;width:700px;height:280px;transform-origin:50% 0}
+#store .aw{position:absolute;left:0;right:0;top:70px;height:62px;border-radius:20px 20px 0 0;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(0,0,0,.25)),repeating-linear-gradient(90deg,#1FB884 0 50px,#0B4D38 50px 100px)}
+#store .sg{position:absolute;left:210px;right:210px;top:0;height:64px;border-radius:18px;display:grid;place-items:center;font-size:38px;font-weight:800;background:#03100B;box-shadow:0 0 0 3px rgba(157,245,207,.35) inset}
+#store .bx{position:absolute;left:20px;right:20px;top:132px;bottom:0;background:linear-gradient(180deg,#0E2E22,#071A13);box-shadow:0 0 0 2px rgba(157,245,207,.16) inset}
+#store .door{position:absolute;left:280px;width:140px;top:170px;bottom:0;border-radius:12px 12px 0 0;background:linear-gradient(180deg,rgba(157,245,207,.25),rgba(46,230,160,.08));box-shadow:0 0 0 3px rgba(157,245,207,.3) inset}
+#store .win{position:absolute;top:160px;width:170px;height:90px;border-radius:12px;background:rgba(157,245,207,.12)}
+.rcp{width:270px;padding:20px 20px 32px;box-sizing:border-box;font:500 20px/1.5 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#123528,#0B241B);box-shadow:0 30px 60px -20px rgba(0,0,0,.9),0 0 0 2px rgba(157,245,207,.18) inset;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/28px 14px repeat-x;
+          mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/28px 14px repeat-x}
+.rcp h6{margin:0 0 10px;font:700 24px var(--mono);color:var(--mint);text-align:center;padding-bottom:10px;border-bottom:2px dashed rgba(157,245,207,.3)}
+.rl{display:flex;justify-content:space-between}
+.rt{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:2px dashed rgba(157,245,207,.3);font-weight:700;color:var(--ice)}
+#lens{left:0;top:0;width:200px;height:200px;z-index:3006}
+#study{left:190px;top:1240px;width:700px;padding:26px 36px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;z-index:3006}
+#study small{display:block;font-size:26px;color:var(--sage);font-weight:700}
+#study b{display:block;font-size:40px;font-weight:800;letter-spacing:-.02em}
+#study .yr{font-size:72px;font-weight:800;color:var(--emerald);letter-spacing:-.04em;text-shadow:0 0 40px rgba(46,230,160,.5)}
+/* kenyang vs lapar */
+.who{width:330px;text-align:center}
+.who .face{width:130px;height:130px;display:block;margin:0 auto}
+.who b{display:block;font-size:36px;font-weight:800;margin-top:6px}
+#rcpA,#rcpB{width:340px;font-size:23px}
+#notFood{left:0;top:1400px;width:1080px;text-align:center;z-index:3007}
+#notFood .pill{font-size:34px;padding:12px 28px}
+/* penjepit kertas */
+#jar{left:110px;top:900px;width:300px;height:340px}
+.clipf{width:110px;height:110px;z-index:3004}
+.clipf svg{width:110px;height:110px}
+#p2{left:520px;top:760px}
+#bubble{left:600px;top:660px;z-index:3006}
+#bubble span{display:inline-block;font-size:40px;font-weight:800;padding:14px 28px;border-radius:30px 30px 30px 6px;color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 40px rgba(46,230,160,.5)}
+/* magnet */
+#bigFace{left:390px;top:930px;width:300px;height:300px}
+#magnet{left:415px;top:640px;width:250px;height:250px}
+.flyi{width:110px;height:110px;border-radius:30px;display:grid;place-items:center;background:rgba(157,245,207,.08);box-shadow:0 0 0 2px rgba(157,245,207,.25) inset;z-index:3004}
+.flyi svg{width:76px;height:76px}
+#mode{left:190px;top:1260px;width:700px;height:100px;border-radius:50px;display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 36px;box-sizing:border-box;z-index:3006;
+  background:linear-gradient(160deg,rgba(16,52,38,.95),rgba(5,20,15,.97));box-shadow:0 0 0 2px rgba(46,230,160,.45) inset,0 0 60px -10px rgba(46,230,160,.5)}
+#mode span{font-size:32px;font-weight:800}
+#mode i{width:120px;height:66px;border-radius:33px;background:rgba(157,245,207,.15);position:relative;flex:none}
+#mode i::after{content:"";position:absolute;left:6px;top:6px;width:54px;height:54px;border-radius:50%;background:var(--ice);transform:translateX(var(--k,0px));transition:none}
+/* tantangan */
+#p3{left:-10px;top:760px}
+#cart2{left:470px;top:690px;width:570px;padding:26px 26px 22px;box-sizing:border-box;z-index:3003}
+#del{left:470px;top:1300px;width:570px;text-align:center;z-index:3005}
+#del .pill{font-size:32px;padding:12px 26px}
+#askIn{left:110px;top:1392px;width:860px;height:96px;border-radius:50px;display:flex;align-items:center;gap:18px;padding:0 18px 0 30px;box-sizing:border-box;z-index:3001;
+  background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset;font-size:32px;font-weight:700;color:var(--sage)}
+#askIn span{flex:1;white-space:nowrap}
+#askIn i{display:inline-block;width:4px;height:40px;background:var(--emerald);vertical-align:middle;margin-left:4px}
+#askIn u{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#8CF7CB,var(--emerald));flex:none}
+#askIn u svg{width:32px;height:32px}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div><div id="fcoins"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="pHead" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#A8F2D2"/></linearGradient>
+      <linearGradient id="pHood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1FB884"/><stop offset="1" stop-color="#0B4D38"/></linearGradient></defs></svg>
+
+    <!-- 1. hook: perut keroncongan, keranjang penuh barang aneh -->
+    <div id="p1" class="abs"><svg viewBox="0 0 430 440" class="person" id="pp1">
+  <path d="M232 320 C268 300 300 274 330 246" stroke="url(#pHood)" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <path d="M40 440 C40 336 72 266 150 266 C228 266 260 336 260 440 Z" fill="url(#pHood)"/>
+  <path d="M104 272 Q150 318 196 272" stroke="#03100B" stroke-opacity=".35" stroke-width="7" fill="none"/>
+  <path d="M132 304 v48 M168 304 v48" stroke="#9DF5CF" stroke-width="5" stroke-linecap="round"/>
+  <g class="it"><rect x="318" y="168" width="64" height="112" rx="12" fill="#03100B" stroke="#9DF5CF" stroke-width="4"/><rect x="326" y="180" width="48" height="86" rx="6" fill="#0E2E22"/><path d="M336 206h28l-4 22h-20z" fill="none" stroke="#2EE6A0" stroke-width="4" stroke-linejoin="round"/><circle cx="342" cy="236" r="4" fill="#2EE6A0"/><circle cx="358" cy="236" r="4" fill="#2EE6A0"/></g>
+  <circle cx="342" cy="238" r="22" fill="url(#pHead)"/>
+  <circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g>
+</svg></div>
+    <div id="growl" class="abs"><span>kruuuk...</span></div>
+    <div id="cart" class="abs glass top"><h6>Keranjang <em id="cartN">3</em></h6><div class="crow" id="a0"><i><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></i><span>Penjepit kertas</span><b>Rp15.000</b><u></u></div><div class="crow" id="a1"><i><svg viewBox="0 0 100 100"><path d="M30 20c14-8 30-2 32 16 2 20-4 50-18 58-14 8-24-6-24-30 0-20 0-38 10-44z" fill="#2EE6A0"/><path d="M34 30 L46 50 L58 34" stroke="#03100B" stroke-width="6" fill="none" stroke-linecap="round"/></svg></i><span>Sandal</span><b>Rp89.000</b><u></u></div><div class="crow" id="a2"><i><svg viewBox="0 0 100 100"><path d="M30 18h40l12 34H18z" fill="#2EE6A0"/><rect x="46" y="52" width="8" height="28" fill="#9DF5CF"/><rect x="30" y="80" width="40" height="8" rx="4" fill="#9DF5CF"/><circle cx="50" cy="60" r="18" fill="#2EE6A0" opacity=".25"/></svg></i><span>Lampu tidur</span><b>Rp125.000</b><u></u></div><div class="crow" id="a3"><i><svg viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="80" rx="10" fill="#0E8F64" stroke="#9DF5CF" stroke-width="4"/><circle cx="40" cy="24" r="6" fill="#03100B"/><circle cx="40" cy="38" r="5" fill="#03100B"/></svg></i><span>Casing HP</span><b>Rp49.000</b><u></u></div><div class="crow" id="a4"><i><svg viewBox="0 0 100 100"><rect x="30" y="40" width="40" height="48" rx="6" fill="#9DF5CF"/><path d="M50 14c8 10 8 18 0 24-8-6-8-14 0-24z" fill="#2EE6A0"/><rect x="48" y="34" width="4" height="8" fill="#03100B"/></svg></i><span>Lilin aroma</span><b>Rp79.000</b><u></u></div><div class="crow" id="a5"><i><svg viewBox="0 0 100 100"><path d="M34 14l-22 14 10 18 10-6v46h36V40l10 6 10-18-22-14c-2 8-8 12-16 12s-14-4-16-12z" fill="#2EE6A0"/></svg></i><span>Kaos oversize</span><b>Rp130.000</b><u></u></div><div class="ctot"><span>Total</span><b id="cartT">Rp0</b></div></div>
+    <div id="hookQ" class="abs"><span>Mau nggak <em>kalap</em> belanja?</span></div>
+    <div id="trick" class="abs glass"><span class="ico"><svg viewBox="0 0 100 100"><ellipse cx="50" cy="44" rx="38" ry="9" fill="#E6FFF4"/><path d="M12 44h76c0 26-18 40-38 40S12 70 12 44z" fill="#0E8F64"/></svg></span><div><small>Coba trik ini</small><b>Makan dulu sebelum buka keranjang</b></div></div>
+
+    <!-- 2. riset 2015: struk pembeli toserba -->
+    <div id="store" class="abs top"><div class="aw"></div><div class="bx"><div class="win" style="left:60px"></div><div class="win" style="right:60px"></div></div><div class="door"></div><div class="sg">Toserba</div></div>
+    <div id="r1" class="abs rcp"><h6>Struk 1</h6><div class="rl"><span>Kaos</span><span>89.000</span></div><div class="rl"><span>Sabun</span><span>24.000</span></div><div class="rl"><span>Payung</span><span>65.000</span></div><div class="rt"><span>Total</span><span class="rtv"></span></div></div>
+    <div id="r2" class="abs rcp"><h6>Struk 2</h6><div class="rl"><span>Sandal</span><span>89.000</span></div><div class="rl"><span>Lilin</span><span>79.000</span></div><div class="rl"><span>Kaus kaki</span><span>35.000</span></div><div class="rt"><span>Total</span><span class="rtv"></span></div></div>
+    <div id="r3" class="abs rcp"><h6>Struk 3</h6><div class="rl"><span>Casing HP</span><span>49.000</span></div><div class="rl"><span>Penjepit</span><span>15.000</span></div><div class="rl"><span>Lampu</span><span>125.000</span></div><div class="rt"><span>Total</span><span class="rtv"></span></div></div>
+    <div id="lens" class="abs"><svg viewBox="0 0 200 200"><circle cx="80" cy="80" r="62" fill="rgba(157,245,207,.12)" stroke="#E6FFF4" stroke-width="12"/><path d="M126 126 L186 186" stroke="#2EE6A0" stroke-width="22" stroke-linecap="round"/></svg></div>
+    <div id="study" class="abs glass top"><div><small>Xu, Schwarz & Wyer</small><b>Struk pembeli toserba</b></div><div class="yr">2015</div></div>
+
+    <!-- 3. kenyang vs lapar -->
+    <div id="whoA" class="abs who"><svg viewBox="40 36 220 222" class="face" id="fA"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g></svg><b>Kenyang</b></div>
+    <div id="whoB" class="abs who"><svg viewBox="40 36 220 222" class="face" id="fB"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g></svg><b>Lapar</b></div>
+    <div id="rcpA" class="abs rcp"><h6>Kenyang</h6><div class="rl"><span>Kaos</span><span>89.000</span></div><div class="rl"><span>Sabun</span><span>24.000</span></div><div class="rl"><span>Payung</span><span>65.000</span></div><div class="rt"><span>Total</span><span class="rtv"></span></div></div>
+    <div id="rcpB" class="abs rcp"><h6>Lapar</h6><div class="rl"><span>Kaos</span><span>89.000</span></div><div class="rl"><span>Sabun</span><span>24.000</span></div><div class="rl"><span>Payung</span><span>65.000</span></div><div class="rl"><span>Penjepit</span><span>15.000</span></div><div class="rl"><span>Lilin</span><span>79.000</span></div><div class="rl"><span>Kaus kaki</span><span>20.000</span></div><div class="rt"><span>Total</span><span class="rtv"></span></div></div>
+    <div id="stamp1" class="abs stamp top" style="font-size:72px">+64%</div>
+    <div id="notFood" class="abs"><span class="pill">Yang dibeli bukan makanan!</span></div>
+
+    <!-- 4. penjepit kertas -->
+    <div id="jar" class="abs"><svg viewBox="0 0 300 340"><rect x="40" y="20" width="220" height="40" rx="12" fill="#0B4D38"/>
+  <path d="M50 60 h200 v230 a30 30 0 0 1 -30 30 h-140 a30 30 0 0 1 -30 -30z" fill="rgba(157,245,207,.08)" stroke="#9DF5CF" stroke-opacity=".45" stroke-width="5"/>
+  <g transform="translate(80 150) rotate(-35) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(127 181) rotate(18) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(174 212) rotate(1) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(221 243) rotate(-16) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(118 274) rotate(-33) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(165 165) rotate(20) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(212 196) rotate(3) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(109 227) rotate(-14) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(156 258) rotate(-31) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(203 289) rotate(22) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(100 180) rotate(5) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(147 211) rotate(-12) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(194 242) rotate(-29) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g><g transform="translate(91 273) rotate(24) scale(.8)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g>
+  <path d="M70 80 v190" stroke="#fff" stroke-opacity=".12" stroke-width="12" stroke-linecap="round"/></svg></div>
+    <div id="clips"><div class="abs clipf" id="cl0"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl1"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl2"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl3"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl4"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl5"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl6"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl7"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl8"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl9"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl10"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl11"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl12"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl13"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl14"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs clipf" id="cl15"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div></div>
+    <div id="p2" class="abs"><svg viewBox="0 0 430 440" class="person" id="pp2">
+  <path d="M232 320 C268 300 300 274 330 246" stroke="url(#pHood)" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <path d="M40 440 C40 336 72 266 150 266 C228 266 260 336 260 440 Z" fill="url(#pHood)"/>
+  <path d="M104 272 Q150 318 196 272" stroke="#03100B" stroke-opacity=".35" stroke-width="7" fill="none"/>
+  <path d="M132 304 v48 M168 304 v48" stroke="#9DF5CF" stroke-width="5" stroke-linecap="round"/>
+  <g class="it" transform="translate(352 210) rotate(-18)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g>
+  <circle cx="342" cy="238" r="22" fill="url(#pHead)"/>
+  <circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g>
+</svg></div>
+    <div id="bubble" class="abs"><span>Bisa dimakan?</span></div>
+
+    <!-- 5. mode pengin dapet sesuatu -->
+    <div id="magnet" class="abs"><svg viewBox="0 0 250 250"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0E8F64"/><stop offset=".5" stop-color="#2EE6A0"/><stop offset="1" stop-color="#0E8F64"/></linearGradient></defs>
+  <path d="M40 30 V130 a85 85 0 0 0 170 0 V30 h-56 v100 a29 29 0 0 1 -58 0 V30 Z" fill="url(#mg)" transform="rotate(180 125 125)"/>
+  <rect x="40" y="166" width="56" height="54" fill="#E6FFF4" transform="rotate(180 125 125)"/><rect x="154" y="166" width="56" height="54" fill="#E6FFF4" transform="rotate(180 125 125)"/></svg></div>
+    <div id="bigFace" class="abs"><svg viewBox="40 36 220 222" class="face" style="width:300px;height:300px" id="fC"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g></svg></div>
+    <div id="flys"><div class="abs flyi" id="fl0"><svg viewBox="0 0 100 100"><path d="M30 20c14-8 30-2 32 16 2 20-4 50-18 58-14 8-24-6-24-30 0-20 0-38 10-44z" fill="#2EE6A0"/><path d="M34 30 L46 50 L58 34" stroke="#03100B" stroke-width="6" fill="none" stroke-linecap="round"/></svg></div><div class="abs flyi" id="fl1"><svg viewBox="0 0 100 100"><path d="M30 18h40l12 34H18z" fill="#2EE6A0"/><rect x="46" y="52" width="8" height="28" fill="#9DF5CF"/><rect x="30" y="80" width="40" height="8" rx="4" fill="#9DF5CF"/><circle cx="50" cy="60" r="18" fill="#2EE6A0" opacity=".25"/></svg></div><div class="abs flyi" id="fl2"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs flyi" id="fl3"><svg viewBox="0 0 100 100"><path d="M34 14l-22 14 10 18 10-6v46h36V40l10 6 10-18-22-14c-2 8-8 12-16 12s-14-4-16-12z" fill="#2EE6A0"/></svg></div><div class="abs flyi" id="fl4"><svg viewBox="0 0 100 100"><rect x="30" y="40" width="40" height="48" rx="6" fill="#9DF5CF"/><path d="M50 14c8 10 8 18 0 24-8-6-8-14 0-24z" fill="#2EE6A0"/><rect x="48" y="34" width="4" height="8" fill="#03100B"/></svg></div><div class="abs flyi" id="fl5"><svg viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="80" rx="10" fill="#0E8F64" stroke="#9DF5CF" stroke-width="4"/><circle cx="40" cy="24" r="6" fill="#03100B"/><circle cx="40" cy="38" r="5" fill="#03100B"/></svg></div><div class="abs flyi" id="fl6"><svg viewBox="0 0 100 100"><path d="M30 20c14-8 30-2 32 16 2 20-4 50-18 58-14 8-24-6-24-30 0-20 0-38 10-44z" fill="#2EE6A0"/><path d="M34 30 L46 50 L58 34" stroke="#03100B" stroke-width="6" fill="none" stroke-linecap="round"/></svg></div><div class="abs flyi" id="fl7"><svg viewBox="0 0 100 100"><path d="M30 18h40l12 34H18z" fill="#2EE6A0"/><rect x="46" y="52" width="8" height="28" fill="#9DF5CF"/><rect x="30" y="80" width="40" height="8" rx="4" fill="#9DF5CF"/><circle cx="50" cy="60" r="18" fill="#2EE6A0" opacity=".25"/></svg></div><div class="abs flyi" id="fl8"><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></div><div class="abs flyi" id="fl9"><svg viewBox="0 0 100 100"><path d="M34 14l-22 14 10 18 10-6v46h36V40l10 6 10-18-22-14c-2 8-8 12-16 12s-14-4-16-12z" fill="#2EE6A0"/></svg></div><div class="abs flyi" id="fl10"><svg viewBox="0 0 100 100"><rect x="30" y="40" width="40" height="48" rx="6" fill="#9DF5CF"/><path d="M50 14c8 10 8 18 0 24-8-6-8-14 0-24z" fill="#2EE6A0"/><rect x="48" y="34" width="4" height="8" fill="#03100B"/></svg></div><div class="abs flyi" id="fl11"><svg viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="80" rx="10" fill="#0E8F64" stroke="#9DF5CF" stroke-width="4"/><circle cx="40" cy="24" r="6" fill="#03100B"/><circle cx="40" cy="38" r="5" fill="#03100B"/></svg></div></div>
+    <div id="mode" class="abs"><span>Mode pengin dapet sesuatu</span><i id="sw"></i></div>
+
+    <!-- 6. tantangan: makan dulu, hapus isi keranjang -->
+    <div id="p3" class="abs"><svg viewBox="0 0 430 440" class="person" id="pp3">
+  <path d="M232 320 C268 300 300 274 330 246" stroke="url(#pHood)" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <path d="M40 440 C40 336 72 266 150 266 C228 266 260 336 260 440 Z" fill="url(#pHood)"/>
+  <path d="M104 272 Q150 318 196 272" stroke="#03100B" stroke-opacity=".35" stroke-width="7" fill="none"/>
+  <path d="M132 304 v48 M168 304 v48" stroke="#9DF5CF" stroke-width="5" stroke-linecap="round"/>
+  <g class="it"><path d="M318 170c-6-10 6-16 0-28M346 166c-6-10 6-16 0-28M374 170c-6-10 6-16 0-28" stroke="#9DF5CF" stroke-opacity=".55" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="346" cy="196" rx="62" ry="14" fill="#E6FFF4"/><path d="M284 196h124c0 40-28 64-62 64s-62-24-62-64z" fill="#0E8F64" stroke="#9DF5CF" stroke-opacity=".6" stroke-width="3"/><path d="M392 120 L330 196" stroke="#C8FBE4" stroke-width="6" stroke-linecap="round"/></g>
+  <circle cx="342" cy="238" r="22" fill="url(#pHead)"/>
+  <circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path class="m m-wince" d="M118 206 L132 198 L146 208 L160 198 L174 208 L184 200" stroke="#03100B" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="m m-drool"><ellipse cx="150" cy="206" rx="13" ry="10" fill="#03100B"/><path d="M160 212 q5 18 -2 26 q-7 -7 2 -26z" fill="#9DF5CF"/></g>
+</svg></div>
+    <div id="cart2" class="abs glass top"><h6>Keranjang <em id="cart2N">6</em></h6><div class="crow" id="b0"><i><svg viewBox="-50 -50 100 100"><g transform="translate(0 10)"><path d="M-30 -8 L30 -8 L22 22 L-22 22 Z" fill="#03100B" stroke="#2EE6A0" stroke-width="3"/><path d="M-20 -8 L-26 -40 L26 -40 L20 -8" stroke="#C8FBE4" stroke-width="5" fill="none" stroke-linejoin="round"/></g></svg></i><span>Penjepit kertas</span><b>Rp15.000</b><u></u></div><div class="crow" id="b1"><i><svg viewBox="0 0 100 100"><path d="M30 20c14-8 30-2 32 16 2 20-4 50-18 58-14 8-24-6-24-30 0-20 0-38 10-44z" fill="#2EE6A0"/><path d="M34 30 L46 50 L58 34" stroke="#03100B" stroke-width="6" fill="none" stroke-linecap="round"/></svg></i><span>Sandal</span><b>Rp89.000</b><u></u></div><div class="crow" id="b2"><i><svg viewBox="0 0 100 100"><path d="M30 18h40l12 34H18z" fill="#2EE6A0"/><rect x="46" y="52" width="8" height="28" fill="#9DF5CF"/><rect x="30" y="80" width="40" height="8" rx="4" fill="#9DF5CF"/><circle cx="50" cy="60" r="18" fill="#2EE6A0" opacity=".25"/></svg></i><span>Lampu tidur</span><b>Rp125.000</b><u></u></div><div class="crow" id="b3"><i><svg viewBox="0 0 100 100"><rect x="28" y="10" width="44" height="80" rx="10" fill="#0E8F64" stroke="#9DF5CF" stroke-width="4"/><circle cx="40" cy="24" r="6" fill="#03100B"/><circle cx="40" cy="38" r="5" fill="#03100B"/></svg></i><span>Casing HP</span><b>Rp49.000</b><u></u></div><div class="crow" id="b4"><i><svg viewBox="0 0 100 100"><rect x="30" y="40" width="40" height="48" rx="6" fill="#9DF5CF"/><path d="M50 14c8 10 8 18 0 24-8-6-8-14 0-24z" fill="#2EE6A0"/><rect x="48" y="34" width="4" height="8" fill="#03100B"/></svg></i><span>Lilin aroma</span><b>Rp79.000</b><u></u></div><div class="crow" id="b5"><i><svg viewBox="0 0 100 100"><path d="M34 14l-22 14 10 18 10-6v46h36V40l10 6 10-18-22-14c-2 8-8 12-16 12s-14-4-16-12z" fill="#2EE6A0"/></svg></i><span>Kaos oversize</span><b>Rp130.000</b><u></u></div><div class="ctot"><span>Total</span><b id="cart2T">Rp487.000</b></div></div>
+    <div id="del" class="abs"><span class="pill" id="delT">4 barang dihapus</span></div>
+    <div id="askIn" class="abs"><span>Barang yang aku hapus:<i id="caret"></i></span><u><svg viewBox="0 0 34 34" fill="none" stroke="#032015" stroke-width="4" stroke-linejoin="round"><path d="M4 16L30 4 22 30 16 19z"/></svg></u></div>
+
+    <!-- 7. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 14</span></h5><ol>
+      <li>Xu, A. J., Schwarz, N. & Wyer, R. S. (2015). <i>Hunger promotes acquisition of nonfood objects.</i> PNAS, 112(9), 2688–2692.</li></ol>
+      <p>Barang, harga, dan struk di video hanya ilustrasi.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 31.5;
+const OUT = 27.0;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 4.55, 'Lapar, kok | *belanjanya* *kalap*?'],
+  [4.6, 8.95, 'Tahun 2015, peneliti | cek *struk* *belanja* | pembeli toserba.'],
+  [9.0, 13.55, 'Yang lagi *lapar* belanja | *64%* *lebih* *banyak*. | Bukan beli makanan!'],
+  [13.6, 17.95, 'Yang paling lapar | ambil *penjepit* *kertas* | paling banyak.'],
+  [18.0, 21.95, 'Lapar bikin otak | masuk mode *pengin* | *dapet* *sesuatu*.'],
+  [22.0, 26.95, 'Sebelum checkout *11.11*, | *makan* *dulu*. Berapa | barang yang kamu hapus?'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, koin melayang, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+// koin "Rp" melayang di belakang (seperti koin di hero website), dengan blur kedalaman
+const fcoins = Array.from({ length: 8 }, (_, i) => { const d = document.createElement('i'); d.className = 'fcoin'; d.textContent = 'Rp'; $('fcoins').appendChild(d);
+  return { d, x: [70, 1010, 40, 1040, 120, 960, 520, 300][i], y: [640, 700, 1180, 1250, 1470, 1460, 560, 1520][i], s: .6 + rnd() * .8, ph: rnd() * 6, sp: .4 + rnd() * .5, blur: [1, 3, 5, 2, 4, 6, 3, 5][i] }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const on = Math.max(1 - seg(t, 4.2, 4.6), win(t, 22.0, OUT, .6, .4));   // koin melayang di hook dan tantangan
+  fcoins.forEach(c => put(c.d, { o: .5 * on, x: c.x - 32 + 20 * Math.sin(t * c.sp + c.ph), y: c.y - 32 + 26 * Math.cos(t * c.sp * .8 + c.ph),
+    s: c.s, r: 25 * Math.sin(t * c.sp + c.ph), blur: c.blur }));
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+
+/* ---------- bahan ---------- */
+const AT = { follow: { x: 540, y: 1050 } };
+const rp = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
+const PRICE = [15000, 89000, 125000, 49000, 79000, 130000];
+function face(svg, expr, t) {
+  svg.querySelectorAll('.m').forEach(m => m.style.opacity = m.classList.contains('m-' + expr) ? 1 : 0);
+  const up = expr === 'open' ? -10 : 0, tilt = (expr === 'frown' || expr === 'wince' || expr === 'drool') ? 9 : 0;
+  svg.querySelector('.bl').setAttribute('transform', `translate(0 ${up}) rotate(${tilt} 114 118)`);
+  svg.querySelector('.br').setAttribute('transform', `translate(0 ${up}) rotate(${-tilt} 186 118)`);
+  const bl = ((t + 1.3) % 3.1) < .12 ? .12 : (expr === 'wince' ? .35 : 1);
+  svg.querySelector('.eyes').setAttribute('transform', `translate(0 154) scale(1 ${bl}) translate(0 -154)`);
+}
+
+/* ---------- adegan ---------- */
+function renderHook(t) {
+  const tk = eBack(seg(t, 2.75, 3.15)), dim = 1 - .7 * clamp(seg(t, 2.75, 3.1) * 1.2);
+  const o = win(t, -1, 4.55, .5, .4), out = seg(t, 4.15, 4.55), fo = { blur: out * 12 + (1 - dim) * 8 };
+  put($('p1'), { o: o * dim, y: 8 * Math.sin(t * 1.6) - out * 30, ...fo });
+  face($('pp1'), t < 2.75 ? 'drool' : 'open', t);
+  const gr = Math.max(win(t, -1, 1.0, .1, .3), win(t, 1.2, 2.2, .1, .3));
+  put($('growl'), { o: o * dim * gr, s: 1 + .06 * Math.sin(t * 30) * gr, y: -10 * gr });
+  // isi keranjang: 2 barang sejak frame pertama, 4 lagi masuk cepat
+  const AT_ = [-1, -1, -1, .7, 1.2, 1.7];
+  let n = 0, tot = 0;
+  AT_.forEach((a, i) => { const p = eBack(seg(t, a, a + .3)); const on = t >= a;
+    if (on) { n++; tot += PRICE[i]; }
+    $('a' + i).style.display = on ? 'flex' : 'none';
+    put($('a' + i), { o: clamp(p * 3), x: (1 - p) * 60, s: 1 + .05 * win(t, a, a + .5, .05, .4) }); });
+  $('cartN').textContent = n; $('cartT').textContent = rp(tot);
+  put($('cart'), { o: o * dim, y: 6 * Math.sin(t * 1.2) - out * 30, ...fo });
+  put($('hookQ'), { o, s: 1 + .015 * Math.sin(t * 3), y: -out * 20 });
+  put($('trick'), { o: o * clamp(tk * 3), s: lerp(.6, 1, tk) * (1 + .012 * Math.sin(t * 3)), r: (1 - tk) * -6, y: -out * 30, blur: out * 12 });
+  return { flash: .5 * win(t, 2.75, 3.3, .05, .45), shake: shake(t, 2.8, .3, 8) + shake(t, .05, .25, 4) + shake(t, 1.25, .25, 4) };
+}
+
+function renderStudy(t) {
+  const o = win(t, 4.6, 8.95, .5, .4), out = seg(t, 8.55, 8.95), e = eExpo(seg(t, 4.6, 5.3));
+  put($('store'), { o, y: (1 - e) * 60 - out * 30, blur: (1 - e) * 10 + out * 12 });
+  [['r1', 115, 5.4], ['r2', 405, 5.7], ['r3', 695, 6.0]].forEach(([id, x, t0], i) => {
+    const p = eExpo(seg(t, t0, t0 + .7));
+    put($(id), { o: o * clamp(p * 3), x, y: lerp(900, 960 + (i % 2) * 20, p) - out * 30, r: (i - 1) * 3, blur: out * 12 });
+    $(id).querySelector('.rtv').textContent = ['178.000', '203.000', '189.000'][i];
+    $(id).style.clipPath = `inset(0 0 ${((1 - p) * 100).toFixed(1)}% 0)`;
+  });
+  const ls = seg(t, 6.6, 8.4);
+  put($('lens'), { o: o * win(t, 6.5, 8.6, .2, .3), x: lerp(130, 760, eIO(ls)), y: 990 + 30 * Math.sin(ls * Math.PI * 2), r: -10 });
+  put($('study'), { o: o * clamp(seg(t, 7.0, 7.3) * 3), y: (1 - eExpo(seg(t, 7.0, 7.6))) * 50 - out * 30, blur: out * 12 });
+  return {};
+}
+
+function renderCompare(t) {
+  const o = win(t, 9.0, 13.55, .5, .4), out = seg(t, 13.15, 13.55), fo = { blur: out * 12 };
+  const eA = eExpo(seg(t, 9.1, 9.7)), eB = eExpo(seg(t, 9.4, 10.0));
+  put($('whoA'), { o: o * eA, x: 120, y: 640 - out * 30, ...fo });
+  put($('whoB'), { o: o * eB, x: 630, y: 640 - out * 30, ...fo });
+  face($('fA'), 'smile', t); face($('fB'), t > 10.6 ? 'open' : 'drool', t);
+  put($('rcpA'), { o: o * eA, x: 115, y: 880 - out * 30, s: 1.22, ...fo });
+  put($('rcpB'), { o: o * eB, x: 625, y: 880 - out * 30, s: 1.22, ...fo });
+  $('rcpA').querySelector('.rtv').textContent = '178.000';
+  const g = eOut(seg(t, 9.6, 10.6));
+  $('rcpB').querySelector('.rtv').textContent = Math.round(178 + 114 * g) + '.000';   // 292.000 = 178.000 + 64%
+  $('rcpB').style.clipPath = `inset(0 0 ${((1 - lerp(.45, 1, g)) * 100).toFixed(1)}% 0)`;
+  const st = seg(t, 10.9, 11.25), sw = $('stamp1').offsetWidth;
+  put($('stamp1'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: 795 - sw / 2, y: 1270, s: lerp(2.6, 1, eBack(st)), r: -8 });
+  const nf = eBack(seg(t, 12.0, 12.4));
+  put($('notFood'), { o: o * clamp(nf * 3), s: lerp(.5, 1, nf), ...fo });
+  return { shake: shake(t, 10.93, .4, 13), flash: .55 * win(t, 10.9, 11.5, .05, .5) + .25 * win(t, 12.0, 12.4, .05, .3) };
+}
+
+function renderClips(t) {
+  const o = win(t, 13.6, 17.95, .5, .4), out = seg(t, 17.55, 17.95), fo = { blur: out * 12 };
+  const ej = eExpo(seg(t, 13.7, 14.3)), ep = eExpo(seg(t, 13.9, 14.5));
+  put($('jar'), { o: o * ej, y: (1 - ej) * 60 - out * 30, ...fo });
+  put($('p2'), { o: o * ep, x: (1 - ep) * 120, y: 8 * Math.sin(t * 1.6) - out * 30, ...fo });
+  face($('pp2'), t > 16.4 ? 'open' : 'drool', t);
+  for (let i = 0; i < 16; i++) {
+    const t0 = 14.4 + i * .12, p = seg(t, t0, t0 + .5), e = eIO(p);
+    const x1 = 560 + (i % 5) * 80, y1 = 1260 - Math.floor(i / 5) * 40;
+    put($('cl' + i), { o: o * (p > 0 ? 1 : 0), x: lerp(210, x1, e) - 55, y: lerp(960, y1, e) - 200 * Math.sin(Math.PI * e) - 55 - out * 30, r: p < 1 ? 360 * e : (i * 37 % 60) - 30, s: .9, ...fo });
+  }
+  const b = eBack(seg(t, 16.6, 17.0));
+  put($('bubble'), { o: o * clamp(b * 3), s: lerp(.5, 1, b), ...fo });
+  return { flash: .25 * win(t, 16.6, 17.0, .05, .3) };
+}
+
+function renderMagnet(t) {
+  const o = win(t, 18.0, 21.95, .5, .4), out = seg(t, 21.55, 21.95), fo = { blur: out * 12 };
+  const ef = eExpo(seg(t, 18.1, 18.7)), em = eBack(seg(t, 18.4, 18.8));
+  put($('bigFace'), { o: o * ef, y: (1 - ef) * 60 - out * 30, ...fo });
+  face($('fC'), t > 19.0 ? 'drool' : 'flat', t);
+  put($('magnet'), { o: o * clamp(em * 3), s: lerp(.5, 1, em) * (1 + .03 * Math.sin(t * 8) * seg(t, 19.0, 19.3)), y: -out * 30, ...fo });
+  const on = seg(t, 19.0, 19.25);
+  put($('mode'), { o: o * clamp(seg(t, 18.6, 18.9) * 3), y: -out * 30, ...fo });
+  $('sw').style.setProperty('--k', (54 * eOut(on)).toFixed(1) + 'px');
+  $('sw').style.background = on > .5 ? 'linear-gradient(180deg,#8CF7CB,#2EE6A0)' : 'rgba(157,245,207,.15)';
+  for (let i = 0; i < 12; i++) {
+    const a = i / 12 * Math.PI * 2 + .3, t0 = 19.2 + i * .14, p = eIO(seg(t, t0, t0 + .9));
+    const sx = 540 + 470 * Math.cos(a), sy = 1000 + 420 * Math.sin(a);
+    const tx = 540 + (i % 2 ? 70 : -70), ty = 760;
+    put($('fl' + i), { o: o * clamp(seg(t, t0 - .2, t0) * 3) * (1 - seg(p, .85, 1)), x: lerp(sx, tx, p) - 55, y: lerp(sy, ty, p) - 55, s: lerp(1, .5, p), r: p * 200, ...fo });
+  }
+  return { flash: .45 * win(t, 19.0, 19.5, .05, .4), shake: shake(t, 19.02, .3, 8) };
+}
+
+function renderChallenge(t) {
+  const o = win(t, 22.0, OUT + .05, .5, .4), out = seg(t, OUT - .35, OUT + .05), fo = { blur: out * 12 };
+  const e = eExpo(seg(t, 22.1, 22.8));
+  put($('p3'), { o: o * e, x: (1 - e) * -120, y: 8 * Math.sin(t * 1.6) - out * 30, ...fo });
+  face($('pp3'), 'smile', t);
+  put($('cart2'), { o: o * clamp(seg(t, 22.3, 22.6) * 3), y: (1 - eExpo(seg(t, 22.3, 22.9))) * 40 - out * 30, ...fo });
+  const DEL = [[0, 23.2], [2, 23.6], [4, 24.0], [5, 24.4]];
+  let n = 6, tot = 487000;
+  for (let i = 0; i < 6; i++) put($('b' + i), { o: 1, s: 1 });
+  DEL.forEach(([i, t0]) => {
+    const p = seg(t, t0, t0 + .3), q = seg(t, t0 + .3, t0 + .6);
+    $('b' + i).querySelector('u').style.transform = `scaleX(${eOut(p).toFixed(3)})`;
+    put($('b' + i), { o: 1 - .65 * q, x: 30 * eIO(q), s: 1 });
+    if (t >= t0 + .3) { n--; tot -= PRICE[i]; }
+  });
+  $('cart2N').textContent = n; $('cart2T').textContent = rp(tot);
+  const d = eBack(seg(t, 24.8, 25.2));
+  put($('del'), { o: o * clamp(d * 3), s: lerp(.5, 1, d), ...fo });
+  put($('askIn'), { o: win(t, 25.4, OUT + .05, .4, .4), y: (1 - eExpo(seg(t, 25.4, 26.0))) * 50 - out * 30, ...fo });
+  $('caret').style.opacity = Math.sin(t * 9) > 0 ? 1 : 0;
+  return { flash: .25 * win(t, 24.8, 25.2, .05, .3) };
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan episode lain, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  [renderHook(t), renderStudy(t), renderCompare(t), renderClips(t), renderMagnet(t), renderChallenge(t)]
+    .forEach(p => { flash += p.flash || 0; sh += p.shake || 0; });
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>

@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`), dan Episode 13 (bayar QRIS, kok lebih boros?, `ep13-*`); EP5 sampai EP13 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`), Episode 13 (bayar QRIS, kok lebih boros?, `ep13-*`), dan Episode 14 (lapar, kok belanjanya kalap?, `ep14-*`); EP5 sampai EP14 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -292,6 +292,7 @@ Episode baru: salin file `ep05-*`, ganti isinya, dan pastikan jumlah kalimat nar
 - Ada tokoh "kamu" dengan ekspresi (gaya Logika Duit: kepala bulat, hoodie zamrud; bukan tokoh kapsul Ruang Pikir). Contohnya SVG `.person` (badan dan ekspresi) dan `.face` (kepala saja) di `ep13-qris-boros.html`; ekspresi diatur fungsi `face()`.
 - Satu riset utama dan paling banyak dua angka, lalu triknya. Ditutup tantangan: "coba, lalu tulis hasilnya di komentar".
 - Durasi bukan penentu utama: video Ruang Pikir 40–47 detik tetap viral. 30–40 detik boleh, asal penonton punya alasan bertahan.
+- Musik boleh disesuaikan suasana topik di `epNN-audio.py` (`BEAT`, `PROG`). Contoh EP14: 120 BPM dengan progresi mayor yang ceria, plus efek suara khas topik (perut keroncongan, printer struk).
 
 **Format video (pelajaran dari EP3 dan EP4, sekitar 50 detik, sepi penonton):**
 - Satu poin saja.
