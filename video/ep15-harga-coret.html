@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Logika Duit EP15: harga dicoret, kok kerasa murah? (video 9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+/* Video vertikal 1080x1920 untuk Reels/TikTok. Dirender per frame oleh video/render.js lewat window.render(t).
+   Zona aman: atas 0-230 dan bawah 1500-1920 tertutup tombol aplikasi, jadi dibiarkan kosong.
+   Rumus hook EP13: "Mau [hasil]? Coba trik ini", judul "X, kok Y?", tokoh "kamu" dengan ekspresi, satu riset utama, tantangan.
+   Riset: Ariely, Loewenstein & Prelec (2003), efek jangkar dari dua angka terakhir nomor identitas.
+   Produk, harga, dan nomor identitas di video hanya ilustrasi. */
+:root{--ink:#03100B;--deep:#071C15;--moss:#103426;--emerald:#2EE6A0;--mint:#9DF5CF;--ice:#E6FFF4;--sage:#8BA79B;
+  --sans:"Plus Jakarta Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ice);
+  font-family:var(--sans);font-feature-settings:"tnum" 1;-webkit-font-smoothing:antialiased}
+.abs{position:absolute;left:0;top:0;transform-origin:50% 50%}
+em{font-style:normal;color:var(--emerald)}
+
+/* latar */
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+#g1{width:1500px;height:1500px;background:radial-gradient(circle,rgba(46,230,160,.20),rgba(46,230,160,0) 62%)}
+#g2{width:1300px;height:1300px;background:radial-gradient(circle,rgba(14,143,100,.24),rgba(14,143,100,0) 62%)}
+#g3{width:1600px;height:1000px;background:radial-gradient(closest-side,rgba(11,77,56,.55),rgba(11,77,56,0))}
+#vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
+#grain{position:absolute;inset:-200px;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.dust{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--mint)}
+.fcoin{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:22px;color:#032015;
+  background:radial-gradient(circle at 34% 30%,#C8FBE4,#2EE6A0 55%,#0E8F64);box-shadow:0 0 0 3px rgba(3,32,21,.35) inset,0 0 24px rgba(46,230,160,.5)}
+
+/* merek kecil di atas */
+#brand{left:0;top:236px;width:1080px;display:flex;justify-content:center;align-items:center;gap:14px}
+#brand img{width:50px;height:50px}
+#brand span{font-weight:800;font-size:28px;letter-spacing:.04em}
+#brand b{color:var(--emerald)}
+
+/* teks layar */
+#caps{left:70px;top:330px;width:940px;height:300px}
+.cap{position:absolute;left:0;top:0;width:940px;text-align:center;font-weight:800;font-size:72px;line-height:1.1;letter-spacing:-.035em;word-spacing:.1em}
+.cap .ln{display:block}
+.cap .w{display:inline-block;white-space:pre}
+.cap .em{color:var(--emerald);text-shadow:0 0 34px rgba(46,230,160,.55)}
+.cap .hi{position:relative;color:#fff}
+.cap .hi::after{content:"";position:absolute;left:4%;right:4%;bottom:.02em;height:.12em;border-radius:9px;background:var(--emerald);opacity:.85;
+  transform-origin:0 50%;transform:scaleX(var(--u,1))}
+
+/* panel kaca */
+.glass{border-radius:44px;background:linear-gradient(160deg,rgba(16,52,38,.86),rgba(5,20,15,.94));
+  box-shadow:0 0 0 2px rgba(157,245,207,.14) inset,0 50px 120px -40px rgba(0,0,0,.95)}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border-radius:999px;font-weight:800;font-size:26px;
+  color:#032015;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 10px 30px -8px rgba(46,230,160,.7)}
+.top{z-index:3000}
+.stamp{padding:6px 26px;border-radius:20px;border:6px solid var(--emerald);color:var(--emerald);font-weight:800;font-size:60px;letter-spacing:-.02em;white-space:nowrap;
+  background:rgba(3,16,11,.9);box-shadow:0 0 40px rgba(46,230,160,.5),0 0 0 2px rgba(46,230,160,.3) inset}
+#finger{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+
+
+.person{width:430px;height:440px;overflow:visible}
+/* kartu produk */
+#prodCard{left:410px;top:690px;width:600px;padding:30px 34px 28px;box-sizing:border-box;z-index:3003}
+#prodCard .row{display:flex;gap:24px;align-items:center}
+#prodCard .prod{width:190px;height:172px;flex:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+#prodCard h6{margin:0;font-size:32px;font-weight:800}
+#prodCard .old{position:relative;display:inline-block;font-size:40px;font-weight:800;color:var(--sage);margin-top:8px;font-feature-settings:"tnum"}
+#prodCard .old i{position:absolute;left:-6px;right:-6px;top:52%;height:6px;border-radius:3px;background:var(--ice);transform-origin:0 50%}
+#prodCard .new{display:block;margin-top:8px;font-size:76px;font-weight:800;letter-spacing:-.04em;color:var(--emerald);text-shadow:0 0 40px rgba(46,230,160,.5);font-feature-settings:"tnum";line-height:1}
+#prodCard .badge{position:absolute;right:26px;top:-24px;font-size:36px;font-weight:800;color:#032015;padding:8px 20px;border-radius:999px;background:linear-gradient(180deg,#8CF7CB,var(--emerald));box-shadow:0 0 30px rgba(46,230,160,.6)}
+#prodCard .cd{display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:2px dashed rgba(157,245,207,.2);font-size:28px;font-weight:700;color:var(--sage)}
+#prodCard .cd b{font-size:40px;font-weight:800;color:var(--ice);font-feature-settings:"tnum";letter-spacing:.02em}
+#p1{left:-20px;top:860px}
+#hookQ{left:0;top:1380px;width:1080px;text-align:center}
+#hookQ span{display:inline-block;font-size:44px;font-weight:800;letter-spacing:-.02em;color:var(--ice)}
+#hookQ em{font-style:normal;color:var(--emerald)}
+#trick{left:110px;top:850px;width:860px;padding:40px 44px;box-sizing:border-box;display:flex;align-items:center;gap:30px;z-index:3008}
+#trick .ico{width:130px;height:150px;flex:none}
+#trick small{display:block;font-size:28px;color:var(--sage);font-weight:700}
+#trick b{display:block;font-size:56px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+/* jangkar */
+#bigNum{left:0;top:1010px;width:1080px;text-align:center;font-size:150px;font-weight:800;letter-spacing:-.05em;color:var(--ice);font-feature-settings:"tnum"}
+#anchorEl{left:410px;top:700px;width:260px;height:320px;filter:drop-shadow(0 0 40px rgba(46,230,160,.45))}
+#chain{left:538px;top:0;width:4px;height:720px;background:repeating-linear-gradient(180deg,#9DF5CF 0 18px,transparent 18px 26px)}
+#headA{left:70px;top:680px}
+#tagA{left:0;top:1340px;width:1080px;text-align:center}
+#tagA .pill{font-size:34px;padding:12px 28px}
+/* kartu identitas */
+.idc{width:440px;height:200px;display:flex;align-items:center;gap:22px;padding:0 28px;box-sizing:border-box}
+.idc .ph{width:110px;height:110px;border-radius:24px;background:rgba(157,245,207,.1);display:grid;place-items:center;overflow:hidden;flex:none}
+.idc .tx{flex:1}
+.idc small{display:block;font-size:24px;color:var(--sage);font-weight:700}
+.idc b{display:block;font:700 40px var(--mono);color:var(--ice);margin:4px 0 12px;letter-spacing:.02em}
+.idc em{font-style:normal;color:#032015;background:var(--emerald);border-radius:10px;padding:0 8px}
+.idc .ln{display:block;height:10px;border-radius:5px;background:rgba(157,245,207,.2);margin-top:8px;width:90%}
+.idc .ln.s{width:60%}
+#study{left:190px;top:1180px;width:700px;padding:26px 36px;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;z-index:3006}
+#study small{display:block;font-size:26px;color:var(--sage);font-weight:700}
+#study b{display:block;font-size:40px;font-weight:800;letter-spacing:-.02em}
+#study .yr{font-size:72px;font-weight:800;color:var(--emerald);letter-spacing:-.04em;text-shadow:0 0 40px rgba(46,230,160,.5)}
+/* tawaran */
+#bidHd{left:0;top:636px;width:1080px;text-align:center;font-size:32px;color:var(--sage);font-weight:700}
+#baseline{left:140px;top:1250px;width:800px;height:3px;background:rgba(157,245,207,.35)}
+.bid{width:250px;border-radius:24px 24px 0 0;transform-origin:50% 100%}
+#bidA{left:210px;background:linear-gradient(180deg,#9DF5CF,#2EE6A0)}
+#bidB{left:620px;background:linear-gradient(180deg,#2EE6A0,#0E8F64);box-shadow:0 0 70px -10px rgba(46,230,160,.7)}
+.bidlab{width:330px;text-align:center}
+.bidlab b{display:block;font-size:32px;font-weight:800}
+.bidlab span{display:inline-block;font:700 34px var(--mono);color:#032015;background:var(--emerald);border-radius:10px;padding:0 10px;margin-top:6px}
+.bidv{width:330px;text-align:center;font-size:96px;font-weight:800;letter-spacing:-.04em}
+#bvB{color:var(--emerald);text-shadow:0 0 40px rgba(46,230,160,.55)}
+#bvA{color:var(--ice)}
+#rand{left:0;top:1380px;width:1080px;text-align:center;z-index:3006}
+#rand .pill{font-size:34px;padding:10px 26px}
+/* harga coret = jangkar */
+#feel{left:110px;top:1130px;width:860px;padding:22px 34px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;z-index:3006}
+#feel small{font-size:30px;color:var(--sage);font-weight:700}
+#feel .bar{width:360px;height:24px;border-radius:12px;background:rgba(157,245,207,.15);position:relative;overflow:hidden}
+#feel .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:12px;background:linear-gradient(90deg,#0E8F64,#2EE6A0)}
+#feel b{font-size:36px;font-weight:800;width:150px;text-align:right}
+#thumbEl{left:0;top:0;width:260px;height:300px;z-index:3009;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+#ask,#lazy{left:0;top:1290px;width:1080px;text-align:center;z-index:3006}
+#lazy .pill{font-size:36px;padding:12px 28px;color:var(--sage);background:rgba(157,245,207,.08);box-shadow:0 0 0 2px rgba(157,245,207,.3) inset}
+#ask .pill{font-size:40px;padding:14px 32px}
+/* komentar */
+#p2{left:-20px;top:720px}
+.wish{display:flex;align-items:center;gap:14px;padding:14px 22px;border-radius:999px;font-size:30px;font-weight:800;white-space:nowrap;
+  background:linear-gradient(160deg,rgba(16,52,38,.95),rgba(5,20,15,.97));box-shadow:0 0 0 2px rgba(46,230,160,.4) inset}
+.wish span{color:var(--sage);font-weight:700}
+#askIn{left:110px;top:1230px;width:860px;height:100px;border-radius:50px;display:flex;align-items:center;gap:18px;padding:0 18px 0 30px;box-sizing:border-box;z-index:3001;
+  background:rgba(157,245,207,.06);box-shadow:0 0 0 3px rgba(157,245,207,.3) inset;font-size:32px;font-weight:700;color:var(--sage)}
+#askIn span{flex:1;white-space:nowrap}
+#askIn i{display:inline-block;width:4px;height:40px;background:var(--emerald);vertical-align:middle;margin-left:4px}
+#askIn u{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#8CF7CB,var(--emerald));flex:none}
+#askIn u svg{width:32px;height:32px}
+
+/* penutup */
+#oLogo{left:455px;top:626px;width:170px;height:170px;filter:drop-shadow(0 26px 60px rgba(46,230,160,.35))}
+#oWord{left:0;top:810px;width:1080px;text-align:center;font-weight:800;font-size:76px;letter-spacing:.03em}
+#oWord b{color:var(--emerald)}
+#oTag{left:0;top:902px;width:1080px;text-align:center;font-size:40px;color:var(--sage);font-weight:500}
+#oFollow{left:0;top:978px;width:1080px;text-align:center}
+#oFollow .pill{font-size:42px;padding:20px 44px 20px 22px;gap:18px;box-shadow:0 14px 44px -10px rgba(46,230,160,.85)}
+#oFollow .ic{position:relative;width:58px;height:58px;border-radius:50%;background:#032015;color:var(--emerald);flex:none}
+#oFollow .ic svg{position:absolute;inset:12px}
+#finger2{width:70px;height:70px;border-radius:50%;background:rgba(230,255,244,.9);box-shadow:0 0 0 10px rgba(230,255,244,.18),0 12px 30px rgba(0,0,0,.5);z-index:4001}
+#ripple2{width:70px;height:70px;border-radius:50%;border:5px solid var(--mint);z-index:4000}
+#receipt{left:150px;top:1112px;width:780px;padding:26px 30px 40px;box-sizing:border-box;font:500 23px/1.55 var(--mono);color:#A9C4B8;
+  background:linear-gradient(180deg,#0B261C,#081D16);border-radius:14px 14px 0 0;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 14px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/20px 14px repeat-x}
+#receipt h5{margin:0 0 10px;font:700 23px var(--mono);color:var(--mint);display:flex;justify-content:space-between}
+#receipt h5 span{color:var(--sage);font-weight:500}
+#receipt ol{margin:0;padding:12px 0 0 30px;border-top:2px dashed rgba(157,245,207,.25)}
+#receipt li{margin-bottom:8px}
+#receipt i{color:#CFE6DB}
+#receipt p{margin:10px 0 0;color:var(--sage)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg" class="abs" style="width:1080px;height:1920px">
+    <div id="g1" class="glow"></div><div id="g2" class="glow"></div><div id="g3" class="glow"></div>
+    <div id="dust"></div><div id="fcoins"></div>
+    <div id="vig"></div>
+  </div>
+
+  <div id="cam" class="abs" style="width:1080px;height:1920px">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="pHead" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#A8F2D2"/></linearGradient>
+      <linearGradient id="pHood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1FB884"/><stop offset="1" stop-color="#0B4D38"/></linearGradient></defs></svg>
+
+    <!-- 1. hook: flash sale, harga dicoret, mata berbinar -->
+    <div id="p1" class="abs"><svg viewBox="0 0 430 440" class="person" id="pp1">
+  <path d="M232 320 C268 300 300 274 330 246" stroke="url(#pHood)" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <path d="M40 440 C40 336 72 266 150 266 C228 266 260 336 260 440 Z" fill="url(#pHood)"/>
+  <path d="M104 272 Q150 318 196 272" stroke="#03100B" stroke-opacity=".35" stroke-width="7" fill="none"/>
+  <path d="M132 304 v48 M168 304 v48" stroke="#9DF5CF" stroke-width="5" stroke-linecap="round"/>
+  <g class="it"><rect x="318" y="168" width="64" height="112" rx="12" fill="#03100B" stroke="#9DF5CF" stroke-width="4"/>
+    <rect x="326" y="180" width="48" height="86" rx="6" fill="#0E2E22"/><path d="M336 210 l28 -10 M336 226 l28 0" stroke="#2EE6A0" stroke-width="5" stroke-linecap="round"/></g>
+  <circle cx="342" cy="238" r="22" fill="url(#pHead)"/>
+  <g class="head"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <g class="m m-star"><path d="M114 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z M186 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#2EE6A0" stroke="#03100B" stroke-width="3"/>
+    <path d="M118 198 Q150 232 182 198 Z" fill="#03100B"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-flat" d="M128 206 L172 206" stroke="#03100B" stroke-width="8" stroke-linecap="round"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+</svg></div>
+    <div id="prodCard" class="abs glass top"><span class="badge" id="badge">−67%</span><div class="row"><svg viewBox="0 0 220 200" class="prod"><defs><linearGradient id="hp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2EE6A0"/><stop offset="1" stop-color="#0E8F64"/></linearGradient></defs>
+  <path d="M40 120 V100 a70 70 0 0 1 140 0 V120" stroke="url(#hp)" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <rect x="18" y="104" width="52" height="80" rx="22" fill="url(#hp)"/><rect x="150" y="104" width="52" height="80" rx="22" fill="url(#hp)"/>
+  <rect x="30" y="118" width="28" height="52" rx="12" fill="#03100B" opacity=".35"/><rect x="162" y="118" width="28" height="52" rx="12" fill="#03100B" opacity=".35"/></svg><div>
+  <h6>Headphone nirkabel</h6><span class="new" id="newP">Rp299.000</span><span class="old">Rp899.000<i id="strike"></i></span></div></div>
+  <div class="cd"><span>Flash sale 11.11 berakhir</span><b id="cd">02:59:59</b></div></div>
+    <div id="hookQ" class="abs"><span>Mau nggak ketipu <em>harga coret</em>?</span></div>
+    <div id="trick" class="abs glass"><span class="ico"><svg viewBox="0 0 260 300" class="thumb"><defs><linearGradient id="th" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#A8F2D2"/></linearGradient></defs>
+  <path d="M60 300 V150 C60 120 70 100 90 96 L150 86 C178 82 196 100 196 128 V300 Z" fill="url(#th)" stroke="#0B4D38" stroke-width="5"/>
+  <path d="M96 104 C96 60 108 22 138 22 C168 22 176 56 170 96" fill="url(#th)" stroke="#0B4D38" stroke-width="5"/>
+  <path d="M112 44 C120 34 152 32 160 46 C156 60 120 62 112 44 Z" fill="#9DF5CF" opacity=".7"/>
+  <path d="M60 196 C30 196 22 230 40 248" stroke="#0B4D38" stroke-width="5" fill="none"/></svg></span><div><small>Coba trik ini</small><b>Tutup harga coretnya pakai jempol</b></div></div>
+
+    <!-- 2. jangkar: angka pertama yang dilihat -->
+    <div id="anchorEl" class="abs"><svg viewBox="0 0 260 320" class="anchor"><defs><linearGradient id="an" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6FFF4"/><stop offset="1" stop-color="#9DF5CF"/></linearGradient></defs>
+  <circle cx="130" cy="40" r="26" fill="none" stroke="url(#an)" stroke-width="16"/>
+  <rect x="120" y="62" width="20" height="200" rx="8" fill="url(#an)"/><rect x="70" y="96" width="120" height="20" rx="10" fill="url(#an)"/>
+  <path d="M30 196 C40 268 96 296 130 296 C164 296 220 268 230 196" stroke="url(#an)" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <path d="M14 214 L30 176 L52 210 Z M246 214 L230 176 L208 210 Z" fill="url(#an)"/></svg></div>
+    <div id="bigNum" class="abs">Rp899.000</div>
+    <div id="headA" class="abs"><svg viewBox="40 36 220 222" class="face" id="fA" style="width:200px;height:200px"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <g class="m m-star"><path d="M114 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z M186 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#2EE6A0" stroke="#03100B" stroke-width="3"/>
+    <path d="M118 198 Q150 232 182 198 Z" fill="#03100B"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-flat" d="M128 206 L172 206" stroke="#03100B" stroke-width="8" stroke-linecap="round"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/></svg></div>
+    <div id="tagA" class="abs"><span class="pill">Angka pertama = jangkar</span></div>
+
+    <!-- 3. riset: dua angka terakhir nomor identitas -->
+    <div id="idA" class="abs glass idc top"><div class="ph"><svg viewBox="40 36 220 222" class="face" id="idAf" style="width:110px;height:110px"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <g class="m m-star"><path d="M114 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z M186 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#2EE6A0" stroke="#03100B" stroke-width="3"/>
+    <path d="M118 198 Q150 232 182 198 Z" fill="#03100B"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-flat" d="M128 206 L172 206" stroke="#03100B" stroke-width="8" stroke-linecap="round"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/></svg></div><div class="tx"><small>Nomor identitas</small>
+  <b>••• ••• <em>12</em></b><span class="ln"></span><span class="ln s"></span></div></div>
+    <div id="idB" class="abs glass idc top"><div class="ph"><svg viewBox="40 36 220 222" class="face" id="idBf" style="width:110px;height:110px"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <g class="m m-star"><path d="M114 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z M186 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#2EE6A0" stroke="#03100B" stroke-width="3"/>
+    <path d="M118 198 Q150 232 182 198 Z" fill="#03100B"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-flat" d="M128 206 L172 206" stroke="#03100B" stroke-width="8" stroke-linecap="round"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/></svg></div><div class="tx"><small>Nomor identitas</small>
+  <b>••• ••• <em>87</em></b><span class="ln"></span><span class="ln s"></span></div></div>
+    <div id="study" class="abs glass top"><div><small>Ariely, Loewenstein & Prelec</small><b>Mahasiswa MIT menawar barang</b></div><div class="yr">2003</div></div>
+
+    <!-- 4. tawaran angka kecil vs angka besar -->
+    <div id="bidHd" class="abs">Tawaran untuk keyboard nirkabel yang sama</div>
+    <div id="baseline" class="abs"></div>
+    <div id="bidA" class="abs bid"></div><div id="bidB" class="abs bid"></div>
+    <div id="blA" class="abs bidlab"><b>Angka kecil</b><span>00–19</span></div>
+    <div id="blB" class="abs bidlab"><b>Angka besar</b><span>80–99</span></div>
+    <div id="bvA" class="abs bidv">$16</div><div id="bvB" class="abs bidv">$56</div>
+    <div id="stamp1" class="abs stamp top" style="font-size:54px">Padahal acak!</div>
+    <div id="rand" class="abs"><span class="pill"><svg viewBox="0 0 60 60" width="44" height="44"><rect x="4" y="4" width="52" height="52" rx="12" fill="#E6FFF4"/><g fill="#032015"><circle cx="18" cy="18" r="5"/><circle cx="42" cy="42" r="5"/><circle cx="30" cy="30" r="5"/><circle cx="42" cy="18" r="5"/><circle cx="18" cy="42" r="5"/></g></svg> Dua angka terakhir itu nggak ada hubungannya</span></div>
+
+    <!-- 5-6. harga coret = jangkar; tutup pakai jempol -->
+    <div id="feel" class="abs glass"><small>Kerasa untung?</small><div class="bar"><i id="feelBar"></i></div><b id="feelV">Banget</b></div>
+    <div id="thumbEl" class="abs"><svg viewBox="0 0 260 300" class="thumb"><defs><linearGradient id="th" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2FFF9"/><stop offset="1" stop-color="#A8F2D2"/></linearGradient></defs>
+  <path d="M60 300 V150 C60 120 70 100 90 96 L150 86 C178 82 196 100 196 128 V300 Z" fill="url(#th)" stroke="#0B4D38" stroke-width="5"/>
+  <path d="M96 104 C96 60 108 22 138 22 C168 22 176 56 170 96" fill="url(#th)" stroke="#0B4D38" stroke-width="5"/>
+  <path d="M112 44 C120 34 152 32 160 46 C156 60 120 62 112 44 Z" fill="#9DF5CF" opacity=".7"/>
+  <path d="M60 196 C30 196 22 230 40 248" stroke="#0B4D38" stroke-width="5" fill="none"/></svg></div>
+    <div id="lazy" class="abs"><span class="pill">Cek toko lain? Ah, males</span></div>
+    <div id="ask" class="abs"><span class="pill">Wajar nggak? Cek toko lain</span></div>
+
+    <!-- 7. tulis barang incaran -->
+    <div id="p2" class="abs"><svg viewBox="0 0 430 440" class="person" id="pp2">
+  <path d="M232 320 C268 300 300 274 330 246" stroke="url(#pHood)" stroke-width="44" stroke-linecap="round" fill="none"/>
+  <path d="M40 440 C40 336 72 266 150 266 C228 266 260 336 260 440 Z" fill="url(#pHood)"/>
+  <path d="M104 272 Q150 318 196 272" stroke="#03100B" stroke-opacity=".35" stroke-width="7" fill="none"/>
+  <path d="M132 304 v48 M168 304 v48" stroke="#9DF5CF" stroke-width="5" stroke-linecap="round"/>
+  <g class="it"><rect x="318" y="168" width="64" height="112" rx="12" fill="#03100B" stroke="#9DF5CF" stroke-width="4"/>
+    <rect x="326" y="180" width="48" height="86" rx="6" fill="#0E2E22"/><path d="M336 210 l28 -10 M336 226 l28 0" stroke="#2EE6A0" stroke-width="5" stroke-linecap="round"/></g>
+  <circle cx="342" cy="238" r="22" fill="url(#pHead)"/>
+  <g class="head"><circle cx="150" cy="152" r="102" fill="url(#pHead)"/>
+  <path d="M48 146 C46 74 96 40 152 40 C210 40 254 74 254 136 C232 110 198 98 162 102 C130 106 100 94 84 78 C76 102 66 124 48 146 Z" fill="#0B4D38"/>
+  <ellipse cx="86" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/><ellipse cx="214" cy="186" rx="17" ry="10" fill="#2EE6A0" opacity=".4"/>
+  <g class="brows" stroke="#03100B" stroke-width="7" stroke-linecap="round"><path class="bl" d="M96 120 L132 116"/><path class="br" d="M168 116 L204 120"/></g>
+  <g class="eyes"><ellipse cx="114" cy="154" rx="12" ry="16" fill="#03100B"/><ellipse cx="186" cy="154" rx="12" ry="16" fill="#03100B"/>
+    <circle cx="118" cy="148" r="4.5" fill="#fff"/><circle cx="190" cy="148" r="4.5" fill="#fff"/></g>
+  <g class="m m-star"><path d="M114 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z M186 136l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#2EE6A0" stroke="#03100B" stroke-width="3"/>
+    <path d="M118 198 Q150 232 182 198 Z" fill="#03100B"/></g>
+  <path class="m m-smile" d="M120 198 Q150 226 180 198" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse class="m m-open" cx="150" cy="208" rx="15" ry="18" fill="#03100B"/>
+  <path class="m m-flat" d="M128 206 L172 206" stroke="#03100B" stroke-width="8" stroke-linecap="round"/>
+  <path class="m m-frown" d="M122 214 Q150 194 178 214" stroke="#03100B" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+</svg></div>
+    <div class="abs wish" id="w0">Sepatu <span>Rp349.000</span></div><div class="abs wish" id="w1">Skincare <span>Rp129.000</span></div><div class="abs wish" id="w2">Headphone <span>Rp299.000</span></div><div class="abs wish" id="w3">Jaket <span>Rp259.000</span></div>
+    <div id="askIn" class="abs"><span>Mau checkout:<i id="caret"></i></span><u><svg viewBox="0 0 34 34" fill="none" stroke="#032015" stroke-width="4" stroke-linejoin="round"><path d="M4 16L30 4 22 30 16 19z"/></svg></u></div>
+
+    <!-- 8. penutup -->
+    <img id="oLogo" class="abs top" src="../assets/logikaduit-icon.svg" alt="">
+    <div id="oWord" class="abs top">LOGIKA <b>DUIT</b></div>
+    <div id="oTag" class="abs top">Ekonomi sehari-hari, kok bisa?</div>
+    <div id="oFollow" class="abs top"><span class="pill" id="oPill"><i class="ic"><svg id="icPlus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg><svg id="icCheck" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Follow Logika Duit</span></div>
+    <div id="receipt" class="abs top"><h5>Sumber <span>EP 15</span></h5><ol>
+      <li>Ariely, D., Loewenstein, G. & Prelec, D. (2003). <i>"Coherent Arbitrariness".</i> Quarterly Journal of Economics, 118(1), 73–105.</li>
+      <li>Compeau, L. D. & Grewal, D. (1998). <i>Comparative Price Advertising: An Integrative Review.</i> Journal of Public Policy & Marketing, 17(2), 257–273.</li></ol>
+      <p>Produk, harga, dan nomor di video hanya ilustrasi.</p></div>
+    <div id="ripple2" class="abs"></div>
+    <div id="finger2" class="abs"></div>
+  </div>
+
+  <div id="brand" class="abs"><img src="../assets/logikaduit-icon.svg" alt=""><span>LOGIKA <b>DUIT</b></span></div>
+  <div id="caps" class="abs"></div>
+  <div id="grain" class="abs"></div>
+</div>
+
+<script>
+const DURATION = 34.0;
+const OUT = 29.4;        // awal penutup
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const eIO = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+// jendela tampil: muncul di a, hilang di b
+const win = (t, a, b, fi = .5, fo = .4) => (t < a || t > b) ? 0 : Math.min(eOut(seg(t, a, a + fi)), 1 - eIO(seg(t, b - fo, b)));
+function put(el, { o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0 } = {}) {
+  el.style.opacity = o.toFixed(3);
+  el.style.visibility = o < .002 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) scale(${s.toFixed(4)}) rotate(${r.toFixed(2)}deg)`;
+  el.style.filter = blur > .05 ? `blur(${blur.toFixed(1)}px)` : 'none';
+}
+// guncangan kamera singkat
+const shake = (t, t0, d, amp) => { const p = seg(t, t0, t0 + d); return p <= 0 || p >= 1 ? 0 : amp * Math.pow(1 - p, 2) * Math.sin(p * 46); };
+// acak deterministik
+let seed = 23; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+/* ---------- teks layar: *kata* = zamrud, _kata_ = garis bawah ---------- */
+const CAPS = [
+  [-1, 4.55, 'Harga dicoret, | *kok* *kerasa* *murah*?'],
+  [4.6, 8.35, 'Otak gampang | *berjangkar* ke angka | pertama yang dilihat.'],
+  [8.4, 12.55, 'Peneliti MIT: tulis | *2* *angka* *terakhir* | nomor identitasmu.'],
+  [12.6, 16.95, 'Yang angkanya besar | nawar sekitar | *3×* *lipat*. Padahal acak!'],
+  [17.0, 21.35, 'Harga coret bikin | barang *kerasa* *berharga* | dan malas cek toko lain.'],
+  [21.4, 25.55, 'Tutup harga coretnya. | *Wajar* *nggak*? Cek | juga di toko lain.'],
+  [25.6, 29.35, 'Mau checkout apa | pas *11.11*? Tulis | di komentar!'],
+  [OUT, DURATION + 1, 'Biar nggak gampang | ketipu harga, | *follow* *Logika* *Duit*!']
+];
+const capEls = CAPS.map(([a, b, text]) => {
+  const el = document.createElement('div'); el.className = 'cap'; const words = [];
+  text.split(' | ').forEach(line => {
+    const ln = document.createElement('span'); ln.className = 'ln';
+    line.split(' ').forEach((tok, i, arr) => {
+      const m = tok.match(/^([*_])(.+?)\1(.*)$/), w = document.createElement('span');
+      if (m) { const k = document.createElement('span'); k.className = m[1] === '*' ? 'em' : 'hi'; k.textContent = m[2]; w.appendChild(k); w.append(m[3]); w.dataset.k = m[1]; }
+      else w.textContent = tok;
+      w.className = 'w'; ln.appendChild(w); if (i < arr.length - 1) ln.append(' '); words.push(w);
+    });
+    el.appendChild(ln);
+  });
+  $('caps').appendChild(el);
+  return { a, b, el, words };
+});
+function renderCaps(t) {
+  capEls.forEach(({ a, b, el, words }) => {
+    if (t < a - .01 || t > b + .01) { el.style.visibility = 'hidden'; return; }
+    el.style.visibility = 'visible';
+    const out = eIO(seg(t, b - .3, b));
+    words.forEach((w, i) => {
+      const p = a < 0 ? 1 : eExpo(seg(t, a + i * .055, a + i * .055 + .5));
+      const pop = w.dataset.k ? 1 + .07 * Math.sin(Math.PI * seg(t, a + i * .055 + .15, a + i * .055 + .55)) : 1;
+      w.style.opacity = (p * (1 - out)).toFixed(3);
+      w.style.transform = `translateY(${((1 - p) * 34 - out * 22).toFixed(1)}px) scale(${pop.toFixed(3)})`;
+      w.style.filter = (1 - p) * 10 + out * 8 > .1 ? `blur(${((1 - p) * 10 + out * 8).toFixed(1)}px)` : 'none';
+      const u = w.querySelector('.hi'); if (u) u.style.setProperty('--u', a < 0 ? 1 : eOut(seg(t, a + i * .055 + .3, a + i * .055 + .8)).toFixed(3));
+    });
+  });
+}
+
+/* ---------- latar: cahaya, debu, koin melayang, butiran ---------- */
+const noise = (() => { const c = document.createElement('canvas'); c.width = c.height = 220; const g = c.getContext('2d'), d = g.createImageData(220, 220);
+  for (let i = 0; i < d.data.length; i += 4) { const v = rnd() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0); return c.toDataURL(); })();
+$('grain').style.backgroundImage = `url(${noise})`;
+const dust = Array.from({ length: 36 }, () => { const d = document.createElement('i'); d.className = 'dust'; $('dust').appendChild(d);
+  return { d, x: rnd() * 1080, y: rnd() * 1920, sp: 14 + rnd() * 26, ph: rnd() * 6, a: .12 + rnd() * .3, s: .5 + rnd() * 1.2 }; });
+// koin "Rp" melayang di belakang (seperti koin di hero website), dengan blur kedalaman
+const fcoins = Array.from({ length: 8 }, (_, i) => { const d = document.createElement('i'); d.className = 'fcoin'; d.textContent = 'Rp'; $('fcoins').appendChild(d);
+  return { d, x: [70, 1010, 40, 1040, 120, 960, 520, 300][i], y: [640, 700, 1180, 1250, 1470, 1460, 560, 1520][i], s: .6 + rnd() * .8, ph: rnd() * 6, sp: .4 + rnd() * .5, blur: [1, 3, 5, 2, 4, 6, 3, 5][i] }; });
+function renderBg(t, flash) {
+  put($('g1'), { x: 30 + 120 * Math.sin(t * .23), y: -380 + 90 * Math.cos(t * .19), s: 1 + .06 * Math.sin(t * .4) + flash * .12, o: .85 + flash * .3 });
+  put($('g2'), { x: -620 + 80 * Math.cos(t * .17), y: 760 + 120 * Math.sin(t * .21), o: .9 });
+  put($('g3'), { x: -260, y: 1450 + 40 * Math.sin(t * .3), o: 1 });
+  dust.forEach(p => { const y = ((p.y - t * p.sp) % 1920 + 1920) % 1920;
+    put(p.d, { x: p.x + 18 * Math.sin(t * .5 + p.ph), y, s: p.s, o: p.a * (.6 + .4 * Math.sin(t * 1.3 + p.ph)) }); });
+  const on = Math.max(1 - seg(t, 4.2, 4.6), win(t, 25.6, OUT, .6, .4));   // koin melayang di hook dan pertanyaan
+  fcoins.forEach(c => put(c.d, { o: .5 * on, x: c.x - 32 + 20 * Math.sin(t * c.sp + c.ph), y: c.y - 32 + 26 * Math.cos(t * c.sp * .8 + c.ph),
+    s: c.s, r: 25 * Math.sin(t * c.sp + c.ph), blur: c.blur }));
+  const f = Math.floor(t * 30); $('grain').style.backgroundPosition = `${(f * 73) % 220}px ${(f * 151) % 220}px`;
+}
+
+
+/* ---------- bahan ---------- */
+const AT = { follow: { x: 540, y: 1050 } };
+function face(svg, expr, t) {
+  svg.querySelectorAll('.m').forEach(m => m.style.opacity = m.classList.contains('m-' + expr) ? 1 : 0);
+  const star = expr === 'star';
+  svg.querySelector('.eyes').style.opacity = star ? 0 : 1;
+  const up = (expr === 'open' || star) ? -10 : 0, tilt = expr === 'frown' ? 9 : (expr === 'flat' ? -6 : 0);
+  svg.querySelector('.bl').setAttribute('transform', `translate(0 ${up}) rotate(${tilt} 114 118)`);
+  svg.querySelector('.br').setAttribute('transform', `translate(0 ${up}) rotate(${-tilt} 186 118)`);
+  const bl = ((t + 1.3) % 3.1) < .12 ? .12 : 1;
+  svg.querySelector('.eyes').setAttribute('transform', `translate(0 154) scale(1 ${bl}) translate(0 -154)`);
+}
+const pad = n => String(n).padStart(2, '0');
+
+/* ---------- adegan ---------- */
+function renderHook(t) {
+  const tk = eBack(seg(t, 2.75, 3.15)), dim = 1 - .7 * clamp(seg(t, 2.75, 3.1) * 1.2);
+  const o = win(t, -1, 4.55, .5, .4), out = seg(t, 4.15, 4.55), fo = { blur: out * 12 + (1 - dim) * 8 };
+  put($('p1'), { o: o * dim, y: 8 * Math.sin(t * 1.6) - out * 30, ...fo });
+  face($('pp1'), t < 2.75 ? 'star' : 'open', t);
+  return { flash: .5 * win(t, 2.75, 3.3, .05, .45), shake: shake(t, 2.8, .3, 8), dim, o, out, tk };
+}
+
+function renderProduct(t, h) {
+  // kartu produk tampil di hook (0-4,6) dan muncul lagi di adegan harga coret (17,0-25,6)
+  const a = h.o * h.dim, b = win(t, 17.0, 25.55, .5, .4), out2 = seg(t, 25.15, 25.55);
+  const o = Math.max(a, b);
+  const y = t < 10 ? 6 * Math.sin(t * 1.2) - h.out * 30 : 20 + 6 * Math.sin(t * 1.2) - out2 * 30;
+  const x = t < 10 ? 0 : -170;
+  put($('prodCard'), { o, x, y, s: t < 10 ? 1 : 1.1, blur: t < 10 ? h.out * 12 + (1 - h.dim) * 8 : out2 * 12 });
+  // coretan dan countdown
+  $('strike').style.transform = 'scaleX(1)';   // coretan sudah ada sejak frame pertama (cover)
+  const left = Math.max(0, 3 * 3600 - 1 - Math.floor(t * 7));
+  $('cd').textContent = `${pad(Math.floor(left / 3600))}:${pad(Math.floor(left / 60) % 60)}:${pad(left % 60)}`;
+  $('badge').style.transform = `scale(${(1 + .08 * Math.sin(t * 8)).toFixed(3)}) rotate(6deg)`;
+  // adegan 6: jempol menutup harga coret
+  const th = eIO(seg(t, 21.5, 22.2)), card = $('prodCard'), old = card.querySelector('.old');
+  const cw = card.offsetWidth, ch = card.offsetHeight, cs = t < 10 ? 1 : 1.1;
+  const tipX = 410 + x + cw / 2 + (old.offsetLeft + old.offsetWidth / 2 - cw / 2) * cs, tipY = 690 + y + ch / 2 + (old.offsetTop + 4 - ch / 2) * cs;
+  const tx = tipX - 8 * 1.2 - 130, ty = tipY + 128 * 1.2 - 150;   // jempol tegak, diperbesar 1,2: ujungnya di atas tengah
+  put($('thumbEl'), { o: b * clamp(th * 3), x: tx, y: lerp(1500, ty, th), s: 1.2, r: -6, blur: out2 * 12 });
+  old.style.opacity = (1 - .85 * seg(t, 21.95, 22.2)).toFixed(3);
+  put($('hookQ'), { o: h.o, s: 1 + .015 * Math.sin(t * 3), y: -h.out * 20 });
+  put($('trick'), { o: h.o * clamp(h.tk * 3), s: lerp(.6, 1, h.tk) * (1 + .012 * Math.sin(t * 3)), r: (1 - h.tk) * -6, y: -h.out * 30, blur: h.out * 12 });
+  // meter "kerasa murah?": tinggi saat harga coret terlihat, turun setelah ditutup
+  const fv = lerp(.92, .35, eIO(seg(t, 22.2, 23.0))) * eOut(seg(t, 17.6, 18.4));
+  $('feelBar').style.width = (fv * 100).toFixed(1) + '%';
+  $('feelV').textContent = t < 22.6 ? 'Banget' : 'Biasa';
+  put($('feel'), { o: b * clamp(seg(t, 17.4, 17.7) * 3), y: -out2 * 30, blur: out2 * 12 });
+  const lz = eBack(seg(t, 19.3, 19.7));
+  put($('lazy'), { o: b * clamp(lz * 3) * (1 - seg(t, 21.2, 21.5)), s: lerp(.5, 1, lz) });
+  const q = eBack(seg(t, 22.8, 23.2));
+  put($('ask'), { o: b * clamp(q * 3), s: lerp(.5, 1, q), y: -out2 * 30, blur: out2 * 12 });
+  return { flash: .3 * win(t, 22.2, 22.6, .05, .3) };
+}
+
+function renderAnchor(t) {
+  const o = win(t, 4.6, 8.35, .5, .4), out = seg(t, 7.95, 8.35), fo = { blur: out * 12 };
+  const drop = seg(t, 5.0, 5.55), d = drop < 1 ? Math.pow(drop, 2) : 1;
+  put($('anchorEl'), { o: o * clamp(seg(t, 4.9, 5.0) * 5), y: lerp(-700, 0, d) + 8 * Math.sin(t * 2) * seg(t, 5.6, 6) - out * 30, r: 4 * Math.sin(t * 1.5), ...fo });
+  const n = eBack(seg(t, 4.7, 5.1));
+  put($('bigNum'), { o: o * clamp(n * 3), s: lerp(1.4, 1, n) * (1 - .03 * win(t, 5.55, 5.9, .02, .3)), y: -out * 30, ...fo });
+  put($('headA'), { o: o * clamp(seg(t, 6.0, 6.3) * 3), x: (1 - eExpo(seg(t, 6.0, 6.6))) * -100, y: -out * 30, ...fo });
+  face($('fA'), 'flat', t);
+  const g = eBack(seg(t, 6.6, 7.0));
+  put($('tagA'), { o: o * clamp(g * 3), s: lerp(.5, 1, g), ...fo });
+  return { shake: shake(t, 5.56, .4, 14), flash: .5 * win(t, 5.55, 6.0, .03, .4) };
+}
+
+function renderStudy(t) {
+  const o = win(t, 8.4, 12.55, .5, .4), out = seg(t, 12.15, 12.55), fo = { blur: out * 12 };
+  const eA = eExpo(seg(t, 8.5, 9.2)), eB = eExpo(seg(t, 8.8, 9.5));
+  put($('idA'), { o: o * eA, x: 70 - (1 - eA) * 200, y: 720 - out * 30, r: -3, ...fo });
+  put($('idB'), { o: o * eB, x: 570 + (1 - eB) * 200, y: 920 - out * 30, r: 3, ...fo });
+  face($('idAf'), 'smile', t); face($('idBf'), 'smile', t);
+  [['idA', 9.8], ['idB', 10.1]].forEach(([id, t0]) => { const e = $(id).querySelector('em'); e.style.boxShadow = `0 0 ${(30 * win(t, t0, t0 + 1.6, .1, .5)).toFixed(0)}px #2EE6A0`; });
+  put($('study'), { o: o * clamp(seg(t, 10.6, 10.9) * 3), y: (1 - eExpo(seg(t, 10.6, 11.2))) * 50 - out * 30, ...fo });
+  return {};
+}
+
+function renderBids(t) {
+  const o = win(t, 12.6, 16.95, .5, .4), out = seg(t, 16.55, 16.95), fo = { y: -out * 30, blur: out * 12 };
+  put($('bidHd'), { o: o * .95, ...fo }); put($('baseline'), { o, ...fo });
+  const hA = 123 * eExpo(seg(t, 12.9, 13.6)), hB = 430 * eExpo(seg(t, 13.8, 15.0));   // 16 : 56
+  Object.assign($('bidA').style, { top: (1250 - hA) + 'px', height: hA + 'px' });
+  Object.assign($('bidB').style, { top: (1250 - hB) + 'px', height: hB + 'px' });
+  put($('bidA'), { o, ...fo }); put($('bidB'), { o: o * clamp(seg(t, 13.7, 13.9) * 3), ...fo });
+  put($('blA'), { o, x: 335 - 165, y: 1270 - out * 30, blur: out * 12 });
+  put($('blB'), { o: o * clamp(seg(t, 13.7, 14.0) * 3), x: 745 - 165, y: 1270 - out * 30, blur: out * 12 });
+  put($('bvA'), { o: o * clamp(seg(t, 13.4, 13.7) * 3), x: 335 - 165, y: 1250 - hA - 120 - out * 30, blur: out * 12 });
+  put($('bvB'), { o: o * clamp(seg(t, 14.7, 15.0) * 3), x: 745 - 165, y: 1250 - hB - 120 - out * 30, s: 1 + .05 * win(t, 14.9, 16.9, .2, .4), blur: out * 12 });
+  const st = seg(t, 15.4, 15.75), sw = $('stamp1').offsetWidth;
+  put($('stamp1'), { o: st > 0 ? Math.min(1, st * 4) * (1 - out) : 0, x: 335 - sw / 2, y: 830, s: lerp(2.6, 1, eBack(st)), r: -7 });
+  const r = eBack(seg(t, 15.9, 16.3));
+  put($('rand'), { o: o * clamp(r * 3), s: lerp(.6, 1, r), blur: out * 12 });
+  return { shake: shake(t, 15.43, .4, 13), flash: .55 * win(t, 15.4, 16.0, .05, .5) };
+}
+
+function renderWish(t) {
+  const o = win(t, 25.6, OUT + .05, .5, .4), out = seg(t, OUT - .35, OUT + .05), fo = { blur: out * 12 };
+  const e = eExpo(seg(t, 25.6, 26.3));
+  put($('p2'), { o: o * e, x: (1 - e) * -120, y: 8 * Math.sin(t * 1.6) - out * 30, ...fo });
+  face($('pp2'), 'smile', t);
+  [[470, 760], [560, 880], [500, 1000], [590, 1120]].forEach(([x, y], i) => {
+    const p = eBack(seg(t, 26.0 + i * .2, 26.4 + i * .2));
+    put($('w' + i), { o: o * clamp(p * 3), x: x + (1 - p) * 80, y: y + 6 * Math.sin(t * 2 + i) - out * 30, s: lerp(.6, 1, p), ...fo });
+  });
+  put($('askIn'), { o: win(t, 26.8, OUT + .05, .4, .4), y: (1 - eExpo(seg(t, 26.8, 27.4))) * 50 - out * 30, ...fo });
+  $('caret').style.opacity = Math.sin(t * 9) > 0 ? 1 : 0;
+  return {};
+}
+
+function renderOutro(t) {
+  const T = t - OUT;          // waktu sejak penutup mulai (sama dengan episode lain, digeser)
+  const e = eBack(seg(T, .1, .8));
+  put($('oLogo'), { o: win(T, .1, 9, .4), s: lerp(.4, 1, e) * (1 + .02 * Math.sin(t * 2)) });
+  put($('oWord'), { o: win(T, .4, 9, .5), y: (1 - eExpo(seg(T, .4, 1.1))) * 40 });
+  put($('oTag'), { o: win(T, .6, 9, .5), y: (1 - eExpo(seg(T, .6, 1.3))) * 40 });
+  put($('receipt'), { o: win(T, .9, 9, .5), y: (1 - eExpo(seg(T, .9, 1.7))) * 70 });
+  put($('brand'), { o: 1 - seg(T, -.2, .2) });
+  // ajakan follow: tombol muncul, berdenyut, lalu ditekan jari
+  const fp = eBack(seg(T, .9, 1.4)), tap = seg(T, 2.3, 2.8), done = T >= 2.4;
+  const pulse = T < 2.3 ? .5 + .5 * Math.sin(Math.PI * 2 * seg(T, 1.4, 2.3) * 2) : 0;
+  put($('oFollow'), { o: win(T, .9, 9, .3), s: lerp(.5, 1, fp) * (1 + .03 * pulse) * (tap > 0 && tap < .3 ? .94 : 1) });
+  $('oPill').style.boxShadow = `0 14px 44px -10px rgba(46,230,160,.85),0 0 ${(30 + 50 * pulse + 90 * win(T, 2.4, 3.4, .05, .8)).toFixed(0)}px rgba(46,230,160,${(.35 + .3 * pulse + .4 * win(T, 2.4, 3.4, .05, .8)).toFixed(2)})`;
+  put($('icPlus'), { o: done ? 0 : 1, s: 1, r: done ? 90 : 0 });
+  put($('icCheck'), { o: done ? 1 : 0, s: done ? lerp(.3, 1, eBack(seg(T, 2.4, 2.7))) : .3 });
+  const fm = eIO(seg(T, 1.5, 2.25));
+  put($('finger2'), { o: win(T, 1.45, 3.3, .2, .3), x: lerp(960, AT.follow.x + 120, fm), y: lerp(1640, AT.follow.y - 10, fm), s: tap > 0 && tap < .25 ? .82 : 1 });
+  put($('ripple2'), { o: tap > 0 && tap < 1 ? (1 - tap) * .9 : 0, x: AT.follow.x + 120, y: AT.follow.y - 10, s: 1 + tap * 2.6 });
+  return { flash: .4 * win(T, .1, 1, .1, .7) + .35 * win(T, 2.4, 3.2, .05, .6) };
+}
+
+window.render = t => {
+  let flash = 0, sh = 0;
+  const h = renderHook(t);
+  [h, renderProduct(t, h), renderAnchor(t), renderStudy(t), renderBids(t), renderWish(t)]
+    .forEach(p => { flash += p.flash || 0; sh += p.shake || 0; });
+  const ou = renderOutro(t); flash += ou.flash;
+  renderBg(t, flash);
+  renderCaps(t);
+  put($('cam'), { x: sh, y: sh * .6, s: 1 + .012 * Math.sin(t * .35) + .05 * (1 - eExpo(seg(t, 0, .7))) });
+};
+window.DURATION = DURATION;
+function measure() {
+  const s = $('stage').getBoundingClientRect(), fo = $('oPill').getBoundingClientRect();
+  AT.follow = { x: fo.left - s.left + fo.width / 2 - 35, y: fo.top - s.top + fo.height / 2 - 35 };
+}
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => {}))))
+  .then(() => { measure(); window.render(0); return true; });
+</script>
+</body>
+</html>

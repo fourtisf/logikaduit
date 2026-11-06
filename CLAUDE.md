@@ -269,7 +269,7 @@ Sertakan screenshot desktop dan HP.
 
 ## 14. Video pendek (Reels/TikTok)
 
-Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`), Episode 13 (bayar QRIS, kok lebih boros?, `ep13-*`), dan Episode 14 (lapar, kok belanjanya kalap?, `ep14-*`); EP5 sampai EP14 format pendek. Tiap episode punya:
+Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh lengkap: Episode 3 (gratis ongkir, `ep03-*`), Episode 4 (antre makanan viral, `ep04-*`), Episode 5 (duit Mixue, `ep05-*`), Episode 6 (isi snack makin kecil, `ep06-*`), Episode 7 (gaji naik 5%, `ep07-*`), Episode 8 (diskon 50% + 20%, `ep08-*`), Episode 9 (tanggal tua, `ep09-*`), Episode 10 (Alfamart untung berapa, `ep10-*`), Episode 11 (Indomie di Alfamart, siapa yang untung, `ep11-*`), Episode 12 (selama kamu nonton, BCA untung berapa, `ep12-*`), Episode 13 (bayar QRIS, kok lebih boros?, `ep13-*`), Episode 14 (lapar, kok belanjanya kalap?, `ep14-*`), dan Episode 15 (harga dicoret, kok kerasa murah?, `ep15-*`); EP5 sampai EP15 format pendek. Tiap episode punya:
 - `epNN-<judul>.html`: animasi 9:16 (1080×1920) dengan `window.render(t)`, gaya visual sama dengan website.
 - `epNN-naskah.md`: voice over per detik dan sumber.
 - `epNN-copywriting.md`: caption Instagram dan TikTok, hashtag, komentar pin, judul alternatif, Story.
@@ -280,6 +280,7 @@ Sumber video ada di folder `video/` (tidak ikut di-deploy ke website). Contoh le
 Bahan bersama (dipakai semua episode, jangan disalin ke file episode):
 - `audio_lib.py`: instrumen dan efek suara yang disintesis (bebas hak cipta), reverb, penulisan WAV.
 - `tts_gemini.py`: narasi Gemini TTS, satu WAV per kalimat.
+- `tts_regen.py`: membuat ulang satu kalimat yang salah ucap (bersama kalimat sebelumnya sebagai konteks), lalu mengganti potongannya di zip suara.
 - `mix.py`: menyelaraskan tempo animasi dengan narasi (`warp.json`), lalu mixing akhir (-14 LUFS, musik mengecil saat narasi).
 - `render.js`: render per frame lewat Playwright ke MP4 (`--jobs 3` untuk paralel, `--warp` untuk tempo baru).
 
@@ -342,6 +343,7 @@ Catatan Gemini TTS (akun ALFA, Oktober 2026):
 - Singkatan ditulis per huruf dengan tanda hubung ("Be-Ce-A", "Be-Er-I") supaya dieja dengan huruf Indonesia. QRIS ditulis "Kris" (cara baca resmi Bank Indonesia). Pemeriksa transkrip mengenali bentuk ini sebagai "BCA" dan "BRI".
 - Transkrip yang jauh dari naskah ditandai "TIDAK COCOK". Kalau muncul, dengarkan potongannya sebelum dipakai.
 - Kalimat penutup yang sama ("Biar nggak gampang ketipu harga, follow Logika Duit!") kadang terbaca salah, misalnya "Logika Diet" di EP9. Cek transkrip kalimat terakhir; kalau salah, pakai potongan penutup dari episode lain dengan suara yang sama.
-- Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya.
+- Kata yang pernah salah ucap: "belanja" jadi "belajar" (EP13), "apa pas sebelas sebelas" jadi "apa apa sebelah-sebelah" (EP15), "bareng" jadi "barang" (EP15). Hindari susunan seperti itu di naskah, dan cek kata yang meragukan dengan menanyakannya langsung ke model transkrip (satu pertanyaan per klip).
+- Membuat ulang **satu kalimat saja**: jangan kirim kalimat itu sendirian. Dengan arahan gaya, arahannya ikut dibacakan; tanpa arahan, kalimat yang diawali kata Inggris ("Follow ...") dibaca berlogat Inggris. Kirim bersama kalimat sebelumnya sebagai konteks (dua paragraf + arahan), lalu potong di jeda terpanjang dan cek transkripnya. `python3 video/tts_regen.py <suara.zip> <hasil.zip> <nomor> "<teks baru>"` melakukan semua ini. Model kadang menambah kalimat sendiri di akhir ("Terima kasih ya, selama ini sudah mendengarkan ceritaku ini"); skrip itu mengenalinya dari transkrip dan membuangnya.
 
 **Penutup video:** setiap video diakhiri ajakan follow, di suara dan di layar ("Biar nggak gampang ketipu harga, follow Logika Duit!" plus tombol "Follow Logika Duit" yang ditekan). Tanpa username.
